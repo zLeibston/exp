@@ -125,7 +125,8 @@ def repeated_evaluation(pool, workspace, folder, model, timeout, suite, repeats)
     return observations
 
 
-def update_statistics(statistics, cases, observations, workspace, harness_hash, round_index, repeats):
+def update_statistics(statistics, cases, observations, workspace, harness_hash, round_index, repeats,
+                      accept_observation=True):
     updated = deepcopy(statistics)
     transitions = []
     for case in cases:
@@ -145,6 +146,11 @@ def update_statistics(statistics, cases, observations, workspace, harness_hash, 
         observation = dict(round=round_index, workspace=str(workspace), harness_hash=harness_hash,
                            correct=correct, evaluations=repeats, attempts=attempts)
         current['last_observation'] = observation
+        if not accept_observation:
+            # Rejected candidates consumed real evaluations, but do not describe
+            # the retained harness's current capabilities or evidence baseline.
+            for key in ('label', 'last_evaluated_round', 'last_observation'):
+                current[key] = previous[key]
         updated[identifier] = current
         transitions.append(dict(task_id=identifier, before=previous['label'] if previous else None,
                                 after=current['label'], correct=correct, evaluations=repeats,

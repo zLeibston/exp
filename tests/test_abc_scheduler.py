@@ -20,6 +20,7 @@ from pipeline.storage import snapshot, write
 class FixturePool:
     calls = []
     failure = None
+    validation_scores = None
 
     def __init__(self, *args): pass
     def __enter__(self): return self
@@ -36,6 +37,9 @@ class FixturePool:
                 passed = name.startswith('a') or (name.startswith('b') and repeat == 1)
             else:
                 passed = name == 'a_keep' or (name == 'b_stable' and repeat <= 2) or name == 'b_improve'
+            if 'validation' in trace.parts:
+                scores = self.validation_scores or dict(b_stable=4, a_forget=2, b_forget=1)
+                passed = repeat <= scores.get(name, 0)
             error = 'fixture environment failure' if self.failure == (index, repeat, name) else None
             trace.mkdir(parents=True)
             (trace / 'chat.log').write_text('TASK_TRACE:' + name)
@@ -50,7 +54,7 @@ class FixturePool:
 
 class SchedulerTests(unittest.TestCase):
     def setUp(self):
-        FixturePool.calls, FixturePool.failure = [], None
+        FixturePool.calls, FixturePool.failure, FixturePool.validation_scores = [], None, None
         self.suite = TaskSuite(cases=[dict(id=name, inputs=dict(task_id=name)) for name in
                                     ('a_forget', 'a_keep', 'b_forget', 'b_stable', 'b_improve', 'c_keep')])
         self.settings = dict(cold_start_repeats=4, repeats_per_task=4, quotas=dict(A=5,B=10,C=5))
@@ -138,15 +142,88 @@ class SchedulerTests(unittest.TestCase):
                 state=evolution.evolve(output,initial,self.suite,{},10,2,None,self.settings,2)
                 self.assertEqual(seen,['stability_repair','forgetting_repair'])
                 self.assertEqual(state['round'],2)
-                self.assertEqual(len(FixturePool.calls),48)
-                self.assertEqual({v['evaluation_count'] for v in state['tasks'].values()},{8})
-                self.assertEqual(state['tasks']['a_forget']['label'],'C')
-                self.assertEqual(state['tasks']['b_stable']['correct_count'],3)
+                self.assertEqual(len(FixturePool.calls),60)
+                self.assertEqual(state['tasks']['b_stable']['evaluation_count'],12)
+                self.assertEqual(state['tasks']['c_keep']['evaluation_count'],8)
+                self.assertEqual(state['tasks']['a_forget']['label'],'B')
+                self.assertEqual(state['tasks']['b_stable']['label'],'A')
+                self.assertEqual(state['tasks']['b_stable']['correct_count'],7)
                 self.assertEqual(state['tasks']['b_improve']['label'],'A')
+                self.assertEqual([s['status'] for s in state['generations'][-1]['stages']], ['accepted','accepted'])
                 before=len(FixturePool.calls)
                 evolution.evolve(output,initial,self.suite,{},10,2,state,self.settings,2)
                 self.assertEqual(len(FixturePool.calls),before)
                 evolution.validate_state(state,initial)
+
+    def test_validation_rejects_ties_and_keeps_original_observation(self):
+        for stable_score in (1, 2):
+            with self.subTest(stable_score=stable_score), tempfile.TemporaryDirectory() as tmp:
+                output=Path(tmp);initial=snapshot(ROOT,output/'initial');sources=[]
+                FixturePool.validation_scores=dict(b_stable=stable_score, a_forget=0, b_forget=0)
+                def propose(source,candidate,artifacts,model,timeout,stage,*args):
+                    sources.append(source)
+                    snapshot(source,candidate)
+                    with (candidate/'harness/task/prompt.py').open('a') as f:f.write('# '+stage+'\n')
+                with patch.object(evolution,'ExecutionPool',FixturePool),patch.object(evolution,'check'),patch.object(evolution,'propose',side_effect=propose):
+                    state=evolution.evolve(output,initial,self.suite,{},10,2,None,self.settings,2)
+                self.assertEqual(sources,[initial,initial])
+                self.assertEqual(state['current_workspace'],str(initial))
+                self.assertEqual([s['status'] for s in state['generations'][-1]['stages']], ['rejected','rejected'])
+                for name in ('b_stable','a_forget','b_forget'):
+                    entry=state['tasks'][name]
+                    self.assertEqual(entry['valid_evaluation_count'],12)
+                    self.assertEqual(entry['last_observation']['workspace'],str(initial))
+                    self.assertNotIn('validation',entry['last_observation']['attempts'][0]['trajectory'])
+                self.assertEqual(state['tasks']['b_stable']['correct_count'],3+stable_score)
+                self.assertEqual(state['tasks']['b_stable']['label'],'B')
+                evolution.validate_state(state,initial)
+
+    def test_validation_resume_reuses_edit_and_completed_trials(self):
+        class InterruptedValidation(FixturePool):
+            def evaluate_trials(inner, workspace, jobs, *args):
+                if 'validation' in jobs[0][1].parts:
+                    super().evaluate_trials(workspace,jobs[:2],*args)
+                    raise RuntimeError('interrupted validation')
+                return super().evaluate_trials(workspace,jobs,*args)
+        with tempfile.TemporaryDirectory() as tmp:
+            output=Path(tmp);initial=snapshot(ROOT,output/'initial')
+            def propose(source,candidate,artifacts,model,timeout,stage,*args):
+                snapshot(source,candidate)
+                with (candidate/'harness/task/prompt.py').open('a') as f:f.write('# '+stage+'\n')
+            with patch.object(evolution,'ExecutionPool',InterruptedValidation),patch.object(evolution,'check'),patch.object(evolution,'propose',side_effect=propose):
+                with self.assertRaisesRegex(RuntimeError,'interrupted validation'):
+                    evolution.evolve(output,initial,self.suite,{},10,2,None,self.settings,2)
+            committed=json.loads((output/'state.json').read_text())
+            with patch.object(evolution,'ExecutionPool',FixturePool),patch.object(evolution,'propose',side_effect=propose) as edits:
+                state=evolution.evolve(output,initial,self.suite,{},10,2,committed,self.settings,2)
+                self.assertEqual(edits.call_count,1)  # Only the still-pending forgetting edit.
+            self.assertEqual(len(FixturePool.calls),60)
+            self.assertEqual(state['tasks']['b_stable']['valid_evaluation_count'],12)
+            evolution.validate_state(state,initial)
+
+    def test_acceptance_compares_total_successes_not_individual_labels(self):
+        class TradeoffPool(FixturePool):
+            def evaluate_trials(inner, workspace, jobs, *args):
+                results=super().evaluate_trials(workspace,jobs,*args)
+                for (case,path),item in zip(jobs,results):
+                    if ('round_0002' in path.parts and 'validation' not in path.parts
+                            and case['id']=='a_forget'):
+                        item['passed']=int(path.parent.parent.name[7:])<=2
+                        write(path/'evaluation.json',item)
+                return results
+        FixturePool.validation_scores=dict(b_stable=4,a_forget=1,b_forget=2)
+        with tempfile.TemporaryDirectory() as tmp:
+            output=Path(tmp);initial=snapshot(ROOT,output/'initial')
+            def propose(source,candidate,artifacts,model,timeout,stage,*args):
+                snapshot(source,candidate)
+                with (candidate/'harness/task/prompt.py').open('a') as f:f.write('# '+stage+'\n')
+            with patch.object(evolution,'ExecutionPool',TradeoffPool),patch.object(evolution,'check'),patch.object(evolution,'propose',side_effect=propose):
+                state=evolution.evolve(output,initial,self.suite,{},10,2,None,self.settings,2)
+            stage=state['generations'][-1]['stages'][-1]
+            self.assertEqual((stage['before_correct'],stage['after_correct'],stage['status']),(2,3,'accepted'))
+            # A task may regress while the batch improves; no label flip is required.
+            self.assertEqual(state['tasks']['a_forget']['label'],'B')
+            self.assertEqual(state['tasks']['a_forget']['last_observation']['correct'],1)
 
     def test_cold_start_only_and_error_resume_preserves_completed_trials(self):
         with tempfile.TemporaryDirectory() as temporary:

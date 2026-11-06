@@ -1,7 +1,6 @@
 """Repeated-evaluation RSI: classify, repair stability, then repair forgetting.
 
-No generic optimization, degradation exercise, candidate tournament, archive
-selection or unrequested re-evaluation is part of this loop.
+Each changed candidate is accepted only after improvement on its stage's tasks.
 """
 from copy import deepcopy
 from dataclasses import replace
@@ -15,11 +14,11 @@ from pipeline.scheduling import (STAGES, label_counts, repeated_evaluation,
                                  select_tasks, update_statistics)
 from pipeline.storage import harness_digest, log, write
 
-LAYOUT = 'rsi-repeated-abc-v3'
+LAYOUT = 'rsi-repeated-abc-v4'
 
 
 def validate_state(state, initial):
-    """Every committed version and every task's evidence remains immutable."""
+    """Every recorded version and every task's evidence remains immutable."""
     versions = {str(initial): state['initial_harness_hash']}
     for generation in state['generations']:
         for version in generation['versions']:
@@ -99,6 +98,7 @@ def evolve(output, initial, suite, model, timeout, rounds, state, settings, work
         versions = [dict(workspace=str(current), harness_hash=identity, stage='evaluated')]
         result = current
         stages = []
+        validation_count = validation_correct = validation_errors = 0
         for stage in STAGES:
             affected = [entry['task_id'] for entry in transitions if entry['stage'] == stage]
             if cold or not affected:
@@ -106,16 +106,45 @@ def evolve(output, initial, suite, model, timeout, rounds, state, settings, work
                 continue
             log(f'ROUND {index}: {stage}, tasks={affected}')
             view = build_view(folder / 'views' / stage, stage, selected, transitions, current, result)
-            result = repair(result, folder / stage, view, model, timeout, stage, rounds-index)
-            version = dict(workspace=str(result), harness_hash=harness_digest(result), stage=stage)
+            candidate = repair(result, folder / stage, view, model, timeout, stage, rounds-index)
+            candidate_hash = harness_digest(candidate)
+            if candidate_hash == harness_digest(result):
+                stages.append(dict(stage=stage, status='unchanged', tasks=affected))
+                continue
+            validation_cases = [case for case in selected if case['id'] in affected]
+            validation_repeats = settings['repeats_per_task']
+            with ExecutionPool(model, workers) as pool:
+                validation = repeated_evaluation(pool, candidate, folder / stage / 'validation', model, timeout,
+                                                 replace(suite, cases=validation_cases), validation_repeats)
+            before = sum(entry['correct'] for entry in transitions if entry['stage'] == stage)
+            after = sum(trial['passed'] for trials in validation.values() for trial in trials
+                        if trial['error'] is None)
+            accepted = after > before
+            updated, _ = update_statistics(updated, validation_cases, validation, candidate,
+                                           candidate_hash, index, validation_repeats,
+                                           accept_observation=accepted)
+            version = dict(workspace=str(candidate), harness_hash=candidate_hash, stage=stage)
             versions.append(version)
-            stages.append(dict(status='completed', tasks=affected, **version))
+            decision = dict(status='accepted' if accepted else 'rejected', tasks=affected,
+                            before_correct=before, after_correct=after,
+                            evaluations=len(validation_cases)*validation_repeats, **version)
+            write(folder / stage / 'validation.json', decision)
+            stages.append(decision)
+            validation_count += decision['evaluations']
+            validation_correct += after
+            validation_errors += sum(trial['error'] is not None for trials in validation.values() for trial in trials)
+            if accepted:
+                result = candidate
+            log(f'ROUND {index}: {stage} {decision["status"]}, correct={before}->{after}')
+        write(folder / 'labels.json', dict(tasks=updated, transitions=transitions, counts=label_counts(updated)))
         summary = dict(round=index, cold_start=cold, evaluated_workspace=str(current),
                        current_workspace=str(result), versions=versions, stages=stages,
                        label_counts=label_counts(updated), selected=plan['selected'],
-                       valid_evaluations=len(selected)*repeats,
-                       correct=sum(entry['correct'] for entry in transitions),
-                       errors=sum(trial['error'] is not None for trials in observations.values() for trial in trials))
+                       valid_evaluations=len(selected)*repeats + validation_count,
+                       correct=sum(entry['correct'] for entry in transitions) + validation_correct,
+                       validation_evaluations=validation_count, validation_correct=validation_correct,
+                       errors=sum(trial['error'] is not None for trials in observations.values() for trial in trials)
+                              + validation_errors)
         write(folder / 'summary.json', summary)
         generations = [*(state['generations'] if state else []), summary]
         state = dict(layout=LAYOUT, round=index, initial_harness_hash=harness_digest(initial),

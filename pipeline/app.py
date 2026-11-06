@@ -47,7 +47,7 @@ def run(output=None, rounds=1, timeout=600, config=None, *, domain="terminal",
     if resume:
         previous = json.loads((output / 'config.json').read_text())
         if previous.get('layout') != LAYOUT:
-            raise ValueError('This run uses the old evolution pipeline; start a fresh A/B/C RSI run')
+            raise ValueError('This run uses an incompatible pipeline layout; start a fresh A/B/C RSI run')
     task_images = suite.setup()
     docker()
     ensure_images()

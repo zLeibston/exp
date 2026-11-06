@@ -58,7 +58,7 @@ class Handler(BaseHTTPRequestHandler):
     identifier=re.search(r'"task_id": "([^"]+)"',body['messages'][0]['content']).group(1)
     trial_counts[identifier]=trial_counts.get(identifier,0)+1
     trial=trial_counts[identifier]
-    passed=(identifier=='a_forget' and trial<=4) or (identifier=='b_stable' and trial%2==1)
+    passed=(identifier=='a_forget' and (trial<=4 or (trial>8 and trial%2==1))) or (identifier=='b_stable' and (trial%2==1 or trial>8))
     if not passed:command=command.replace("printf 'ok'", "printf 'wrong'")
    if '"allow_internet": true' in body['messages'][0]['content']:
     public_probe = "import json,os,urllib.request; report={'has_network_interface':set(os.listdir('/sys/class/net'))!={'lo'},'direct_http_works':urllib.request.build_opener(urllib.request.ProxyHandler({})).open("+repr(f'http://{gateway}:{server.server_port}/network-probe')+",timeout=3).read()==b'network-ok'}; assert all(report.values()),report; open('/output/network_probe.json','w').write(json.dumps(report))"
@@ -211,11 +211,12 @@ try:
    allowed=next(m for m in response['history'] if m.get('call_id')=='candidate-read')
    assert not allowed['is_error'] and 'TASK_INSTRUCTION' in allowed['text'],allowed
 
-  assert {key:value['label'] for key,value in state['tasks'].items()}==dict(a_forget='C',b_stable='B',c_keep='C')
-  assert all(value['evaluation_count']==8 for value in state['tasks'].values())
-  assert trial_counts==dict(a_forget=8,b_stable=8,c_keep=8),trial_counts
+  assert {key:value['label'] for key,value in state['tasks'].items()}==dict(a_forget='B',b_stable='A',c_keep='C')
+  assert {key:value['evaluation_count'] for key,value in state['tasks'].items()}==dict(a_forget=12,b_stable=12,c_keep=8)
+  assert trial_counts==dict(a_forget=12,b_stable=12,c_keep=8),trial_counts
+  assert [s['status'] for s in state['generations'][-1]['stages']]==['accepted','accepted']
   assert len(state['generations'])==2
-  print('FULL ABC RSI SMOKE PASS: 4-repeat cold start, stratified sampling, 4-repeat evaluation, stability then forgetting, disjoint mounted evidence, checkpoint and resume',flush=True)
+  print('FULL ABC RSI SMOKE PASS: repeated evaluation, stability then forgetting with targeted acceptance validation, disjoint mounted evidence, checkpoint and resume',flush=True)
   print('Mock API calls',len(requests))
   print('Smoke artifacts',root)
 finally:
