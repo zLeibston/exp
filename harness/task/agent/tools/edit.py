@@ -1,5 +1,6 @@
 from pathlib import Path
 import subprocess
+from harness.task.agent.trace import annotate
 
 def tool_info():
     return {
@@ -73,6 +74,7 @@ file_history = FileHistory()
 
 def maybe_truncate(content: str, max_length: int = 10000) -> str:
     """Truncate long content and add marker."""
+    annotate(output_chars_before_clipping=len(content), output_clipped=len(content)>max_length, output_limit_chars=max_length)
     if len(content) > max_length:
         return content[:max_length // 2] + "\n<response clipped>\n" + content[-max_length // 2:]
     return content

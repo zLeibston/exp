@@ -64,15 +64,22 @@ class SchedulerTests(unittest.TestCase):
                 self.assertEqual(repair_stage(before,after),expected.get((before,after)))
 
     def test_least_evaluated_per_class_and_shortage(self):
-        stats = {str(n):dict(label=label,evaluation_count=count) for n,(label,count) in enumerate(
+        stats = {str(n):dict(label=label,evaluation_count=count,valid_evaluation_count=count) for n,(label,count) in enumerate(
             [('A',8),('A',4),('A',4),('B',4),('B',12),('C',8)])}
         cases = [dict(id=str(n)) for n in range(6)]
         chosen, counts = select_tasks(cases,stats,dict(A=2,B=1,C=5))
         self.assertEqual([c['id'] for c in chosen],['1','2','3','5'])
         self.assertEqual(counts,dict(A=2,B=1,C=1))
-        stats['1']['evaluation_count'] += 4
+        stats['1']['valid_evaluation_count'] += 4
         chosen,_ = select_tasks(cases,stats,dict(A=1,B=0,C=0))
         self.assertEqual(chosen[0]['id'],'2')
+
+    def test_infrastructure_retries_do_not_reduce_selection_priority(self):
+        cases = [dict(id='a'), dict(id='b')]
+        stats = dict(a=dict(label='B', evaluation_count=20, valid_evaluation_count=4),
+                     b=dict(label='B', evaluation_count=8, valid_evaluation_count=8))
+        chosen, _ = select_tasks(cases, stats, dict(A=0, B=1, C=0))
+        self.assertEqual(chosen, [cases[0]])
 
     def test_yaml_settings(self):
         with tempfile.TemporaryDirectory() as temporary:

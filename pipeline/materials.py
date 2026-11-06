@@ -8,7 +8,7 @@ from pipeline.docker_eval import validate_artifacts
 from pipeline.scheduling import STAGES, repair_stage
 from pipeline.storage import inventory, harness_digest, write
 
-TRACE_FILES = ('chat.log', 'stdout.log', 'stderr.log', 'result.json')
+TRACE_FILES = ('chat.log', 'stdout.log', 'stderr.log', 'result.json', 'events.jsonl', 'execution.json')
 
 
 def harness_diff(before, after):
@@ -38,6 +38,8 @@ def transcript(source, target, *, task_id, observation, repetition, passed):
     chunks = [f'# {task_id} / {observation} / repeat {repetition:02d}\n',
               f'Outcome: {"success" if passed else "failure"}\n',
               '## Prediction\n', '```json\n' + json.dumps(result.get('prediction'), ensure_ascii=False, indent=2) + '\n```\n']
+    if result.get('task_failure'):
+        chunks.insert(2, 'Task termination: ' + json.dumps(result['task_failure'], ensure_ascii=False) + '\n')
     for number, message in enumerate(result.get('history', []), 1):
         chunks.append(f'## Turn {number:02d}: {message.get("role", "unknown")}\n')
         if message.get('name'):
@@ -58,6 +60,8 @@ def transcript(source, target, *, task_id, observation, repetition, passed):
                 chunks.append('```json\n' + json.dumps(arguments, ensure_ascii=False, indent=2) + '\n```\n')
     if not result.get('history') and (source / 'chat.log').is_file():
         chunks.extend(['## Chat log\n', (source / 'chat.log').read_text()])
+    if (source/'execution.json').is_file():
+        chunks[1:1] = ['Execution metadata: [execution.json](execution.json); event timeline: [events.jsonl](events.jsonl).\n']
     target.write_text('\n'.join(chunks) + '\n')
 
 

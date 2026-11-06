@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import time
+import traceback
 from datetime import datetime, timezone
 from itertools import count
 from pathlib import Path
@@ -16,6 +17,19 @@ def install_api_diagnostics(path, role, model):
     calls = count(1)
 
     def save(record):
+        module = sys.modules.get('harness.task.agent.trace')
+        trace = module.ACTIVE.get() if module else None
+        if trace is not None:
+            # Reuse HTTP instrumentation; expose numeric/status metadata only.
+            keys = ('call_id', 'event', 'elapsed_seconds', 'http_status', 'usage',
+                    'finish_reason', 'error_type', 'request_reasoning_effort',
+                    'request_max_tokens', 'request_max_completion_tokens', 'request_thinking')
+            fields = {key: record[key] for key in keys if key in record}
+            fields['http_event'] = fields.pop('event')
+            fields['attempt_id'] = fields.pop('call_id')
+            if 'elapsed_seconds' in fields:
+                fields['duration_seconds'] = fields.pop('elapsed_seconds')
+            trace.event('api_attempt', **fields)
         try:
             with path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(record, ensure_ascii=False) + "\n")
@@ -120,6 +134,21 @@ def install_api_diagnostics(path, role, model):
     return original_send
 
 
+def failed_task_result(directory, reason, error_type=None):
+    """Recover the bounded message journal so failed trials remain Meta evidence."""
+    history = []
+    journal = Path(directory) / 'history.partial.jsonl'
+    if journal.is_file():
+        with journal.open('rb') as handle:
+            for line in handle:
+                try:
+                    history.append(json.loads(line)['message'])
+                except (ValueError, KeyError):
+                    break  # A killed process may leave one incomplete final line.
+    return dict(prediction=None, history=history,
+                task_failure=dict(reason=reason, error_type=error_type))
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("request", type=Path)
@@ -136,9 +165,20 @@ def main():
                             os.environ.get("RSI_AGENT_ROLE"), model)
     kwargs = dict(model=model, chat_history_file=request["log_path"])
     if request["kind"] == "task":
-        from harness.task.task_agent import TaskAgent
-        prediction, history = TaskAgent(**kwargs).forward(request["inputs"])
-        result = dict(prediction=prediction, history=history)
+        import httpx
+        from harness.task.agent.providers import APIError, BudgetExceeded
+        try:
+            from harness.task.task_agent import TaskAgent
+            prediction, history = TaskAgent(**kwargs).forward(request["inputs"])
+            result = dict(prediction=prediction, history=history)
+        except Exception as exc:
+            # Service/transport errors remain retryable. Agent crashes and output
+            # budget exhaustion are observed failures, not samples to discard.
+            if isinstance(exc, (APIError, httpx.HTTPError)) and not isinstance(exc, BudgetExceeded):
+                raise
+            traceback.print_exc()  # Preserve the failing code location in stderr.log.
+            result = failed_task_result(Path(request['log_path']).parent,
+                                        'agent_error', type(exc).__name__)
     else:
         if request['stage'] not in {'stability_repair', 'forgetting_repair'}:
             raise ValueError(f"Unknown Meta repair stage: {request['stage']}")
@@ -151,7 +191,12 @@ def main():
             stage=request["stage"],
             iterations_left=request.get("iterations_left"))
         result = dict(history=history)
-    Path(request["result_path"]).write_text(json.dumps(result, indent=2))
+    result_path = Path(request["result_path"])
+    temporary = result_path.with_suffix('.tmp')
+    temporary.write_text(json.dumps(result, indent=2))
+    temporary.replace(result_path)
+    if request['kind'] == 'task':
+        (result_path.parent/'history.partial.jsonl').unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

@@ -117,7 +117,10 @@ try:
    assert not (out/'api.yaml').exists()
    assert not (out/'tests').exists()
    print('REAL DOCKER SMOKE PASS: worker native tool writes files; background HTTP service survives to hidden grading; reward=1; cleanup confirmed')
-   print('Execution:',json.loads((out/'execution.json').read_text())['cleanup_status'])
+   print('Execution:',json.loads((out/'container.json').read_text())['cleanup_status'])
+   summary=json.loads((out/'execution.json').read_text())
+   assert summary['schema']==1 and summary['stop_reason']=='final_response'
+   assert 'container' not in summary and 'source_harness' not in summary
    probe=json.loads((out/'network_probe.json').read_text())
    assert all(probe.values()),probe
    print('NETWORK ISOLATION PASS:',probe,flush=True)
@@ -142,7 +145,7 @@ try:
      assert mode=='missing_reward'
     except subprocess.TimeoutExpired:
      assert mode=='verifier_timeout'
-    execution=json.loads((extra/'execution.json').read_text())
+    execution=json.loads((extra/'container.json').read_text())
     assert execution['cleanup_status']=='removed'
     assert execution['network_policy']=='public'
     assert json.loads((extra/'request.json').read_text())['inputs']['allow_internet'] is True
@@ -153,6 +156,32 @@ try:
    ensure_images()
    check(workspace,60)
    print('New Meta/controller image and isolated harness contract probe PASS')
+   # Agent failures are completed misses; API failures remain retryable errors.
+   for file,text in originals.items():(task/file).write_text(text)
+   for mode,statement in [('agent_crash', "raise RuntimeError('tool budget exhausted')"),
+                          ('agent_timeout', 'import time; time.sleep(10)'),
+                          ('api_failure', "from harness.task.agent.providers import APIError; raise APIError('HTTP 429')")]:
+    broken=snapshot(workspace,run/(mode+'-version'))
+    (broken/'harness/task/task_agent.py').write_text(
+     'from pathlib import Path\nfrom harness.task.agent.base_agent import AgentSystem\n'
+     'from harness.task.agent.trace import Trace\nclass TaskAgent(AgentSystem):\n'
+     ' def forward(self, inputs):\n'
+     '  with Trace(Path(self.logger_manager.log_file).parent) as trace:\n'
+     '   trace.history([dict(role="assistant",text="partial task work")])\n'
+     '   '+statement+'\n')
+    extra=run/mode;extra.mkdir()
+    try:
+     response=runtime.invoke_task(broken,extra,model,2,dict(inp,_data_hash=task_digest(task)))
+     assert mode!='api_failure'
+     assert response['task_failure'] and response['history'][0]['text']=='partial task work'
+     assert runtime.grade({},None,extra)['passed'] is False
+     assert runtime.grade({},None,extra)['error'] is None
+     assert not (extra/'verifier.log').exists()
+    except RuntimeError:
+     assert mode=='api_failure'
+     assert not (extra/'verifier/result.json').exists()
+    assert json.loads((extra/'container.json').read_text())['cleanup_status'] in {'removed','already_removed'}
+    print('FAILURE CLASSIFICATION PASS:',mode,flush=True)
   # Exercise full cold start and both repairs through the trusted scheduler.
   for file,text in originals.items():(task/file).write_text(text)
   from tasks import TaskSuite

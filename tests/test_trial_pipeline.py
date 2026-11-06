@@ -13,6 +13,20 @@ from pipeline.scheduling import repeated_evaluation
 
 
 class TrialPipelineTests(unittest.TestCase):
+    def test_agent_failures_are_valid_misses_and_are_not_retried(self):
+        calls = []
+        def run(workspace, directory, model, timeout, inputs):
+            calls.append(directory)
+            return dict(prediction=None, history=[], task_failure=dict(reason='agent_error'))
+        suite = TaskSuite(name='fixture', cases=[dict(id='task', inputs={})], task_runner=run,
+                          grade_case=lambda *args: dict(passed=False, error=None))
+        with tempfile.TemporaryDirectory() as tmp, ExecutionPool({}, workers=2) as pool:
+            folder = Path(tmp)/'evaluation'
+            first = repeated_evaluation(pool, ROOT, folder, {}, 10, suite, 4)
+            self.assertTrue(all(not t['passed'] and t['error'] is None for t in first['task']))
+            self.assertEqual(repeated_evaluation(pool, ROOT, folder, {}, 10, suite, 4), first)
+            self.assertEqual(len(calls), 4)
+
     def test_slow_first_repeat_does_not_block_later_repeats(self):
         later_started, slow_finished = Event(), Event()
         lock = Lock()

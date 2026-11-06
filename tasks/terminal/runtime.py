@@ -147,6 +147,11 @@ def invoke_task(workspace, directory, model, timeout, inputs):
                   source_harness=str(workspace), data_hash=inputs['_data_hash'],
                   started_at=datetime.now(timezone.utc).isoformat(), status='starting')
     result = None
+    def failed(response):
+        write(verifier / 'result.json', dict(passed=False, status='agent_failed', error=None,
+                                            task_failure=response['task_failure']))
+        record.update(status='agent_failed', passed=False, task_failure=response['task_failure'])
+        return response
     # The same admission covers both solving and grading. No nested slot is
     # acquired, so a full task queue cannot deadlock waiting for graders.
     with ExitStack() as resources:
@@ -199,7 +204,7 @@ def invoke_task(workspace, directory, model, timeout, inputs):
                           '-e', 'NO_PROXY=localhost,127.0.0.1', '-e', 'no_proxy=localhost,127.0.0.1']
         for host, guest, writable in mounts:
             args += ['--mount', f'type=bind,source={host.resolve()},target={guest}' + ('' if writable else ',readonly')]
-        write(directory / 'execution.json', record)
+        write(directory / 'container.json', record)
         try:
             subprocess.run(args + ['--entrypoint', '', image, *wrap(['sleep', 'infinity'], python='python3')],
                            check=True, capture_output=True, text=True, timeout=60)
@@ -224,6 +229,8 @@ def invoke_task(workspace, directory, model, timeout, inputs):
                 raise RuntimeError(f'Terminal task worker failed: {directory / "stderr.log"}')
             validate_artifacts(output)
             response = json.loads((output / 'result.json').read_text())
+            if response.get('task_failure'):
+                return failed(response)
             # Tests only enter the container after the agent worker has finished.
             reset = exec_in(name, ['sh', '-c', 'rm -rf /tests /logs/verifier; mkdir -p /tests /logs/verifier'], timeout=30)
             if reset.returncode:
@@ -253,6 +260,15 @@ def invoke_task(workspace, directory, model, timeout, inputs):
             else:
                 write_artifact(directory, 'stdout.log', decode(exc.stdout))
                 write_artifact(directory, 'stderr.log', decode(exc.stderr))
+            if record.get('phase') == 'agent':
+                # docker exec timing out does not stop the guest process. Stop it
+                # before reading its journal; never grade a still-running agent.
+                remove_container(name)
+                validate_artifacts(output)
+                from pipeline.worker import failed_task_result
+                response = failed_task_result(output, 'agent_timeout', type(exc).__name__)
+                write(output / 'result.json', response)
+                return failed(response)
             raise
         except BaseException as exc:
             record.update(status='failed', error_type=type(exc).__name__)
@@ -263,6 +279,15 @@ def invoke_task(workspace, directory, model, timeout, inputs):
             try:
                 validate_artifacts(output)
                 shutil.copytree(output, directory, dirs_exist_ok=True)
+                # A killed worker cannot close its trace; retain partial history
+                # and explicitly distinguish interruption from a completed run.
+                execution = directory/'execution.json'
+                if execution.is_file():
+                    summary = json.loads(execution.read_text())
+                    if summary.get('status') == 'running':
+                        summary.update(status='interrupted', stop_reason=record.get('task_failure', {}).get(
+                            'reason', record.get('status', 'worker_stopped')))
+                        write(execution, summary)
             finally:
                 try:
                     record['cleanup_status'] = remove_container(name)
@@ -272,7 +297,7 @@ def invoke_task(workspace, directory, model, timeout, inputs):
                     raise RunCancelled(f'Terminal container cleanup failed; stopping run: {name}') from exc
                 finally:
                     record['finished_at'] = datetime.now(timezone.utc).isoformat()
-                    write(directory / 'execution.json', record)
+                    write(directory / 'container.json', record)
 
 
 def grade(case, prediction, directory):

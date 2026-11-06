@@ -2,6 +2,7 @@ import asyncio
 import codecs
 import os
 import uuid
+from harness.task.agent.trace import annotate
 
 MAX_OUTPUT_CHARS = 50_000
 
@@ -83,6 +84,7 @@ class BashSession:
             nonlocal total_chars
             total_chars += size
             if total_chars > MAX_OUTPUT_CHARS:
+                annotate(output_discarded=True, observed_chars_lower_bound=total_chars, output_limit_chars=MAX_OUTPUT_CHARS)
                 raise ValueError(
                     f'Bash output exceeds the combined stdout/stderr limit of {MAX_OUTPUT_CHARS} characters '
                     f'(at least {total_chars} observed). Output discarded and command stopped. '
@@ -123,12 +125,15 @@ class BashSession:
                 output = output[:-3]
             else:
                 code = await asyncio.wait_for(self._process.wait(), self._timeout)
+            annotate(exit_code=code, stdout_chars=len(output), stderr_chars=len(stderr), output_discarded=False)
             return output.strip(), stderr.strip(), code
         except asyncio.TimeoutError:
             self._timed_out = True
+            annotate(timed_out=True)
             raise ValueError(f"Timed out: bash has not returned in {self._timeout} seconds and must be restarted.") from None
         except Exception as e:
             self._timed_out = True
+            annotate(timed_out=True)
             raise ValueError(str(e))
         finally:
             for reader in readers:
@@ -175,6 +180,7 @@ async def tool_function_call(command):
             result += "\nError:\n" + error
         return result.strip()
     except Exception as e:
+        annotate(error_type=type(e).__name__)
         return f"Error: {str(e)}"
     finally:
         if bash_session._process is not None:

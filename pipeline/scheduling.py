@@ -48,7 +48,7 @@ def select_tasks(cases, statistics, quotas):
     chosen, counts = [], {}
     for label in ('A', 'B', 'C'):
         bucket = [case for case in cases if statistics[case['id']]['label'] == label]
-        bucket.sort(key=lambda case: (statistics[case['id']]['evaluation_count'], case['id']))
+        bucket.sort(key=lambda case: (statistics[case['id']]['valid_evaluation_count'], case['id']))
         chosen.extend(bucket[:quotas[label]])
         counts[label] = min(len(bucket), quotas[label])
     return chosen, counts
