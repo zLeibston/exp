@@ -1,0 +1,53 @@
+# Copy to config.yaml and fill in the selected provider API key.
+task_agent: deepseek
+meta_agent: deepseek
+providers:
+  claude:
+    provider: anthropic
+    api_key: ''
+    url: https://api.anthropic.com/v1
+    model: claude-sonnet-4-5-20250929
+    max_tokens: ''
+    timeout: 120
+    retries: 2
+  deepseek:
+    json_mode: true
+    provider: openai
+    api_key: ''
+    url: https://api.deepseek.com
+    model: deepseek-flash
+    max_tokens: ''
+    reasoning_effort: low
+    budget_fallback: true
+    timeout: 120
+    retries: 2
+  gpt:
+    provider: openai
+    api_key: ''
+    url: https://api.openai.com/v1
+    model: gpt-5
+    max_tokens: ''
+    timeout: 120
+    retries: 2
+  gemini:
+    provider: gemini
+    api_key: ''
+    url: https://generativelanguage.googleapis.com/v1beta
+    model: gemini-3.8-flash
+    max_tokens: ''
+    timeout: 120
+    retries: 2
+evaluation:
+  workers: 50
+execution:
+  max_containers: 6
+  cpus: 4
+  memory: 4g
+  pids_limit: 1024
+scheduler:
+  cold_start_repeats: 4
+  repeats_per_task: 4
+  quotas:
+    A: 5
+    B: 10
+    C: 5

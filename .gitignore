@@ -1,0 +1,17 @@
+.venv/
+.env
+runs/
+__pycache__/
+*.pyc
+config.yaml
+config.local.yaml
+*.pem
+*.key
+.cache/
+.pytest_cache/
+# Downloaded benchmark data stays local.
+tasks/terminal/data/
+# Docker/containerd storage is managed by the host services, not source control.
+tasks/terminal/env/docker/
+tasks/terminal/env/containerd/
+tasks/terminal/env/migration-backup/

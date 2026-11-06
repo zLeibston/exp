@@ -1,0 +1,786 @@
+{
+  "reason": "Replace unreachable Aliyun mirror with pinned official Terminal-Bench upstream images",
+  "architecture": "linux/amd64",
+  "count": 86,
+  "mapping": {
+    "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+    "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5"
+  },
+  "tasks": [
+    {
+      "id": "tb__draft_dp_00241ea7_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_00241ea7_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "73247fa95d2ae71ef8de232a65153580841ca9d64a3e5da17c81a2c01423705d",
+      "new_sha256": "a42f5584f7efa9c5f15cac8c2300e5839fd5324d02443fe1e6844fe059da95b9"
+    },
+    {
+      "id": "tb__draft_dp_027c6d5b_qingshu",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_027c6d5b_qingshu/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "78f7cdff692076d02206d7f803982d9725c759b1cd728f1e485873fa408e0ca7",
+      "new_sha256": "57827992a8899cc7f57bfc7dfe7b3287ac69b2f227f01f15c974d220e03eea4b"
+    },
+    {
+      "id": "tb__draft_dp_029f82e0_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_029f82e0_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "19b58cf594bd6800bc5797657f592d37c81783254a091398bc1c511bfc7fcb4c",
+      "new_sha256": "9b8e87b0e9f8cf205829f3cc34d9049ce382449f2899e3ab601e068fdc28926c"
+    },
+    {
+      "id": "tb__draft_dp_0365b530_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0365b530_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "024ee4ee4dc6d45e2f27cce3992645e99cd200d88946321bc661ab46ce79bbdc",
+      "new_sha256": "21be86e9c5e4e9f73de89f99a68f277726d29525c0040f7007cdc30b0752b9e7"
+    },
+    {
+      "id": "tb__draft_dp_047cec79_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_047cec79_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "65a8ce63d823610e4c9c0126925dcfba2c5ee65ebc806f184638fc500afb8d19",
+      "new_sha256": "f70b7799dc2b2e4648c15529de7a5cd84954455f87aea82b7c57b20d136b6ca5"
+    },
+    {
+      "id": "tb__draft_dp_051e178c_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_051e178c_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "d42216cabba9ca5cb2dbf7343a596348afe9cc2ad92552745e9704b974d8d442",
+      "new_sha256": "caaac7de6df0a2568d6df94fdf47d0dc451b05cd8a841789f235e06c2763ac75"
+    },
+    {
+      "id": "tb__draft_dp_05c360a7_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_05c360a7_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "abc85ac54a0913e0719ddc494c53cf1b25c5eb75cef811799634ec78c86f6570",
+      "new_sha256": "1fefa81530703f714c20a5efc8bbf773c989298ff19c61d287a7af458089cbe1"
+    },
+    {
+      "id": "tb__draft_dp_0a4b8876_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0a4b8876_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "6e940c7bfa830a3bc435f6e652222c54307dfad202c7d024c26dc981ae82b6bd",
+      "new_sha256": "7da0903e0c5f1a1d23c56aa885b73ee9df0821c2e1762a58ab2a7d877b11c8b8"
+    },
+    {
+      "id": "tb__draft_dp_0bcad9db_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0bcad9db_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "9fbe27d056a50475905d5485c2a07e55e86dfd6fe9c1558a604b13b1f83770ca",
+      "new_sha256": "fe66ff116e333e3217ac9d60d9652147422f5ee8815104afce1a2dbc058c3eb2"
+    },
+    {
+      "id": "tb__draft_dp_0be98359_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0be98359_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "212e31aa7f7871a14ed77d5fb500fe2e882c6c521c4ba6fbb4d4c8ab726f58e3",
+      "new_sha256": "091867d81dccb8d4f4c4d9766b0b85946f623e1c0238355732d6acc6123a9462"
+    },
+    {
+      "id": "tb__draft_dp_0c94553a_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0c94553a_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "7662b99f81fe8d63bc3ca951b8d6ec9ea0be4e3fa58ae313e0af3eae04aa215a",
+      "new_sha256": "bb302f87bdf8cdfd0661a26446de9f81907ad2129985523258bc8a6342359a61"
+    },
+    {
+      "id": "tb__draft_dp_0d503075_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0d503075_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "7c6858c03fb119c62012db95289380240c8dcbe4b699e2427d217205bd046588",
+      "new_sha256": "999f6d70662c2273cbe391206c0d13ecd8b741d89949517333f4dc2af6297a13"
+    },
+    {
+      "id": "tb__draft_dp_0f5eabe2_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0f5eabe2_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "2db1c5a0c0dbb8470a121a8edcd8d246e33c96fb625c4dc472bab8a7da22c843",
+      "new_sha256": "1ae3ecc5db4fc0ab72776ffd6f24f63eb737ff56ff2cdc00d8b1ce0e9c47f28a"
+    },
+    {
+      "id": "tb__draft_dp_0fbf3883_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0fbf3883_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "f8f8b32edaf9855eb6d8d0097a4f6a0cd698b3bada27d851f65801b5223776cd",
+      "new_sha256": "4f78a517eb9aa772ded7afde3ff49ebf67ed30d9593e7e133fe5862e428def57"
+    },
+    {
+      "id": "tb__draft_dp_0fc5ba38_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_0fc5ba38_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "50cbee24f844aef530dd440b6c3b15f99b204480f8b4439cebbc1417ca45ec07",
+      "new_sha256": "fcd835cf1774068b85455d24b115b8b44277b1de01750b01894932bdcbf11e56"
+    },
+    {
+      "id": "tb__draft_dp_1090855b_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_1090855b_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "690065af905771fbeb61eb5006f5200b3846c23f74ba03a65bd5bc6ee5c20957",
+      "new_sha256": "01f970a41a32243b6400fa9e08d656e924f678d93a3225623cb0593072286d49"
+    },
+    {
+      "id": "tb__draft_dp_109b3f5c_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_109b3f5c_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "fade96bca10aeb2d02c786c088f68e6546443d0be1ecf39d2bdc800a8db3c30d",
+      "new_sha256": "1fb4bee4bfeb7325e1d4275f5ae971185bebb5c43f8406013b10fb21e87ba450"
+    },
+    {
+      "id": "tb__draft_dp_11b1a39a_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_11b1a39a_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "d938fce0369e91c3f9f68a8fd934d0119ec4c21b79366fdd3d800d7ec757c30a",
+      "new_sha256": "6f542b4734569945d54be0c215c428741bf246ba3469ff156be495e6b10de880"
+    },
+    {
+      "id": "tb__draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "908c501905c2110ebea4fcb5720672791e77f7fb4972d2d808cedd7159585262",
+      "new_sha256": "a46771cb1bf60206aa8f6ad90de05dae39d4b6820d6e8b24bc11170faea84f8a"
+    },
+    {
+      "id": "tb__draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "17dde5684df5084b8e13d177a59d5a6544d7fd7d450b8b40d13092c54fe6d6fe",
+      "new_sha256": "6a707eae230199e26dde83dc57a0052345254fabc530efce32f52064c0aec483"
+    },
+    {
+      "id": "tb__draft_dp_14b09723_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_14b09723_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "30a7626c8aba293696eb6808a820b68e250c61b17b1228ef50baed7ba883f8ae",
+      "new_sha256": "90a74693295af8577364d53aca756a2ccc8df2ca76ab90daa5501a49ed9f48b4"
+    },
+    {
+      "id": "tb__draft_dp_1543057007y_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_1543057007y_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "ae21465def18343a31489e0896cbbe6a26f14042f083ca564c39aef075c8367a",
+      "new_sha256": "23e373dfc4fcdc0b11f649a256f230242c5015412dfaf6ed3c8440cdbac4f5cb"
+    },
+    {
+      "id": "tb__draft_dp_15dc5f5f_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_15dc5f5f_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "747e97e4efc642505eab2fb485974cc7484960481135cb7a9a1228e40311bd6d",
+      "new_sha256": "9bc219f0279acd3d4f522003b566c2630567ac55cc9cc61a9e56409a89180f7f"
+    },
+    {
+      "id": "tb__draft_dp_16091623_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_16091623_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "1f3f83752a81932d1881cb5e27cc5903ef74e1d703f535217951e6b6d6fcd84c",
+      "new_sha256": "dd80feb71ef33e45fc4ade9d48b8ca6dc9bd64cc3a5b5199cae786a7d5ccae34"
+    },
+    {
+      "id": "tb__draft_dp_18a4bb7a_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_18a4bb7a_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "dafc0d0203cf20391e7df1577900606f8000d94fd5db68e63a36ce2a994857c4",
+      "new_sha256": "dc0aba9bcda5a6e8204d3f5b60b9f36dcac1516c71b49bb4ff01b128b4a96558"
+    },
+    {
+      "id": "tb__draft_dp_1e821a8e_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_1e821a8e_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "dccc71b0dd4c4704b19d070d2f887b20a6949d8ec6b40e392755ed539d94a8f3",
+      "new_sha256": "bfe8393555375f5bb82dc9812860c55733ec3a923a0f0b6c6ca59ca5650d7555"
+    },
+    {
+      "id": "tb__draft_dp_22a5bafa_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_22a5bafa_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "6781afc89e38037fd55893bfc6420a0a6d522a5ea79021eafc546be25b79aee1",
+      "new_sha256": "3f2d5b5ef46adf49adfd5b6d9c761bac1a3aa5dfa3771d5f459168200116dee9"
+    },
+    {
+      "id": "tb__draft_dp_24264fed_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_24264fed_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "205f0a6d432d38674281f675976cf4011632f172ddc336a0a14db6bb5c330330",
+      "new_sha256": "f7b037b0773d20d32a28b79dc31faaff4ec11d1a4ef940a9aeb548c1e9782789"
+    },
+    {
+      "id": "tb__draft_dp_26d326e6_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_26d326e6_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "d0dccfb98c8b160cbbb2c17ac40c45ce0767fadd40fe94ab8c186f439253c0d5",
+      "new_sha256": "cd073f4814a69a1087cb0a49a2cb018b56d28cecbb3c6b27b544b6ad60a85d04"
+    },
+    {
+      "id": "tb__draft_dp_28243489_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_28243489_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "9796fc9dc94219d129de661533201046df68e79ca044bc1c061e735b91a4fe91",
+      "new_sha256": "4168ccfc05f4a55e922bed3e12520aa9b34895959f06707deb61cb88f82febca"
+    },
+    {
+      "id": "tb__draft_dp_29825e59lxw_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_29825e59lxw_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "f5ecff7f9e0fb9b889194e4eca9edef1fcadac6adef353c33c4cdbcf072707ca",
+      "new_sha256": "db887300e9e7b60fd122f3b96ada666692accf095281153979e24505d315d516"
+    },
+    {
+      "id": "tb__draft_dp_29f5c2c3_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_29f5c2c3_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "ede2f7720de7da97f1d00847faf19d83eb032e6106f8636c11fdf9198032ce14",
+      "new_sha256": "0715d3ec2a4a00a4d11bd79d74688efccf829065dd423d30790cbc694c524604"
+    },
+    {
+      "id": "tb__draft_dp_2a8dbc50_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_2a8dbc50_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "30935a695475d98d6e7fd2565ea87e99cbdab48f5e2c551f9cfb5bf3248986a7",
+      "new_sha256": "bd9ae237bf60192bf33916529d4c0d541c137e0e11020c946635ce79f810cc12"
+    },
+    {
+      "id": "tb__draft_dp_2f7b1d3e_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_2f7b1d3e_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "22b73452b9bcda560d949de1f20f53f65bad35278f69be6e4e1d4b01c7e73e54",
+      "new_sha256": "5a6a1e6b80e44a3a92eae12b4faadc2339028c78337fb9947794b9232521f638"
+    },
+    {
+      "id": "tb__draft_dp_30893ae8eap_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_30893ae8eap_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "9f18763bca6eec2f9f106c329b3a8283fd121e40c4a91a3444ec6413e42fd201",
+      "new_sha256": "6b10ad3f310b68a56ad554e9f02f9702fecf580d16b8e8b3182ca890c87419e5"
+    },
+    {
+      "id": "tb__draft_dp_30b6c93e_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_30b6c93e_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "5a1e3f25739985bf99145d3b7c57298a90b2ae31d5cc93f947f679ca89059bb8",
+      "new_sha256": "cb32e0938362da66adfa85fb07b5de549c18c42e462380f9a5d575b4335c68c0"
+    },
+    {
+      "id": "tb__draft_dp_3493beee_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_3493beee_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "06e5b54a4276477a9d3c35ab457e5a0aa9a4c0b1e42bc8765626e013a96f4e46",
+      "new_sha256": "08614ed623131c6f65532f02956253ef980ebbee5eb6cc7fb992c3fff4b02500"
+    },
+    {
+      "id": "tb__draft_dp_37467d31_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_37467d31_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "b76fab321d5e1726f0ceb2ae1c9267b8c21b4d23131a480fd295f46b3a424c72",
+      "new_sha256": "bd05ae9b45110ac585f19b9ade3420db4ed8a1e1124b34e456e443b5b4fff90c"
+    },
+    {
+      "id": "tb__draft_dp_3bc4f214_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_3bc4f214_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "f254c5778d705a820e2c9b111b0ea0036022725725029bc9ff707a3ce696e3e1",
+      "new_sha256": "8198d19429a7d2c5e03668e5858904d782a1c086592a82894eb66c3b9c565154"
+    },
+    {
+      "id": "tb__draft_dp_421262feu4b_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_421262feu4b_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "a7f5fc98623ff628dc7e964d6745cc79378288a4ab3f476e64d840362b961a23",
+      "new_sha256": "23571650974c93bc8216a06b73311038165d272f083dd7d68fedef228fd09a0d"
+    },
+    {
+      "id": "tb__draft_dp_49202731_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_49202731_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "e9da36c1f384bf4ccb6244d67b3b312f1ffea3ce455b0dcf6819aa241bfb0e56",
+      "new_sha256": "71dd2d8b83b53d1b54d2459eca8b2151b6c962b6030fbad6468fa2ef76fe9077"
+    },
+    {
+      "id": "tb__draft_dp_50724535_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_50724535_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "0c6ba1523eb16e98bf69052902d9777964fce9866cde0a2f61e6d06104ff7e81",
+      "new_sha256": "2b3d1e2313957d67e81d7873ee3b42afad421bd60308a5edcad60bd98f4f82c2"
+    },
+    {
+      "id": "tb__draft_dp_5281e52cdis_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_5281e52cdis_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "6898e38b8b16db493dfbaf2066a4bb2faa6279ec1738a397f8e41b61e104268b",
+      "new_sha256": "db01709bec800c377335db25b67007e922da1fd5a93397fc9aba176a7c39be46"
+    },
+    {
+      "id": "tb__draft_dp_52e23884vdf_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_52e23884vdf_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "d546bf3884721ca0fa60bf8535863aa07aca8ca04096161103af918292a0dde9",
+      "new_sha256": "89d7281e49e60818e2f6c24c02cdba140f76af852f901148f139b4e5e44470e8"
+    },
+    {
+      "id": "tb__draft_dp_534e52c84wy_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_534e52c84wy_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "57a510c5630faed0d54c31e42662aa5f1ec3e14158ecb5cfb5a996d94a703cb6",
+      "new_sha256": "2f9b2e2703202c597e6663c4ab5684e0a310aa3f416b80e3437f663efe09e58f"
+    },
+    {
+      "id": "tb__draft_dp_53c532db_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_53c532db_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "2291270107484027b884978aa713ca0f9a5dfe1ff67f6f6fa262260d03125146",
+      "new_sha256": "da8304aac6e06b7e775bf32a87735e8008a5f7a7f41df2b8daea80fa1b4ccb0d"
+    },
+    {
+      "id": "tb__draft_dp_5719fdd4_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_5719fdd4_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "1b15736beabc2ce19c5c4381e6fe53ad5e6713a86e545466a44125830f41d87f",
+      "new_sha256": "d6f61d0e79672c0fe262e6de3e995d6af4c8166a8dd6db5cef989f243978695d"
+    },
+    {
+      "id": "tb__draft_dp_57d4c339_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_57d4c339_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "8102dfd565bdbb54a5d01ac5fb8b0d1f8eedac32488980e8e4fde6e81817bf03",
+      "new_sha256": "52aae041d1bfde47998a8d8de8b0982515469eb1bc22068d8c7ccce585938157"
+    },
+    {
+      "id": "tb__draft_dp_58745bc61ce_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_58745bc61ce_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "aeb37067d107ff247dfb1d2bf4ae78680b0ae30e46c7619ff77dee555f190eef",
+      "new_sha256": "a9751ca84f832f04f6b457c9867f20efc580bec3515458e0d455c29440aa15b2"
+    },
+    {
+      "id": "tb__draft_dp_58883d1a_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_58883d1a_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "2b7be894680dc11b981dcfba6b22cf12ece899b2dcb61b0d7e4225eb7faf97fa",
+      "new_sha256": "c615a2377d9545562af06a4a697a7259690ca271140f4812dce575696503a523"
+    },
+    {
+      "id": "tb__draft_dp_58afbfb3_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_58afbfb3_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "35b3adfc03b0e6ec2289e00c99048d64fe2a34c62e6aea30b26dc5669dd89cee",
+      "new_sha256": "9d410539eafc225ad956b037ab1f828e9a15d278543b8838874b531860d1e024"
+    },
+    {
+      "id": "tb__draft_dp_621e8e51_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_621e8e51_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "6b559cd668e44e7b1a7f30282cf4bc65e0acb5659dadddeeba134776e207ced7",
+      "new_sha256": "cf41aeaef8d7886a8915b03d1bfff284a2fdbfa4f7fd49ebf50172b8ac54a4a2"
+    },
+    {
+      "id": "tb__draft_dp_7b459a82_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_7b459a82_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "3360eb2381e2e56e0bac66746f2950846c390906794c0862fc334f89dc3b48ba",
+      "new_sha256": "e2361f9c298d4398ed52d1082be4af91ccb432419cc10c156163d542b9edf311"
+    },
+    {
+      "id": "tb__draft_dp_7b771a65ygl_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_7b771a65ygl_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "e0784775d951dc21a5661b20716321e1fbf35eae4ba691ab333afd5ed839915b",
+      "new_sha256": "a3e6ddcb4c54bf69874ad75b94b9a3b328a6389c1ca86d7a95823c743ccef6d2"
+    },
+    {
+      "id": "tb__draft_dp_7d3f46c0_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_7d3f46c0_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "c327b5b8eeec70661e5e5efce810f83a8677e3cbff746d7c4bb8b519f3af112c",
+      "new_sha256": "91a8556899fd1e46d9894cb14527addb5e8eaa5c051988f4a292118be426f127"
+    },
+    {
+      "id": "tb__draft_dp_83a8b6ca_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_83a8b6ca_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "04eaf72b4fc21c5858f1e166758f55d3469428820ab9e3dfe340900c74b0b2e8",
+      "new_sha256": "597ef1bd3169e5d73f1182d03b97a0ad3a6fc84e9f376ef1d5f9df091dc8a7ca"
+    },
+    {
+      "id": "tb__draft_dp_8da98b12_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_8da98b12_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "f2e6d80007c51d46fd34b69c99c5d09b6b65a09e997f03cf5b063937531a9ebd",
+      "new_sha256": "ce9ba8af268cd699267f7763254844291c5afb34da8417e6a166c5a425c4a742"
+    },
+    {
+      "id": "tb__draft_dp_97b13c9e_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_97b13c9e_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "7dba8404a0e8bdc3989a2f6f74d84779677a6dab33a54f8a839aa44671410b34",
+      "new_sha256": "fac4ebabf45a9346c72080d20d0bdc3981270ff675bb910c8fdb269b79faf3dc"
+    },
+    {
+      "id": "tb__draft_dp_9e846e36_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_9e846e36_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "770ecec4ec0bac937f5c55f1068837047b8236ffc4afdc8f5047ff37f9cd420d",
+      "new_sha256": "75f8f5260295eff1da8288ab36ea5d63591eec0ad1004ba5e8f9fefe43bb444a"
+    },
+    {
+      "id": "tb__draft_dp_a1ce6692_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_a1ce6692_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "f18675fe7cb7a335cd34d86708662b636b040bd341f733711304a24e99af9da2",
+      "new_sha256": "7c8fcceae6a1666754e250b0741f98ceeddee104116b9dd8785c7149f2b9f5f7"
+    },
+    {
+      "id": "tb__draft_dp_a73abe98_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_a73abe98_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "6729412a775257ca16c327092063b38b7359abb763ba4cf1d8918fa63630e221",
+      "new_sha256": "b39b99afb1b583294778a4c86a3c0ac9e3c157e3e581612b9efef7d55c22c5f3"
+    },
+    {
+      "id": "tb__draft_dp_a86da8a3_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_a86da8a3_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "fa01054d6c20c62c60e4305bec1b969952a98a510c69dd6f8e9ac46a20c4fbbc",
+      "new_sha256": "49b9b501a26b94e6ffa9aa75b0f69df3c70822b46adde0651701d99ecd2a1229"
+    },
+    {
+      "id": "tb__draft_dp_a9176125_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_a9176125_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "2c041fb88268064497b121284737c69409c669616c63c53a9cd18c7abe27dbc4",
+      "new_sha256": "728d9fb4e4c4e9abb9422e2b189c96f96bcfcdd5d9f7cd3f1e11ad39edae56c8"
+    },
+    {
+      "id": "tb__draft_dp_aad16747_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_aad16747_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "3a5f098d5f7b15e319eebacd667e252414b3fd65bd722c9f56e4f3f9ff80be4f",
+      "new_sha256": "e221e5f972efb607e6ecef11eb7e2d62767cafa468ed02bb14221f2884251139"
+    },
+    {
+      "id": "tb__draft_dp_abdd5ed0_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_abdd5ed0_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "5681bb4c028c7900f63300da3ff09fcb0f0159e5650997084f587cef0eb56de8",
+      "new_sha256": "e3deaeedd743c19504cdef63f8cb3500af946a5c3a9568d13603a3997cae0b67"
+    },
+    {
+      "id": "tb__draft_dp_adcb2ffb_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_adcb2ffb_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "b4123d03a643bcfde2e676a11ecd0c7dc7f4f996a3300ad25251ca41bc5b3bf8",
+      "new_sha256": "cb271d5f8e708d63bc30da7a582c39e51537fd06d578eb352fc7ecd1e340d107"
+    },
+    {
+      "id": "tb__draft_dp_af4bee51_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_af4bee51_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "ba425f3da3a83ea77d8460a19a1416683986c2a14c90626ef210e5e68439c820",
+      "new_sha256": "73547094daf8482d9af9c4c35ee3385f89a402b336f7d984abd15e8ed96522f0"
+    },
+    {
+      "id": "tb__draft_dp_b038d77c_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_b038d77c_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "896114dad38ef8d0cbeda4172d00019768e967ab3db16944af4f0f617cda0341",
+      "new_sha256": "f9a1a50558aeaff19f77f7558cdc00519c2b8c1c87cfe5a8b15fce007e49aa0c"
+    },
+    {
+      "id": "tb__draft_dp_b838291a_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_b838291a_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "c1829c9ade6750ad96d02c4cfcff5211767272bdaf8b7f146baff44c0ccd2360",
+      "new_sha256": "4c1a93bb8c36504a468dd71dd20ebd249b3d1f02e2453f6b906f02ae4fa2f6a6"
+    },
+    {
+      "id": "tb__draft_dp_baf1822c_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_baf1822c_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "82b97eeed5387e1c779b89a122749d39347eb92e9dbd4f14ec5cffd1e19e676e",
+      "new_sha256": "a16dd92db16cf30df568d73bcc50f852dc90a0c65873fd93aedde02be1438c7e"
+    },
+    {
+      "id": "tb__draft_dp_bbe2c1cf_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_bbe2c1cf_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "9558b747ecd33080315d1aced0fc802e031d9fb3200255b4869ad84f8e2cb643",
+      "new_sha256": "7942cbbfbb4e2276846746afbbe4a9226f0458108def115cf9997f1b80ec0bf6"
+    },
+    {
+      "id": "tb__draft_dp_bc4eec6d_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_bc4eec6d_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "cd862542e5b2a9ee417d60b84e81bc38c8c54793531ca9750ae3a1314d3709af",
+      "new_sha256": "c6d9021f50914860c782140612e096d956c08ff7fec161a12fbd065bda0055ac"
+    },
+    {
+      "id": "tb__draft_dp_c006fd92_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_c006fd92_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "8e3e299077a2158c614a69c07777c3a8502f646fb2f9d7aaef54f45314419c52",
+      "new_sha256": "6b82237303f57d00e7536422ceaa5f859769510be384c44c0b88641898f04d8b"
+    },
+    {
+      "id": "tb__draft_dp_c9fc74cb_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_c9fc74cb_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "cddbbc480c0482e1278927726a7e96c49ec5220960c3373c523f4545d7da1d23",
+      "new_sha256": "fc8ca416766afbc00feae803e33d744d066d3e9478dc67032df1b88278e09631"
+    },
+    {
+      "id": "tb__draft_dp_cbc6d2a5_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_cbc6d2a5_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "946e2cf591713d7bc8d34c4dd25c7158e8730ca8ecf932012f6dba0a31b99008",
+      "new_sha256": "1fdc38a5fbce12705505b2ec6ef8030d85bdd76a48475b57ace8ba33ee93be34"
+    },
+    {
+      "id": "tb__draft_dp_cd8b3586_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_cd8b3586_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "d9390a00008319a0771e7d5dd19344231aa452013b021303473e2cd5109d4903",
+      "new_sha256": "93588629e9155a1e475cb5b5f95a5d68bb19079ed231c0a3182f588ea02850c3"
+    },
+    {
+      "id": "tb__draft_dp_ce7efefe_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_ce7efefe_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "e4b57e7eaa93ff5c2f6991624dd8b4eb2a2fad54c0cae1a4ec33111f3f882cb2",
+      "new_sha256": "685b338c1e28822a34beff5c2cdb7b43fe0be4ca44fc3933519c7f4d51929389"
+    },
+    {
+      "id": "tb__draft_dp_ceb40cbc_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_ceb40cbc_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "8e972add9458ed906f757c056f82e82c376e6b852363690687a5f99d317f9adb",
+      "new_sha256": "bbc6267ee3fa544c4a56cb544d4d946e4e00dfaeee3c6af368fb1dade92bafa5"
+    },
+    {
+      "id": "tb__draft_dp_d018a26b_aopeng",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_d018a26b_aopeng/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "0089ce62d93ff929a07b5e3badd5a77a0da4d0aec97df89c45634217b3af7982",
+      "new_sha256": "628c4e2f00cb49e91244ac02a59e5de78b60f8065a1910a0ef6e36a07947dd03"
+    },
+    {
+      "id": "tb__draft_dp_d59787d6_haitian",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_d59787d6_haitian/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "b817ce03183611e083feb76e99a91f2cb32472dc14ae101ab9198f4e2a4163f2",
+      "new_sha256": "c54af40c2f8b93aed637b33c61d5c7d5133c35260fcdee04955f05f94dc2d5dc"
+    },
+    {
+      "id": "tb__draft_dp_d790b9ab_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_d790b9ab_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "e2f6ed45df0a9d509b62836e4a5e982259e9d3579bab1c058fea32e88b9ea1d8",
+      "new_sha256": "ebe36a491295047fef44066db0c833280e3a7bbed9ef134364362565e1fab4a3"
+    },
+    {
+      "id": "tb__draft_dp_eae0d1ff_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_eae0d1ff_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "389cb4d667f098134ce6b77c8f42b5cf7392aa2efb0ca64e124413a851ca36cc",
+      "new_sha256": "9b945de3a0e40962e0ca69d6a83a55578f898b0f1c4905d9ff4bfeb6190fcd45"
+    },
+    {
+      "id": "tb__draft_dp_f48fa1cd_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_f48fa1cd_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "7d6d38e4758199f15de0cfc570c991b662af60a255c4472800ac15fbe2be5fa7",
+      "new_sha256": "417176e730f11a2cb8cf04eb0ad41e1371af7f1e70dc7c048d712bafbdcc2c02"
+    },
+    {
+      "id": "tb__draft_dp_fb359113_outa",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_fb359113_outa/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "f16b61a786212b72ef5c77fb0be7401fae461e8096641fd006b8482c7cbc622b",
+      "new_sha256": "f49cd604ffbddb29a8d9031fe77624afba243a48b494cb932b7697f9abdf3fc0"
+    },
+    {
+      "id": "tb__draft_dp_fc82f5ea_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_fc82f5ea_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04",
+      "new_image": "ghcr.io/laude-institute/t-bench/ubuntu-24-04@sha256:9ae5033b4f62fbffd63896353f2c8e02939764fac81311608e4e731f0b4a8db5",
+      "old_sha256": "b62928eee102c92804da8747cea6e3342a4d461c38aae7696471a79e1a8df605",
+      "new_sha256": "2c3d0e6525aeadadd4a43d59284abc9fdefff3adabdf3db13e3647442f7bc549"
+    },
+    {
+      "id": "tb__draft_dp_research_institute_scholar_query_outb",
+      "source": "tb",
+      "path": "data/tb/tasks/draft_dp_research_institute_scholar_query_outb/environment/Dockerfile",
+      "old_image": "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13",
+      "new_image": "ghcr.io/laude-institute/t-bench/python-3-13@sha256:10dd0648b5339468ba39b2df90c1a28745faf8622e7552f85446611e2e992110",
+      "old_sha256": "7cfdb7dcffb2dc97bc9f8a9e44c223dfdb8c3d8fe4b92f22fea46e6e9223090d",
+      "new_sha256": "02b8b50f88010dad981773582b45ea07eb8006b53463f4386d9c1c317322b2a2"
+    }
+  ],
+  "validation": "Both upstream images pulled; representative Python and Ubuntu task environments built and probed; full task evaluation not performed"
+}

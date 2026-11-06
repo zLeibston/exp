@@ -1,0 +1,1945 @@
+{
+  "schema_version": 1,
+  "scope": "Static screening and targeted verifier review; not complete runtime certification",
+  "benchmark": {
+    "repository": "harbor-framework/terminal-bench-2-1",
+    "commit": "12b7565679ce5006230b820666353673a133db93",
+    "tasks": 89
+  },
+  "summary": {
+    "original": 220,
+    "excluded": 15,
+    "candidate_including_review": 205,
+    "review": 3,
+    "excluded_by_source": {
+      "tb": 11,
+      "tbh": 4
+    },
+    "candidate_by_source": {
+      "tb": 109,
+      "tbh": 96
+    },
+    "excluded_by_reason": {
+      "benchmark_near_duplicate": 7,
+      "incorrect_quantifier": 1,
+      "insufficient_verification": 3,
+      "missing_negative_cases": 1,
+      "missing_provenance_check": 1,
+      "test_exposure": 2
+    }
+  },
+  "excluded": [
+    {
+      "source": "tb",
+      "task_id": "draft_dp_d150f869_outb",
+      "category": "benchmark_near_duplicate",
+      "reason": "相同 /app/ssl 文件、2048 位 RSA、365 天有效期，且组织名 DevOps Team、域名 dev-internal.company.local 完全一致。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_d150f869_outb/instruction.md",
+          "line": 24,
+          "excerpt": "- Common Name (CN): \"dev-internal.company.local\""
+        }
+      ],
+      "benchmark_task": "openssl-selfsigned-cert"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_9793b5ad_outb",
+      "category": "benchmark_near_duplicate",
+      "reason": "相同三份数据输入路径、三源优先级和两个输出文件；字段与报告格式有变化，仍属高度近似实例。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_9793b5ad_outb/instruction.md",
+          "line": 6,
+          "excerpt": "* Source A (highest priority): `/data/source_a/users.json` - JSON format with fields: `user_id`, `full_name`, `email_address`, `registration_date`"
+        }
+      ],
+      "benchmark_task": "multi-source-data-merger"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_1e43823f_outa",
+      "category": "benchmark_near_duplicate",
+      "reason": "三份输入、字段映射、优先级、输出路径和逐字段冲突报告高度一致。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_1e43823f_outa/instruction.md",
+          "line": 4,
+          "excerpt": "- /data/source_a/users.json (JSON format)"
+        }
+      ],
+      "benchmark_task": "multi-source-data-merger"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_027e1b7a_aopeng",
+      "category": "benchmark_near_duplicate",
+      "reason": "相同 pyknotid 0.5.3、NumPy 2.3.0、仓库、路径和三个 Cython 扩展。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_027e1b7a_aopeng/instruction.md",
+          "line": 1,
+          "excerpt": "Need to install pyknotid from source with numpy 2.3.0 compatibility. The pip version doesn't work with numpy >=2.0. Clone from `git clone --depth 1 --branch 0.5.3 https://github.com/SPOCKnots/pyknotid.git` to `/app/pyknotid` and fix any compilation issues with the Cython extensions (chelpers, ccomplexity, cinvariants) so they work with the existing numpy 2.3.0."
+        }
+      ],
+      "benchmark_task": "build-cython-ext"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_2fda0f83_outa",
+      "category": "benchmark_near_duplicate",
+      "reason": "相同人物邮箱、Jan 15–19 2024、日历文件、会议名、输出文件及多项个人时间约束。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_2fda0f83_outa/instruction.md",
+          "line": 1,
+          "excerpt": "Schedule a 1-hour \"Team Planning Meeting\" for attendees Alice (alice@example.com), Bob (bob@example.com), and Carol (carol@example.com) during the week of January 15-19, 2024. Parse the iCalendar (.ics) files in the current directory (alice_calendar.ics, bob_calendar.ics, carol_calendar.ics) to find the EARLIEST available time slot that satisfies ALL of the following constraints:"
+        }
+      ],
+      "benchmark_task": "constraints-scheduling"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_2fda0f83478_outa",
+      "category": "benchmark_near_duplicate",
+      "reason": "同一日历排程场景与人物、日期、输出；增加 RRULE、时区和 buffer 条件，按近似变体排除。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_2fda0f83478_outa/instruction.md",
+          "line": 1,
+          "excerpt": "Schedule a 1-hour \"Team Planning Meeting\" for Alice, Bob, and Carol during Jan 15-19, 2024 (UTC timezone). Parse their ICS calendar files in the current directory (/app) and create `/app/meeting_scheduled.ics` with the scheduled meeting."
+        }
+      ],
+      "benchmark_task": "constraints-scheduling"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_a1797499_outa",
+      "category": "benchmark_near_duplicate",
+      "reason": "相同 /app/run.py、run_tasks(tasks,max_concurrent) 接口、SIGINT 取消和异步清理要求；训练题扩展了边界条件。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_a1797499_outa/instruction.md",
+          "line": 1,
+          "excerpt": "Implement the async function `run_tasks(tasks: list[Callable[[], Awaitable[None]]], max_concurrent: int) -> None` in `/app/run.py` (Python 3.13+) that executes async task factories with bounded concurrency and robust SIGINT graceful shutdown."
+        }
+      ],
+      "benchmark_task": "cancel-async-tasks"
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_0c5cabc8_haitian",
+      "category": "test_exposure",
+      "reason": "environment 中含官方测试相同副本，Dockerfile COPY . 将其放入 /app/setup_files/，无 .dockerignore 排除。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_0c5cabc8_haitian/environment/Dockerfile",
+          "line": 8,
+          "excerpt": "COPY . /app/setup_files/"
+        },
+        {
+          "path": "data/tb/tasks/draft_dp_0c5cabc8_haitian/environment/draft_dp_0c5cabc8_haitian/tests/test_outputs.py",
+          "line": 8,
+          "excerpt": "def test_git_merge_completed():"
+        }
+      ]
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_caa7cf97_haitian",
+      "category": "test_exposure",
+      "reason": "environment 中含官方测试相同副本，Dockerfile COPY . 将其放入 /app/，无 .dockerignore 排除。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_caa7cf97_haitian/environment/Dockerfile",
+          "line": 13,
+          "excerpt": "COPY . /app/"
+        },
+        {
+          "path": "data/tb/tasks/draft_dp_caa7cf97_haitian/environment/draft_dp_caa7cf97_haitian/tests/test_outputs.py",
+          "line": 20,
+          "excerpt": "def test_precondition_solution_applied():"
+        }
+      ]
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_0004e5bb_aopeng",
+      "category": "insufficient_verification",
+      "reason": "拆分合并测试主要核验路径、文件大小和总行数，不比较原始与重建数据值；保持行数的错误实现可能被接受。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_0004e5bb_aopeng/tests/test_outputs.py",
+          "line": 45,
+          "excerpt": "assert output_row_count == original_row_count, f\"Row count mismatch: {output_row_count} vs {original_row_count}\""
+        },
+        {
+          "path": "data/tb/tasks/draft_dp_0004e5bb_aopeng/tests/test_outputs.py",
+          "line": 90,
+          "excerpt": "assert reconstructed_row_count == original_row_count, f\"Row count mismatch: {reconstructed_row_count} vs {original_row_count}\""
+        }
+      ]
+    },
+    {
+      "source": "tb",
+      "task_id": "draft_dp_d84934e9_outb",
+      "category": "incorrect_quantifier",
+      "reason": "题目要求对所有黑方应对均强制将死；测试记录 all_responses_lead_to_checkmate，却只断言 checkmate_found，实际把全称条件降成存在条件。",
+      "evidence": [
+        {
+          "path": "data/tb/tasks/draft_dp_d84934e9_outb/instruction.md",
+          "line": 23,
+          "excerpt": "- After White's first move, regardless of Black's response, White's second move must deliver checkmate"
+        },
+        {
+          "path": "data/tb/tasks/draft_dp_d84934e9_outb/tests/test_outputs.py",
+          "line": 73,
+          "excerpt": "all_responses_lead_to_checkmate = True"
+        },
+        {
+          "path": "data/tb/tasks/draft_dp_d84934e9_outb/tests/test_outputs.py",
+          "line": 94,
+          "excerpt": "assert checkmate_found, f\"Move sequence does not lead to checkmate in 2\""
+        }
+      ]
+    },
+    {
+      "source": "tbh",
+      "task_id": "tbh_task_4c14564e2ec33ce5",
+      "category": "insufficient_verification",
+      "reason": "要求固定 seed 的 Duffing 蒙特卡洛数值模拟，但测试仅检查脚本存在、三位小数及结果落在 (0,1)；空脚本加 0.500 已在隔离路径下通过全部两个原始测试函数。",
+      "evidence": [
+        {
+          "path": "data/tbh/tasks/tbh_task_4c14564e2ec33ce5/tests/test_final_state.py",
+          "line": 33,
+          "excerpt": "assert 0.0 < val < 1.0, f\"The dominant frequency {val} is outside the expected physical range (0.0, 1.0) Hz.\""
+        }
+      ]
+    },
+    {
+      "source": "tbh",
+      "task_id": "tbh_task_7fee0e182f2ca1cd",
+      "category": "insufficient_verification",
+      "reason": "不运行 sanitizer，也不核验实际 instance_id/覆盖率；假 ID 的两行 ACCEPT/REJECT 和空 benchmark.sh 已通过全部四个原始测试函数。",
+      "evidence": [
+        {
+          "path": "data/tbh/tasks/tbh_task_7fee0e182f2ca1cd/tests/test_final_state.py",
+          "line": 21,
+          "excerpt": "if not line.endswith(\"ACCEPT\"):"
+        },
+        {
+          "path": "data/tbh/tasks/tbh_task_7fee0e182f2ca1cd/tests/test_final_state.py",
+          "line": 36,
+          "excerpt": "if not line.endswith(\"REJECT\"):"
+        }
+      ]
+    },
+    {
+      "source": "tbh",
+      "task_id": "tbh_task_04836d64e7ccc952",
+      "category": "missing_negative_cases",
+      "reason": "题目明确要求拒绝非法 Base64，但唯一功能调用只反复验证全 A 的合法输入；恒返回 true 的 addon 无法被这些测试区分。0.25 秒阈值另列为资源敏感风险。",
+      "evidence": [
+        {
+          "path": "data/tbh/tasks/tbh_task_04836d64e7ccc952/instruction.md",
+          "line": 14,
+          "excerpt": "To successfully complete this task, the native addon must compile, all logical checks must remain intact (it must still correctly reject invalid Base64 payloads), and the optimized C++ validation function must pass the strict performance threshold defined in the project's continuous integration verifier."
+        },
+        {
+          "path": "data/tbh/tasks/tbh_task_04836d64e7ccc952/tests/test_final_state.py",
+          "line": 20,
+          "excerpt": "const payload = \"A\".repeat(100000); // 100KB valid Base64 string"
+        },
+        {
+          "path": "data/tbh/tasks/tbh_task_04836d64e7ccc952/tests/test_final_state.py",
+          "line": 47,
+          "excerpt": "threshold = 0.25"
+        }
+      ]
+    },
+    {
+      "source": "tbh",
+      "task_id": "tbh_task_d575b3ecf9318243",
+      "category": "missing_provenance_check",
+      "reason": "要求抢救处理器临时生成的 1000 份数据；测试只要求 850 份内容不同且自身哈希匹配的文件，未核验它们属于处理器输出，预造任意文件也满足最终判分条件。",
+      "evidence": [
+        {
+          "path": "data/tbh/tasks/tbh_task_d575b3ecf9318243/tests/test_final_state.py",
+          "line": 60,
+          "excerpt": "if actual_hash == expected_hash:"
+        },
+        {
+          "path": "data/tbh/tasks/tbh_task_d575b3ecf9318243/tests/test_final_state.py",
+          "line": 64,
+          "excerpt": "assert valid_count >= 850, f\"Metric threshold failed: Rescued {valid_count} valid files, expected at least 850.\""
+        }
+      ]
+    }
+  ],
+  "review": [
+    {
+      "source": "tbh",
+      "task_id": "tbh_task_036f8f2f6b7ae8fc",
+      "reason": "bindfs /proc/mounts 检查依赖 FUSE 与挂载权限；普通受限 Docker 不保证支持，先验证运行条件，不按质量缺陷直接删除。"
+    },
+    {
+      "source": "tbh",
+      "task_id": "tbh_task_3280bade2c98c2d1",
+      "reason": "题目要求 unshare -n；需验证 namespace 权限，不需要嵌套虚拟化。"
+    },
+    {
+      "source": "tb",
+      "task_id": "crypto-transaction-batching-optimizer",
+      "reason": "与 TB2.1 llm-inference-batching-scheduler 存在调度模板结构相似，但应用对象和规则不同，暂不认定明显重复；保守无污染实验可先隔离。"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "tb__browser-playable-leaderboard",
+      "source": "tb",
+      "task_id": "browser-playable-leaderboard",
+      "path": "data/tb/tasks/browser-playable-leaderboard",
+      "instruction_sha256": "a933bc0cc23cdc971a78d77ab919989e416c22ecffaf20fc723bc6d97979e026",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__build-ffmpeg-legacy",
+      "source": "tb",
+      "task_id": "build-ffmpeg-legacy",
+      "path": "data/tb/tasks/build-ffmpeg-legacy",
+      "instruction_sha256": "a07630a5bf78271758c45fdb34c7e64e532aca8c6f9adbe3be01def9698c621e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__build-imagemagick-legacy",
+      "source": "tb",
+      "task_id": "build-imagemagick-legacy",
+      "path": "data/tb/tasks/build-imagemagick-legacy",
+      "instruction_sha256": "b47fb35e9528750cd9532eacfd2dd704877657a52435c3c523dd9e70f06be0b3",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__complex-python-memory-leak-concurrency-bug",
+      "source": "tb",
+      "task_id": "complex-python-memory-leak-concurrency-bug",
+      "path": "data/tb/tasks/complex-python-memory-leak-concurrency-bug",
+      "instruction_sha256": "e2f61b900be81698fff446eb69c869337f71a23daff9405dd3aa6b5c6e423a8e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__cron-env-debug",
+      "source": "tb",
+      "task_id": "cron-env-debug",
+      "path": "data/tb/tasks/cron-env-debug",
+      "instruction_sha256": "b5c3321f6465ef6d3da7fc7a646e46541c68f42edc7a6a452f3ae6545a46f74f",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__crypto-transaction-batching-optimizer",
+      "source": "tb",
+      "task_id": "crypto-transaction-batching-optimizer",
+      "path": "data/tb/tasks/crypto-transaction-batching-optimizer",
+      "instruction_sha256": "11826583d9e6d29f9df8c5409cfa82ea1f28b6031a527cccb2b89fbbcebd2750",
+      "status": "review_before_run"
+    },
+    {
+      "id": "tb__draft_dp_00241ea7_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_00241ea7_aopeng",
+      "path": "data/tb/tasks/draft_dp_00241ea7_aopeng",
+      "instruction_sha256": "f7f78f6b4e0b18db4272f695076083a19a992822d07e0d42f340f32bacb53165",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_027c6d5b_qingshu",
+      "source": "tb",
+      "task_id": "draft_dp_027c6d5b_qingshu",
+      "path": "data/tb/tasks/draft_dp_027c6d5b_qingshu",
+      "instruction_sha256": "11d177bbe884eb1b5d66c7dd9c32f872c99ace01e8c792653c961fffa8b87f72",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_029f82e0_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_029f82e0_haitian",
+      "path": "data/tb/tasks/draft_dp_029f82e0_haitian",
+      "instruction_sha256": "073aa50c69de523700bec39b4870761791b5c3eb6336530ec44cb6ce1e3b3c56",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0365b530_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0365b530_aopeng",
+      "path": "data/tb/tasks/draft_dp_0365b530_aopeng",
+      "instruction_sha256": "98a1699a6e4722ebf84c722a6e9d23b0636dc04302d9c8d3fefe2ac4f8329e93",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_047cec79_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_047cec79_aopeng",
+      "path": "data/tb/tasks/draft_dp_047cec79_aopeng",
+      "instruction_sha256": "91dd9acf9fcbe0e747579fcf912042bbc51e61eb3370da5cb19a40e0cbfd5ff7",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_051e178c_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_051e178c_aopeng",
+      "path": "data/tb/tasks/draft_dp_051e178c_aopeng",
+      "instruction_sha256": "05317ac8636eeaf6489e2d226b69b8b60c835e0d550fdf03b9a902a8b31acfc0",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_05c360a7_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_05c360a7_aopeng",
+      "path": "data/tb/tasks/draft_dp_05c360a7_aopeng",
+      "instruction_sha256": "d72f250e7e33ed6de9a0c742ece7d834fe48e6d659de1cafd928e43f66674966",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0a4b8876_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_0a4b8876_haitian",
+      "path": "data/tb/tasks/draft_dp_0a4b8876_haitian",
+      "instruction_sha256": "a985f09bf08d23065ba489c0d32646488b119e255711d8cfd6cc7b64e4c85d37",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0bcad9db_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_0bcad9db_haitian",
+      "path": "data/tb/tasks/draft_dp_0bcad9db_haitian",
+      "instruction_sha256": "eea292e9eb119bf70feb17575eedbb1f9fecfbcb40221c0cf552ef37736c9635",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0be98359_outa",
+      "source": "tb",
+      "task_id": "draft_dp_0be98359_outa",
+      "path": "data/tb/tasks/draft_dp_0be98359_outa",
+      "instruction_sha256": "0d423ed76faae45f05d63a9e607a262a4218a55c333545b2863973ac45fa3c82",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0c94553a_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_0c94553a_haitian",
+      "path": "data/tb/tasks/draft_dp_0c94553a_haitian",
+      "instruction_sha256": "dccdc804520db32c73d87fcc665df2a8ce48de534c19e7b402c549e955df6c4a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0d503075_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0d503075_aopeng",
+      "path": "data/tb/tasks/draft_dp_0d503075_aopeng",
+      "instruction_sha256": "d584b7a3be51ef0ac2e0ec573da80dd2f4b2b5f4057b0e9cc19a451476b8d0f2",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0f5eabe2_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0f5eabe2_aopeng",
+      "path": "data/tb/tasks/draft_dp_0f5eabe2_aopeng",
+      "instruction_sha256": "3ac84452738a87fdfb0794bb06fccf252d6bde34c32fdfea6dbbe1191c94c944",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0fbf3883_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0fbf3883_aopeng",
+      "path": "data/tb/tasks/draft_dp_0fbf3883_aopeng",
+      "instruction_sha256": "136721ab787e8d2f1629a15dab73c471831f589808e0475652a64069b01541e1",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_0fc5ba38_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0fc5ba38_aopeng",
+      "path": "data/tb/tasks/draft_dp_0fc5ba38_aopeng",
+      "instruction_sha256": "3a90af3a50744c9cf76bca36bee2afd0798a0baa63885772a8e91670a5c42c98",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_10867dbe-45b0-4546-bd23-21daa2fb09dd_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_10867dbe-45b0-4546-bd23-21daa2fb09dd_aopeng",
+      "path": "data/tb/tasks/draft_dp_10867dbe-45b0-4546-bd23-21daa2fb09dd_aopeng",
+      "instruction_sha256": "6ed61fecbdc72afd58245065a294e2bd3244387612ffc38ab42a5cd69478876b",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_1090855b_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_1090855b_aopeng",
+      "path": "data/tb/tasks/draft_dp_1090855b_aopeng",
+      "instruction_sha256": "adbf52d2f4fe743d87a38933992469a0d2d3f5f529f5343da8c4fd1fc41417dc",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_109b3f5c_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_109b3f5c_aopeng",
+      "path": "data/tb/tasks/draft_dp_109b3f5c_aopeng",
+      "instruction_sha256": "0b771555b63e3a4a456cc3de05239d645933f0e1fe2e7e38d5605e3c92969702",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_11b1a39a_outa",
+      "source": "tb",
+      "task_id": "draft_dp_11b1a39a_outa",
+      "path": "data/tb/tasks/draft_dp_11b1a39a_outa",
+      "instruction_sha256": "5382564dd74cca910db8248e1d9fd54b953d3ad5b8822b88577111f1eedfe80a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "source": "tb",
+      "task_id": "draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "path": "data/tb/tasks/draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "instruction_sha256": "bdd3db38cf54342ba916868707eca3c0c9e5c4cd1f6512801c3144994354e066",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "source": "tb",
+      "task_id": "draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "path": "data/tb/tasks/draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "instruction_sha256": "89be6d7aaf04661176ce14a477a7547bb2903165eb1f8c1ef85b80d8770b6743",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_14b09723_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_14b09723_aopeng",
+      "path": "data/tb/tasks/draft_dp_14b09723_aopeng",
+      "instruction_sha256": "8fd8c332502fef9416f26b0c74c4930be334a53861f4fc4b0285a93b6e8b7368",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_1543057007y_outa",
+      "source": "tb",
+      "task_id": "draft_dp_1543057007y_outa",
+      "path": "data/tb/tasks/draft_dp_1543057007y_outa",
+      "instruction_sha256": "ad572a5967959fadfe8b9802df26933b4152177e16668b40ef32ea845b1ca991",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_15dc5f5f_outa",
+      "source": "tb",
+      "task_id": "draft_dp_15dc5f5f_outa",
+      "path": "data/tb/tasks/draft_dp_15dc5f5f_outa",
+      "instruction_sha256": "c0b6844fe3f0806ffd952c7a835642e24a80a82eaab31d279964b88462107004",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_16091623_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_16091623_haitian",
+      "path": "data/tb/tasks/draft_dp_16091623_haitian",
+      "instruction_sha256": "6e063ea59c088e99a732e1209e3f1ac2c8bfc551413c405bf45b00f46e6cd6b8",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_18a4bb7a_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_18a4bb7a_haitian",
+      "path": "data/tb/tasks/draft_dp_18a4bb7a_haitian",
+      "instruction_sha256": "32dcf73347af226ab658839fe96e71435bfeb9b9d41f0623415ce183e5902063",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_1e821a8e_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_1e821a8e_aopeng",
+      "path": "data/tb/tasks/draft_dp_1e821a8e_aopeng",
+      "instruction_sha256": "46f8abf5236f1031db567e8049a7d847e0e55745100dd0f4bf07cee699aaabfd",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_22a5bafa_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_22a5bafa_aopeng",
+      "path": "data/tb/tasks/draft_dp_22a5bafa_aopeng",
+      "instruction_sha256": "8c9a87dceaf370e611a83fd4c4829efab3c8130d189906f3edb79387175020fc",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_24264fed_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_24264fed_aopeng",
+      "path": "data/tb/tasks/draft_dp_24264fed_aopeng",
+      "instruction_sha256": "d8d14ec2e6dd5126a62a157bb00234c2ae3287da5e3befc07574eb048bf71914",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_26d326e6_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_26d326e6_aopeng",
+      "path": "data/tb/tasks/draft_dp_26d326e6_aopeng",
+      "instruction_sha256": "f5f496e10b6fdd6d536f0f37a8a3e308d00d1253186d2e6f8239ddb5527af095",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_28243489_outa",
+      "source": "tb",
+      "task_id": "draft_dp_28243489_outa",
+      "path": "data/tb/tasks/draft_dp_28243489_outa",
+      "instruction_sha256": "e7829f71865e26a9ffe3bcb289387edc578bfb1cf0f1e0b9876fe0b52a8dd407",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_29825e59lxw_outa",
+      "source": "tb",
+      "task_id": "draft_dp_29825e59lxw_outa",
+      "path": "data/tb/tasks/draft_dp_29825e59lxw_outa",
+      "instruction_sha256": "353bb72a4248de67e45d9e7be09b9203ffcb4fee2bf4a24c52c430b58d429912",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_29f5c2c3_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_29f5c2c3_haitian",
+      "path": "data/tb/tasks/draft_dp_29f5c2c3_haitian",
+      "instruction_sha256": "2426b6038ec2f90d09b7bc1e4a47b82cc226e84d8f4ba55f2081ee44e4458717",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_2a8dbc50_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_2a8dbc50_haitian",
+      "path": "data/tb/tasks/draft_dp_2a8dbc50_haitian",
+      "instruction_sha256": "4ccd4ef539a7a3bf6d0c889c617e31fdbe4cdffe073159d2c22d0e1cf47fe035",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_2f7b1d3e_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_2f7b1d3e_aopeng",
+      "path": "data/tb/tasks/draft_dp_2f7b1d3e_aopeng",
+      "instruction_sha256": "5b4a0f76a5fc77ddde44feabf8e5216b9e11cc2c007362570130b518df1adefa",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_30893ae8eap_outa",
+      "source": "tb",
+      "task_id": "draft_dp_30893ae8eap_outa",
+      "path": "data/tb/tasks/draft_dp_30893ae8eap_outa",
+      "instruction_sha256": "8a0a66964831be87f60b18b4df05e0980e8862dd95e1f1c4133d7d5ba7c761c7",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_30b6c93e_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_30b6c93e_aopeng",
+      "path": "data/tb/tasks/draft_dp_30b6c93e_aopeng",
+      "instruction_sha256": "a469263f4ac8cb1600606dc1cd48b4e2a65dfc28866085b626443db59ce33f7c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_3493beee_outa",
+      "source": "tb",
+      "task_id": "draft_dp_3493beee_outa",
+      "path": "data/tb/tasks/draft_dp_3493beee_outa",
+      "instruction_sha256": "3316c6da5291c321a9d9a28904b42b11f3b6101026315b71269a5c3b2dc68ff4",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_37467d31_outa",
+      "source": "tb",
+      "task_id": "draft_dp_37467d31_outa",
+      "path": "data/tb/tasks/draft_dp_37467d31_outa",
+      "instruction_sha256": "f6e8fee4ef88e96f33a8dbc6463cbbee5032008560a57258fc8ea561aaae151d",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_3bc4f214_outa",
+      "source": "tb",
+      "task_id": "draft_dp_3bc4f214_outa",
+      "path": "data/tb/tasks/draft_dp_3bc4f214_outa",
+      "instruction_sha256": "50c1baa9e7a8ed91e656f4064a1b077bd40cd94ecd525f4af4d91f5d1f426d31",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_421262feu4b_outa",
+      "source": "tb",
+      "task_id": "draft_dp_421262feu4b_outa",
+      "path": "data/tb/tasks/draft_dp_421262feu4b_outa",
+      "instruction_sha256": "da9ffc899ad627d073de426122ff1a7ae2b1f742bda87036754185fd3a692361",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_49202731_outa",
+      "source": "tb",
+      "task_id": "draft_dp_49202731_outa",
+      "path": "data/tb/tasks/draft_dp_49202731_outa",
+      "instruction_sha256": "28e28559d5589466616ec9ce79415a888480f11ed69c425ad5e3240ca05378fb",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_50724535_outa",
+      "source": "tb",
+      "task_id": "draft_dp_50724535_outa",
+      "path": "data/tb/tasks/draft_dp_50724535_outa",
+      "instruction_sha256": "da9c669f72727f415e3a4c603acdc9538d3ca884e5b801dd3c29acc2acf61cb9",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_5281e52cdis_outa",
+      "source": "tb",
+      "task_id": "draft_dp_5281e52cdis_outa",
+      "path": "data/tb/tasks/draft_dp_5281e52cdis_outa",
+      "instruction_sha256": "9134588b0bf0fffa2f285941dbccd1784d68a7b3f80a88cd32ea6d48cd579a4c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_52e23884vdf_outa",
+      "source": "tb",
+      "task_id": "draft_dp_52e23884vdf_outa",
+      "path": "data/tb/tasks/draft_dp_52e23884vdf_outa",
+      "instruction_sha256": "f0ac87dc558d47ace528bc0a0547b434b41bd22465268172f5fbc5ba34f46577",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_534e52c84wy_outa",
+      "source": "tb",
+      "task_id": "draft_dp_534e52c84wy_outa",
+      "path": "data/tb/tasks/draft_dp_534e52c84wy_outa",
+      "instruction_sha256": "5874101d8e2b04b2b8c0e33ddfaf0892ac899cbec1d679b2eee3d51703558031",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_53c532db_outa",
+      "source": "tb",
+      "task_id": "draft_dp_53c532db_outa",
+      "path": "data/tb/tasks/draft_dp_53c532db_outa",
+      "instruction_sha256": "3890a3c093b57a7d2b8896a66a7bba507905bb439cf4312b011a6e6747a8bfab",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_5719fdd4_outa",
+      "source": "tb",
+      "task_id": "draft_dp_5719fdd4_outa",
+      "path": "data/tb/tasks/draft_dp_5719fdd4_outa",
+      "instruction_sha256": "56956a1db8687a263fa8dc3d5c92459151720e85a6079d0d7a12f054cfb94059",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_57d4c339_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_57d4c339_haitian",
+      "path": "data/tb/tasks/draft_dp_57d4c339_haitian",
+      "instruction_sha256": "719c01d6737a46c10b27d528c2b115dd03bd4cb8f1cd2ddddaaa7428594a40fe",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_58745bc61ce_outa",
+      "source": "tb",
+      "task_id": "draft_dp_58745bc61ce_outa",
+      "path": "data/tb/tasks/draft_dp_58745bc61ce_outa",
+      "instruction_sha256": "5b72685afa2a386f1c887fe5b2f9b763ab8c4dc61225829967ddcb3fbd57a563",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_58883d1a_outa",
+      "source": "tb",
+      "task_id": "draft_dp_58883d1a_outa",
+      "path": "data/tb/tasks/draft_dp_58883d1a_outa",
+      "instruction_sha256": "78eab9ea44259012e1bb65987b40dcd7808de74afb5706656382c7a99711bbeb",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_58afbfb3_outa",
+      "source": "tb",
+      "task_id": "draft_dp_58afbfb3_outa",
+      "path": "data/tb/tasks/draft_dp_58afbfb3_outa",
+      "instruction_sha256": "9d7458145872d12be0c68375204591230329d13822f7e1c5a35caa344b383e71",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_621e8e51_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_621e8e51_haitian",
+      "path": "data/tb/tasks/draft_dp_621e8e51_haitian",
+      "instruction_sha256": "60b65dfd342f3093c6d13b8bb67a91062da98ab7e5bddbbe08798a38de27eb82",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_7b459a82_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_7b459a82_haitian",
+      "path": "data/tb/tasks/draft_dp_7b459a82_haitian",
+      "instruction_sha256": "356ee16c2a4206b55761381df5e4a6878d541dafb1f18bc13a1829bc778c20bf",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_7b771a65ygl_outa",
+      "source": "tb",
+      "task_id": "draft_dp_7b771a65ygl_outa",
+      "path": "data/tb/tasks/draft_dp_7b771a65ygl_outa",
+      "instruction_sha256": "46044fe624379bf2fc99f851f3678ce2742b7c70f5861ee508b606dc89c8b255",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_7d3f46c0_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_7d3f46c0_haitian",
+      "path": "data/tb/tasks/draft_dp_7d3f46c0_haitian",
+      "instruction_sha256": "4d301e6a1a0ed1fe5a62723c6269589b996a5778db25239a1c88143a75b237ae",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_83a8b6ca_outa",
+      "source": "tb",
+      "task_id": "draft_dp_83a8b6ca_outa",
+      "path": "data/tb/tasks/draft_dp_83a8b6ca_outa",
+      "instruction_sha256": "361ac43ee0a36b8c0d37cd8e37e9e909e651bef6c56f56b2b67815c52bfa5f9d",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_8da98b12_outa",
+      "source": "tb",
+      "task_id": "draft_dp_8da98b12_outa",
+      "path": "data/tb/tasks/draft_dp_8da98b12_outa",
+      "instruction_sha256": "1eb062612898450957bca18c4f1bff1e60c8a2e96602b8d65ac0db5de6546116",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_97b13c9e_outb",
+      "source": "tb",
+      "task_id": "draft_dp_97b13c9e_outb",
+      "path": "data/tb/tasks/draft_dp_97b13c9e_outb",
+      "instruction_sha256": "6f891b2ec95a633e4bb56e8cf38bde65e4957fe9a920f9b763c4fbadabf43192",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_9e846e36_outa",
+      "source": "tb",
+      "task_id": "draft_dp_9e846e36_outa",
+      "path": "data/tb/tasks/draft_dp_9e846e36_outa",
+      "instruction_sha256": "973c24c5e5162e82d65abe44590061bc1001ffa12de23ad4d6041b4373a45356",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_a1ce6692_outb",
+      "source": "tb",
+      "task_id": "draft_dp_a1ce6692_outb",
+      "path": "data/tb/tasks/draft_dp_a1ce6692_outb",
+      "instruction_sha256": "62a541036252749531c23b40481b58e98f76970eca6f051ca9515160a8df9bee",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_a73abe98_outb",
+      "source": "tb",
+      "task_id": "draft_dp_a73abe98_outb",
+      "path": "data/tb/tasks/draft_dp_a73abe98_outb",
+      "instruction_sha256": "aef6cd660a5633492eaff57e83f6b7f10cbb7895ba97843e4fa60955e1057f75",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_a86da8a3_outb",
+      "source": "tb",
+      "task_id": "draft_dp_a86da8a3_outb",
+      "path": "data/tb/tasks/draft_dp_a86da8a3_outb",
+      "instruction_sha256": "56385ce44d4b086c9d1b129ec1afc45830feffc6e059275737c921ea96ee1367",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_a9176125_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_a9176125_haitian",
+      "path": "data/tb/tasks/draft_dp_a9176125_haitian",
+      "instruction_sha256": "f0f58b6a5ba30c53e3115801c455f3121432421fbccf1b7ba009c653a8c5905e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_aad16747_outb",
+      "source": "tb",
+      "task_id": "draft_dp_aad16747_outb",
+      "path": "data/tb/tasks/draft_dp_aad16747_outb",
+      "instruction_sha256": "14980fd0be730a5cf9e51a67d6ac9c68d806c6229ee42d1a1d0ae26011806160",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_abdd5ed0_outb",
+      "source": "tb",
+      "task_id": "draft_dp_abdd5ed0_outb",
+      "path": "data/tb/tasks/draft_dp_abdd5ed0_outb",
+      "instruction_sha256": "14999b319edfcac801621561b1d616d3054d9f2da10706578914b9ccae8c60a5",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_adcb2ffb_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_adcb2ffb_haitian",
+      "path": "data/tb/tasks/draft_dp_adcb2ffb_haitian",
+      "instruction_sha256": "8beb97c0a758ed07ae9c308b04cbbcf5a1e64c0eb52bcbba0806448919d03740",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_af4bee51_outb",
+      "source": "tb",
+      "task_id": "draft_dp_af4bee51_outb",
+      "path": "data/tb/tasks/draft_dp_af4bee51_outb",
+      "instruction_sha256": "6df7642679037b595108ffa04cd28164532e47249dcb1af4e683c7fb715a2d4a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_b038d77c_outb",
+      "source": "tb",
+      "task_id": "draft_dp_b038d77c_outb",
+      "path": "data/tb/tasks/draft_dp_b038d77c_outb",
+      "instruction_sha256": "cc570481ed539d1a99899d535361468ab499c42fcd24471de17971898f4f63e5",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_b838291a_outb",
+      "source": "tb",
+      "task_id": "draft_dp_b838291a_outb",
+      "path": "data/tb/tasks/draft_dp_b838291a_outb",
+      "instruction_sha256": "f2761b012912e0a0b4308ab5252d4aaf6323cd27a2d2216529e88fcca4f38028",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_baf1822c_outb",
+      "source": "tb",
+      "task_id": "draft_dp_baf1822c_outb",
+      "path": "data/tb/tasks/draft_dp_baf1822c_outb",
+      "instruction_sha256": "7506525b27da582b1a988ba70323df2542a8d26e4e5d696d1399730f1237a27b",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_bbe2c1cf_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_bbe2c1cf_aopeng",
+      "path": "data/tb/tasks/draft_dp_bbe2c1cf_aopeng",
+      "instruction_sha256": "7db7604a44dc1876b6b86edb7b612c9a52ae2a46f0e38c45da86e853f6bb1f36",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_bc4eec6d_outb",
+      "source": "tb",
+      "task_id": "draft_dp_bc4eec6d_outb",
+      "path": "data/tb/tasks/draft_dp_bc4eec6d_outb",
+      "instruction_sha256": "a0dde1dfedf143278fa36d9c9073d99b7201f442554d8c0f945baaedc2ab9e5d",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_c006fd92_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_c006fd92_haitian",
+      "path": "data/tb/tasks/draft_dp_c006fd92_haitian",
+      "instruction_sha256": "cf2347c4108e462e5e3658b9dbb7a322faa0217c2d64681f0354c67f9e4d6883",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_c9fc74cb_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_c9fc74cb_aopeng",
+      "path": "data/tb/tasks/draft_dp_c9fc74cb_aopeng",
+      "instruction_sha256": "e171f8d0cb42a8a975cdf8a62a0e95a1288ff3bcb094e34316e762f77d059359",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_cbc6d2a5_outb",
+      "source": "tb",
+      "task_id": "draft_dp_cbc6d2a5_outb",
+      "path": "data/tb/tasks/draft_dp_cbc6d2a5_outb",
+      "instruction_sha256": "e37deb4782dc9d71e2a0ac37c9ae0062b4238e2b67da0d81114693a7b330a665",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_cd8b3586_outa",
+      "source": "tb",
+      "task_id": "draft_dp_cd8b3586_outa",
+      "path": "data/tb/tasks/draft_dp_cd8b3586_outa",
+      "instruction_sha256": "a7fe365fdb1766a263bde5a5947d9ec102da4127b2b4badde4db3b078bbeec84",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_ce7efefe_outb",
+      "source": "tb",
+      "task_id": "draft_dp_ce7efefe_outb",
+      "path": "data/tb/tasks/draft_dp_ce7efefe_outb",
+      "instruction_sha256": "35988b3e250a2a0852d17dca2eaa792b32956c457a919e30724b8e2430f4abb8",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_ceb40cbc_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_ceb40cbc_aopeng",
+      "path": "data/tb/tasks/draft_dp_ceb40cbc_aopeng",
+      "instruction_sha256": "0317daf7c4ae36e43f7f16dd3b22dc0fbf74c18bf5a22788aea1843b6fbf7a2a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_d018a26b_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_d018a26b_aopeng",
+      "path": "data/tb/tasks/draft_dp_d018a26b_aopeng",
+      "instruction_sha256": "8b1343376c37669a1a58334949cb23ef9f34909c8b51d36a094b4a9e1abb05f5",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_d59787d6_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_d59787d6_haitian",
+      "path": "data/tb/tasks/draft_dp_d59787d6_haitian",
+      "instruction_sha256": "d35e3114e930a9f1d0e6ec9c9d19fba0c90337d3726775c9892499a7c3420bae",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_d790b9ab_outa",
+      "source": "tb",
+      "task_id": "draft_dp_d790b9ab_outa",
+      "path": "data/tb/tasks/draft_dp_d790b9ab_outa",
+      "instruction_sha256": "508440630905f42ca0409b1e8f6b0aaa43b1a8c898ae1e8b21f131c03e96f0f8",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_eae0d1ff_outb",
+      "source": "tb",
+      "task_id": "draft_dp_eae0d1ff_outb",
+      "path": "data/tb/tasks/draft_dp_eae0d1ff_outb",
+      "instruction_sha256": "1011a617473940e41618e50ab586d2b2b85a2cb86fe7c15f9ad8acea3e83721c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_f48fa1cd_outa",
+      "source": "tb",
+      "task_id": "draft_dp_f48fa1cd_outa",
+      "path": "data/tb/tasks/draft_dp_f48fa1cd_outa",
+      "instruction_sha256": "573cebc18a990208cca8f954701d113cc94177550df207a18313e865739b6256",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_fb359113_outa",
+      "source": "tb",
+      "task_id": "draft_dp_fb359113_outa",
+      "path": "data/tb/tasks/draft_dp_fb359113_outa",
+      "instruction_sha256": "ebbb3a11c6addcb1a604dca3d2f318604d84cd9b396003caf946fa6f19a29164",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_fc82f5ea_outb",
+      "source": "tb",
+      "task_id": "draft_dp_fc82f5ea_outb",
+      "path": "data/tb/tasks/draft_dp_fc82f5ea_outb",
+      "instruction_sha256": "1bea933bfd2f8b4de144ee4f86d38a9f1b95ab1eac185864078586192e7150ee",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__draft_dp_research_institute_scholar_query_outb",
+      "source": "tb",
+      "task_id": "draft_dp_research_institute_scholar_query_outb",
+      "path": "data/tb/tasks/draft_dp_research_institute_scholar_query_outb",
+      "instruction_sha256": "f796ca7fdbae1d78fcfd7c767f80a0a18a333cb6f609b86fed1a0e7ab820938e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__fastapi-bert-service",
+      "source": "tb",
+      "task_id": "fastapi-bert-service",
+      "path": "data/tb/tasks/fastapi-bert-service",
+      "instruction_sha256": "c5b151cc190371f45eeb889180b6e2dfcb339b52937d61da1e4a114af3332c5c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__fix-icp",
+      "source": "tb",
+      "task_id": "fix-icp",
+      "path": "data/tb/tasks/fix-icp",
+      "instruction_sha256": "f7091bf067a4f1b3c2bbb029027a48b56bf8cff3d3b0f22db22866ed84caa119",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__install-nvim-debian-testing-3",
+      "source": "tb",
+      "task_id": "install-nvim-debian-testing-3",
+      "path": "data/tb/tasks/install-nvim-debian-testing-3",
+      "instruction_sha256": "b8761cda6ffb122e17b3cd8abf8fb07628980f1628035ccda60da714d30a8aad",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__integrate-c-library-python",
+      "source": "tb",
+      "task_id": "integrate-c-library-python",
+      "path": "data/tb/tasks/integrate-c-library-python",
+      "instruction_sha256": "2fdbb30f1e01ea027a58f8cb7bf636c92d865e591d0684ad406272f94bcaabae",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__manylinux-wheels-pyo3",
+      "source": "tb",
+      "task_id": "manylinux-wheels-pyo3",
+      "path": "data/tb/tasks/manylinux-wheels-pyo3",
+      "instruction_sha256": "ede0873ec918d417ec34b3411b909e7b20dc49a899c9eabd6d82b81f58534277",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__metric-regression-debugger",
+      "source": "tb",
+      "task_id": "metric-regression-debugger",
+      "path": "data/tb/tasks/metric-regression-debugger",
+      "instruction_sha256": "e3d9948a94b90f38074cde28ae8dba4f7bc2c09e2296d04cab5422d9ccecb0c4",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__ml-model-benchmark-pareto",
+      "source": "tb",
+      "task_id": "ml-model-benchmark-pareto",
+      "path": "data/tb/tasks/ml-model-benchmark-pareto",
+      "instruction_sha256": "9d6c9f739efe1a8a12d22c0eda679f8da219304c7b278a9a679a46c75ab2e013",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__monolithic-flask-app",
+      "source": "tb",
+      "task_id": "monolithic-flask-app",
+      "path": "data/tb/tasks/monolithic-flask-app",
+      "instruction_sha256": "811e1726a4450093f33fd343d65fd8c95d39edc02ac6e755c9a5c2bfc7493059",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__payroll-api-debug",
+      "source": "tb",
+      "task_id": "payroll-api-debug",
+      "path": "data/tb/tasks/payroll-api-debug",
+      "instruction_sha256": "983cd2e122f4758efd7a66a935ca4dcb00e8e7a6105cb8ccc7c7c308f2cd15c0",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__posix-tar-r-w",
+      "source": "tb",
+      "task_id": "posix-tar-r-w",
+      "path": "data/tb/tasks/posix-tar-r-w",
+      "instruction_sha256": "74f4f850c41dd337d9185eeb7df904852eaa21b5e81a465796e022f54b1c7de3",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__postorder-bst",
+      "source": "tb",
+      "task_id": "postorder-bst",
+      "path": "data/tb/tasks/postorder-bst",
+      "instruction_sha256": "4428277ee97a62e0a6473fc92558eb5741a84fbafb2d72cf2310fddb5afd08d0",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__py-bloom-filter-debugger",
+      "source": "tb",
+      "task_id": "py-bloom-filter-debugger",
+      "path": "data/tb/tasks/py-bloom-filter-debugger",
+      "instruction_sha256": "d8ad00bfb6c1d0a79f6ff3e1fe701750747c49e521ff253ced99893f5722c327",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__segfault_reproducer",
+      "source": "tb",
+      "task_id": "segfault_reproducer",
+      "path": "data/tb/tasks/segfault_reproducer",
+      "instruction_sha256": "e32b6523b4f375a997a51b88ae1fbe8f06e5c1ea78024e36914e4a3d4c2f0c65",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__segfault_reproducer-v2",
+      "source": "tb",
+      "task_id": "segfault_reproducer-v2",
+      "path": "data/tb/tasks/segfault_reproducer-v2",
+      "instruction_sha256": "51fe799512ef4c2b390dfff6929b17547e0ca2cb01a1e61bdc9069d84ca1e33c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__signal-stability-analysis",
+      "source": "tb",
+      "task_id": "signal-stability-analysis",
+      "path": "data/tb/tasks/signal-stability-analysis",
+      "instruction_sha256": "d5fa62b95d468786f771d752ecad88281a2fad41fd8242e2c3a2593f27f7bdc6",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tb__wasm-crackme-reverse",
+      "source": "tb",
+      "task_id": "wasm-crackme-reverse",
+      "path": "data/tb/tasks/wasm-crackme-reverse",
+      "instruction_sha256": "0b12f0095a87d214fc52f80db32b1eea0880dbbec32387c0a5427ef8220b386a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_036f8f2f6b7ae8fc",
+      "source": "tbh",
+      "task_id": "tbh_task_036f8f2f6b7ae8fc",
+      "path": "data/tbh/tasks/tbh_task_036f8f2f6b7ae8fc",
+      "instruction_sha256": "4411cb1ac77b27512e3930dcf1c681a6170fb37b19ff4702cad73a12933ee2e1",
+      "status": "review_before_run"
+    },
+    {
+      "id": "tbh__tbh_task_0512598a64b84b5e",
+      "source": "tbh",
+      "task_id": "tbh_task_0512598a64b84b5e",
+      "path": "data/tbh/tasks/tbh_task_0512598a64b84b5e",
+      "instruction_sha256": "cb423dd914906f5befb0f1020eed8358872b1409df10f870b177285043ee9c59",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_06c8c1d0a94f66cb",
+      "source": "tbh",
+      "task_id": "tbh_task_06c8c1d0a94f66cb",
+      "path": "data/tbh/tasks/tbh_task_06c8c1d0a94f66cb",
+      "instruction_sha256": "74ea0197dbe3fe00379bc4b203e85431e58dd876eee50d17cb390c2fcfa6add3",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_08074c298b71613e",
+      "source": "tbh",
+      "task_id": "tbh_task_08074c298b71613e",
+      "path": "data/tbh/tasks/tbh_task_08074c298b71613e",
+      "instruction_sha256": "85dfa8ce75ef5c6fe07ab9957f6bfddcda14b15f6ef7ada99d05c6d9ca0f49c6",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_0bf1b8a3baefb533",
+      "source": "tbh",
+      "task_id": "tbh_task_0bf1b8a3baefb533",
+      "path": "data/tbh/tasks/tbh_task_0bf1b8a3baefb533",
+      "instruction_sha256": "246213e1dff3b885595c575218285712d68910e931a73b055c0ac605c8175293",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_0c099ddf9bf2955d",
+      "source": "tbh",
+      "task_id": "tbh_task_0c099ddf9bf2955d",
+      "path": "data/tbh/tasks/tbh_task_0c099ddf9bf2955d",
+      "instruction_sha256": "8e22bb91541165ea4c2626aa322f1aa92fdb114b410fdadd7b69db973eb5a7c2",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_1037cf7b06cf39a5",
+      "source": "tbh",
+      "task_id": "tbh_task_1037cf7b06cf39a5",
+      "path": "data/tbh/tasks/tbh_task_1037cf7b06cf39a5",
+      "instruction_sha256": "3d0aa2570222b17ceceadfc791bcfcc98f098c794a9d9315451b4f1bf084164a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_12821b68d56e039f",
+      "source": "tbh",
+      "task_id": "tbh_task_12821b68d56e039f",
+      "path": "data/tbh/tasks/tbh_task_12821b68d56e039f",
+      "instruction_sha256": "3c99e0a8e2a47c7fb728c0a39f2bb4dbe693f7bc76441980bd69594838267292",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_14477f7a80a94f0c",
+      "source": "tbh",
+      "task_id": "tbh_task_14477f7a80a94f0c",
+      "path": "data/tbh/tasks/tbh_task_14477f7a80a94f0c",
+      "instruction_sha256": "fcf4f34ac0fdc51f21f37559aef126267068f653720336734fe6f56ee2317c18",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_15ef3de120c29cb9",
+      "source": "tbh",
+      "task_id": "tbh_task_15ef3de120c29cb9",
+      "path": "data/tbh/tasks/tbh_task_15ef3de120c29cb9",
+      "instruction_sha256": "e82661bb3018abbcabc70d10d3ebfc5654ef61289d6a72a047a625f2a5a67a47",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_15fe9b0bc3d8709a",
+      "source": "tbh",
+      "task_id": "tbh_task_15fe9b0bc3d8709a",
+      "path": "data/tbh/tasks/tbh_task_15fe9b0bc3d8709a",
+      "instruction_sha256": "2b72be41ce9fc459d4815de6428188fdc7566e7e90354fdec4560dc896a5a556",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_16dbe4606059be59",
+      "source": "tbh",
+      "task_id": "tbh_task_16dbe4606059be59",
+      "path": "data/tbh/tasks/tbh_task_16dbe4606059be59",
+      "instruction_sha256": "110ed20eb344bac1777a3d80e5b3b8e2697644970dac8035680ffef5ae898c6a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_19b99556078771ee",
+      "source": "tbh",
+      "task_id": "tbh_task_19b99556078771ee",
+      "path": "data/tbh/tasks/tbh_task_19b99556078771ee",
+      "instruction_sha256": "5a709ae4ecee70b3a7bbcbb760c12a705b59b15057d0f8503ab611e641232568",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_1b92e614b05da93c",
+      "source": "tbh",
+      "task_id": "tbh_task_1b92e614b05da93c",
+      "path": "data/tbh/tasks/tbh_task_1b92e614b05da93c",
+      "instruction_sha256": "fd6a5ce3c12d6298b0c45fe9871d22cf74e699a9f254d4f91703567adfbdf6f2",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_22dc33aab6297db3",
+      "source": "tbh",
+      "task_id": "tbh_task_22dc33aab6297db3",
+      "path": "data/tbh/tasks/tbh_task_22dc33aab6297db3",
+      "instruction_sha256": "9e6019701886cef54a0fafdc0dc3a65e790e94dd0bdc94af5aa198ce4bb6d7b9",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_276990ea65b4d18e",
+      "source": "tbh",
+      "task_id": "tbh_task_276990ea65b4d18e",
+      "path": "data/tbh/tasks/tbh_task_276990ea65b4d18e",
+      "instruction_sha256": "4f037fc4fc1864275a7b7ca669f799e6666b6ebc2a262c7bdaf5b7555907ae12",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_28fd995cb0439cd9",
+      "source": "tbh",
+      "task_id": "tbh_task_28fd995cb0439cd9",
+      "path": "data/tbh/tasks/tbh_task_28fd995cb0439cd9",
+      "instruction_sha256": "29f94d90b8cc81d19f8da303908acc8eb45cb52f56ab2293d91f789029533bbf",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_2a7d091cffe1dbf4",
+      "source": "tbh",
+      "task_id": "tbh_task_2a7d091cffe1dbf4",
+      "path": "data/tbh/tasks/tbh_task_2a7d091cffe1dbf4",
+      "instruction_sha256": "74e85627133829da386389b7ac2e99ff4b80374462ec9d92c78a8c935ab0415b",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_2d313903cabb4f6c",
+      "source": "tbh",
+      "task_id": "tbh_task_2d313903cabb4f6c",
+      "path": "data/tbh/tasks/tbh_task_2d313903cabb4f6c",
+      "instruction_sha256": "ccb7098d8fb04091221967ef9e9f644955551cffb8e4b52a9a568c957360e75d",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_2d93f49a359191de",
+      "source": "tbh",
+      "task_id": "tbh_task_2d93f49a359191de",
+      "path": "data/tbh/tasks/tbh_task_2d93f49a359191de",
+      "instruction_sha256": "611ff24f53823d6c9d991b41b9bb163d1f0239084510b284e68cfb2b34b60275",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_2f60ef8e356e9b5e",
+      "source": "tbh",
+      "task_id": "tbh_task_2f60ef8e356e9b5e",
+      "path": "data/tbh/tasks/tbh_task_2f60ef8e356e9b5e",
+      "instruction_sha256": "832b69a5caeac48192b180c62f17642e3be887c3f086254d810c1ba7ed6044ab",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_302dd2bfccb0feaf",
+      "source": "tbh",
+      "task_id": "tbh_task_302dd2bfccb0feaf",
+      "path": "data/tbh/tasks/tbh_task_302dd2bfccb0feaf",
+      "instruction_sha256": "b05af2933741701d98e50bec46ecbf099196a879ef553c889dec100aa9a2236e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_30ee1bad124b54e4",
+      "source": "tbh",
+      "task_id": "tbh_task_30ee1bad124b54e4",
+      "path": "data/tbh/tasks/tbh_task_30ee1bad124b54e4",
+      "instruction_sha256": "0a54d7ddbf84ab03c94a8d8de379e05a8a2009b120e8173e0ace5526956aac8f",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_3280bade2c98c2d1",
+      "source": "tbh",
+      "task_id": "tbh_task_3280bade2c98c2d1",
+      "path": "data/tbh/tasks/tbh_task_3280bade2c98c2d1",
+      "instruction_sha256": "fd529874a40351b1298d65fd343b3dca998a1bb89d87b31f6180ec374fee10b7",
+      "status": "review_before_run"
+    },
+    {
+      "id": "tbh__tbh_task_33cf08c2cb634768",
+      "source": "tbh",
+      "task_id": "tbh_task_33cf08c2cb634768",
+      "path": "data/tbh/tasks/tbh_task_33cf08c2cb634768",
+      "instruction_sha256": "1b58160d3b490dc9383abec4ea64734f9859c171726749ee35dfc70fea89b690",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_360470d0105971d1",
+      "source": "tbh",
+      "task_id": "tbh_task_360470d0105971d1",
+      "path": "data/tbh/tasks/tbh_task_360470d0105971d1",
+      "instruction_sha256": "6461c770fdd852baf2860bcef97ac5afd089e015ff2c789774614fe88dbb8300",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_3a045a680ca99196",
+      "source": "tbh",
+      "task_id": "tbh_task_3a045a680ca99196",
+      "path": "data/tbh/tasks/tbh_task_3a045a680ca99196",
+      "instruction_sha256": "eddc850be127f5de2876736f3f2627ef8e3c9d0d2f875e50040e106310e02444",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_3f747eeb1b29db39",
+      "source": "tbh",
+      "task_id": "tbh_task_3f747eeb1b29db39",
+      "path": "data/tbh/tasks/tbh_task_3f747eeb1b29db39",
+      "instruction_sha256": "d8edd1d27c3e97df1fc38c44e47afb711723f7e8577d8829bac25767ba391eb6",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_454c321755003c76",
+      "source": "tbh",
+      "task_id": "tbh_task_454c321755003c76",
+      "path": "data/tbh/tasks/tbh_task_454c321755003c76",
+      "instruction_sha256": "d1030c9f689836f166667bf0913d2d4f8bf151dca07ddfcaa734d63bb9f9a901",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_5631b23768838bc1",
+      "source": "tbh",
+      "task_id": "tbh_task_5631b23768838bc1",
+      "path": "data/tbh/tasks/tbh_task_5631b23768838bc1",
+      "instruction_sha256": "9a58d78030dfd813914c6a418d302dcd20cc39aacdd42069ce13b76784e830a9",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_584ea7ae6d47dfe6",
+      "source": "tbh",
+      "task_id": "tbh_task_584ea7ae6d47dfe6",
+      "path": "data/tbh/tasks/tbh_task_584ea7ae6d47dfe6",
+      "instruction_sha256": "091f28cfe1f47f16d5e412adf8979fdbc11362e4c4253ad6ecb32668f42b238d",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_587af04d90ee0424",
+      "source": "tbh",
+      "task_id": "tbh_task_587af04d90ee0424",
+      "path": "data/tbh/tasks/tbh_task_587af04d90ee0424",
+      "instruction_sha256": "d06caf44e196be3090620d6284136ea14aa4ee125b2e8cceee71cc5400babd41",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_601d5486f2153b64",
+      "source": "tbh",
+      "task_id": "tbh_task_601d5486f2153b64",
+      "path": "data/tbh/tasks/tbh_task_601d5486f2153b64",
+      "instruction_sha256": "69b63acbcabcc690ccd9122c848f52ab0b29f36ade82649433826ad9fa076a20",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_60e58e6c8f2f36f4",
+      "source": "tbh",
+      "task_id": "tbh_task_60e58e6c8f2f36f4",
+      "path": "data/tbh/tasks/tbh_task_60e58e6c8f2f36f4",
+      "instruction_sha256": "dfd06cafc1238f647ce21ca0e69c4aecfa6a447d2578eb69d61747300f5e5269",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_6355e8eeedf2490f",
+      "source": "tbh",
+      "task_id": "tbh_task_6355e8eeedf2490f",
+      "path": "data/tbh/tasks/tbh_task_6355e8eeedf2490f",
+      "instruction_sha256": "b95ae547dfe37c6f58fab2969cfa20c67a53a429d17630dacea75ebb41c8070e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_68ad0f0e086b5998",
+      "source": "tbh",
+      "task_id": "tbh_task_68ad0f0e086b5998",
+      "path": "data/tbh/tasks/tbh_task_68ad0f0e086b5998",
+      "instruction_sha256": "f3d6dd6b88fc7055bbb08e49d269df12dd727dad750eb59801c961c4be99e5f5",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_6a29ccb05c508d7b",
+      "source": "tbh",
+      "task_id": "tbh_task_6a29ccb05c508d7b",
+      "path": "data/tbh/tasks/tbh_task_6a29ccb05c508d7b",
+      "instruction_sha256": "47472141deaa742492e6e0b29cb2663e235172483cea87f3725e246b025f1353",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_729d03972163d49b",
+      "source": "tbh",
+      "task_id": "tbh_task_729d03972163d49b",
+      "path": "data/tbh/tasks/tbh_task_729d03972163d49b",
+      "instruction_sha256": "3eb73e177e9b65a0fb10ff8d15eba4d6b73174464c8a403bac2108e74efd8e65",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_75c31bc5a09f370c",
+      "source": "tbh",
+      "task_id": "tbh_task_75c31bc5a09f370c",
+      "path": "data/tbh/tasks/tbh_task_75c31bc5a09f370c",
+      "instruction_sha256": "a2d59284a7c62bd9d58282ff559b294c33596ccd7f0be024944ae18dbf855a11",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_7d7e28808867ab1a",
+      "source": "tbh",
+      "task_id": "tbh_task_7d7e28808867ab1a",
+      "path": "data/tbh/tasks/tbh_task_7d7e28808867ab1a",
+      "instruction_sha256": "b3999c14e1d5d5c61ff16f8d069f95aad61b7e6aba2e5de1a134824d9241bcb1",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_82cdb54713f56aa8",
+      "source": "tbh",
+      "task_id": "tbh_task_82cdb54713f56aa8",
+      "path": "data/tbh/tasks/tbh_task_82cdb54713f56aa8",
+      "instruction_sha256": "ce55809a961d9a66c342b0b062e406480064337c966c795c26fde5a34ede78ae",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_834b75c3ca446f74",
+      "source": "tbh",
+      "task_id": "tbh_task_834b75c3ca446f74",
+      "path": "data/tbh/tasks/tbh_task_834b75c3ca446f74",
+      "instruction_sha256": "38184fc456b8b05b468e48c81542b3c4063653c021aee11d2a8255f13eac9ec7",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_881547b08c4e160e",
+      "source": "tbh",
+      "task_id": "tbh_task_881547b08c4e160e",
+      "path": "data/tbh/tasks/tbh_task_881547b08c4e160e",
+      "instruction_sha256": "309d6da39f99b921cbfa3b02a4206bfd710be0a89b5476facead2275f005518e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_8b3a71d1064b7be0",
+      "source": "tbh",
+      "task_id": "tbh_task_8b3a71d1064b7be0",
+      "path": "data/tbh/tasks/tbh_task_8b3a71d1064b7be0",
+      "instruction_sha256": "97aefbcbe5a5754bc3c07aeb7022ef7779f98f4a1f77fe42bfca1883861e3dbb",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_8b8b442da63e257c",
+      "source": "tbh",
+      "task_id": "tbh_task_8b8b442da63e257c",
+      "path": "data/tbh/tasks/tbh_task_8b8b442da63e257c",
+      "instruction_sha256": "6ae037bb6816f7da513c25f5838199c1d4243c4cf8f8b59fd0c7e5625b629ca9",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_90e1c3a823ad20f5",
+      "source": "tbh",
+      "task_id": "tbh_task_90e1c3a823ad20f5",
+      "path": "data/tbh/tasks/tbh_task_90e1c3a823ad20f5",
+      "instruction_sha256": "c8b5fa66d2062701a2b35071a3ca2b16ae448603f8035b2cc8533b63c0beb9b9",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_93fc06e7d7f3a58f",
+      "source": "tbh",
+      "task_id": "tbh_task_93fc06e7d7f3a58f",
+      "path": "data/tbh/tasks/tbh_task_93fc06e7d7f3a58f",
+      "instruction_sha256": "8d4d92e523b376f19966880a493bbfda0b5780ef5fa866693b05b69b89a71cf2",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_9553cb649f0279a6",
+      "source": "tbh",
+      "task_id": "tbh_task_9553cb649f0279a6",
+      "path": "data/tbh/tasks/tbh_task_9553cb649f0279a6",
+      "instruction_sha256": "b0c7d77da0d91303b9efda0f5fbfccd8b2afbf7714b2acf72a40e7711c5321f8",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_99cd6bc33eb11629",
+      "source": "tbh",
+      "task_id": "tbh_task_99cd6bc33eb11629",
+      "path": "data/tbh/tasks/tbh_task_99cd6bc33eb11629",
+      "instruction_sha256": "068060b8f987302a458d1a7aed9ebc69b897527191fff3105c05d5cc38f5ac8a",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_99e51a442c6edebd",
+      "source": "tbh",
+      "task_id": "tbh_task_99e51a442c6edebd",
+      "path": "data/tbh/tasks/tbh_task_99e51a442c6edebd",
+      "instruction_sha256": "e7a12de0c3a30fdaa8f4a0c3c06284a942d073b762721fb19f1e231ef2fd0a97",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_9b54472b896e0704",
+      "source": "tbh",
+      "task_id": "tbh_task_9b54472b896e0704",
+      "path": "data/tbh/tasks/tbh_task_9b54472b896e0704",
+      "instruction_sha256": "865ef864eae8a72fa40bc6535918e77d65c5faef1b19585c04db2529db733209",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_9e4d1b21072cfe6b",
+      "source": "tbh",
+      "task_id": "tbh_task_9e4d1b21072cfe6b",
+      "path": "data/tbh/tasks/tbh_task_9e4d1b21072cfe6b",
+      "instruction_sha256": "a1e3ee68c6a767753357b7143f47fcbd01c07ce9c214fbcef29919d499837faa",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_a1b8dbbe01e426bc",
+      "source": "tbh",
+      "task_id": "tbh_task_a1b8dbbe01e426bc",
+      "path": "data/tbh/tasks/tbh_task_a1b8dbbe01e426bc",
+      "instruction_sha256": "712371d243d320c550799c623564ee0786afd8dd72a069283a45d30b1778c20b",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_a288481ee759361d",
+      "source": "tbh",
+      "task_id": "tbh_task_a288481ee759361d",
+      "path": "data/tbh/tasks/tbh_task_a288481ee759361d",
+      "instruction_sha256": "a431a6f983391547230153db28bc3917c4fe42d2cb8c7646d2e10e2067b184cf",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_a3636f22fa17cc6d",
+      "source": "tbh",
+      "task_id": "tbh_task_a3636f22fa17cc6d",
+      "path": "data/tbh/tasks/tbh_task_a3636f22fa17cc6d",
+      "instruction_sha256": "ee52b7db7f783c7036645efe6a133fec59984574161949e3e7a3599648dee73e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_a73beb6749d55568",
+      "source": "tbh",
+      "task_id": "tbh_task_a73beb6749d55568",
+      "path": "data/tbh/tasks/tbh_task_a73beb6749d55568",
+      "instruction_sha256": "1faa07de911e61874299492bc73a2676cac3e5970660c9eabf923f5beb94c5ae",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_a7f0b82a4f205775",
+      "source": "tbh",
+      "task_id": "tbh_task_a7f0b82a4f205775",
+      "path": "data/tbh/tasks/tbh_task_a7f0b82a4f205775",
+      "instruction_sha256": "4557c7f8aa5b49e9c3f28a26b2573cb5c654fb660ef5a5bbe8eaac9a51bb9fe8",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_aa7daf3eb00fdcda",
+      "source": "tbh",
+      "task_id": "tbh_task_aa7daf3eb00fdcda",
+      "path": "data/tbh/tasks/tbh_task_aa7daf3eb00fdcda",
+      "instruction_sha256": "6abe2453a6446630937321a9e8885077506358299f42e6c038ecc9fe530bf7bf",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_aaabe9842978fa41",
+      "source": "tbh",
+      "task_id": "tbh_task_aaabe9842978fa41",
+      "path": "data/tbh/tasks/tbh_task_aaabe9842978fa41",
+      "instruction_sha256": "b17619e384a3d313da75e3d61297637d2fd373c6d829d9b0e163be95f35599c3",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_aaf1a7faee31e564",
+      "source": "tbh",
+      "task_id": "tbh_task_aaf1a7faee31e564",
+      "path": "data/tbh/tasks/tbh_task_aaf1a7faee31e564",
+      "instruction_sha256": "5eaa40032e462294ba6af4373c66272b545625b96fd43fd01fba96a66eb70dd0",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_aba8e19f775fc60e",
+      "source": "tbh",
+      "task_id": "tbh_task_aba8e19f775fc60e",
+      "path": "data/tbh/tasks/tbh_task_aba8e19f775fc60e",
+      "instruction_sha256": "cdc9e442c4804fa4dd9b73b5ddf8f02f6b1a70b63dac0cf696d70381799c7237",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_abd213d6446d851a",
+      "source": "tbh",
+      "task_id": "tbh_task_abd213d6446d851a",
+      "path": "data/tbh/tasks/tbh_task_abd213d6446d851a",
+      "instruction_sha256": "f8f371ac4c45ef3a917fd556dda0340203610861d1823320ec74ef870e9993a3",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_ae4c101410cd59b3",
+      "source": "tbh",
+      "task_id": "tbh_task_ae4c101410cd59b3",
+      "path": "data/tbh/tasks/tbh_task_ae4c101410cd59b3",
+      "instruction_sha256": "9757ea66ec5f84235e1c36ed411d08947b9b962413c018502318e7a657dca867",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_b0c5594287523585",
+      "source": "tbh",
+      "task_id": "tbh_task_b0c5594287523585",
+      "path": "data/tbh/tasks/tbh_task_b0c5594287523585",
+      "instruction_sha256": "cbd6c59f7e5d6ff83574a8648c6eccbc81010aeb120f9525a9f349381a678cbe",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_b237a186590c87dd",
+      "source": "tbh",
+      "task_id": "tbh_task_b237a186590c87dd",
+      "path": "data/tbh/tasks/tbh_task_b237a186590c87dd",
+      "instruction_sha256": "464ebb9b330136c7fcd3188ed458b2bfc96cb40b954ebdf518133b2838879476",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_b2c4085f2b2cd6a6",
+      "source": "tbh",
+      "task_id": "tbh_task_b2c4085f2b2cd6a6",
+      "path": "data/tbh/tasks/tbh_task_b2c4085f2b2cd6a6",
+      "instruction_sha256": "d5fce25617b9b0e8a0f9bcef782859b4f5eea6dd980a06a3da8e9e36c7baa4df",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_b389c0c4e8f7120d",
+      "source": "tbh",
+      "task_id": "tbh_task_b389c0c4e8f7120d",
+      "path": "data/tbh/tasks/tbh_task_b389c0c4e8f7120d",
+      "instruction_sha256": "8e42ce203fa41c43e505ebfb42fe12845655cd74c8a9e5f5a1ac5bc44cc0415e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_b528f72dbb214e70",
+      "source": "tbh",
+      "task_id": "tbh_task_b528f72dbb214e70",
+      "path": "data/tbh/tasks/tbh_task_b528f72dbb214e70",
+      "instruction_sha256": "0e2e96b9e5432d7d141277b0c41d639b6d9aa8370b14c75405641956ceaca504",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_b9b7707bd7c6525e",
+      "source": "tbh",
+      "task_id": "tbh_task_b9b7707bd7c6525e",
+      "path": "data/tbh/tasks/tbh_task_b9b7707bd7c6525e",
+      "instruction_sha256": "4d0f5dac5d8cf25fade469f07f4fbd5fff1e1363da504d4fb52ea6f77eceaa95",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_c0d7207c65d3213e",
+      "source": "tbh",
+      "task_id": "tbh_task_c0d7207c65d3213e",
+      "path": "data/tbh/tasks/tbh_task_c0d7207c65d3213e",
+      "instruction_sha256": "6e66a11fb33edd912a4dc9b9c18f318bea6d52f05a296b176af97bc60b94aaff",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_c6c00a4dab8d28fb",
+      "source": "tbh",
+      "task_id": "tbh_task_c6c00a4dab8d28fb",
+      "path": "data/tbh/tasks/tbh_task_c6c00a4dab8d28fb",
+      "instruction_sha256": "9c81f0a0261fa2c08bed2bf18a8f7924acb50eb55835c4bc25ccf9e3fbb6dc88",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_cfe6a2d5b53d18bc",
+      "source": "tbh",
+      "task_id": "tbh_task_cfe6a2d5b53d18bc",
+      "path": "data/tbh/tasks/tbh_task_cfe6a2d5b53d18bc",
+      "instruction_sha256": "4e9b5a3692058110ae232ff6103ff547e6ffeeee221c129ed320ad013c5f8376",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_d557a114712de69f",
+      "source": "tbh",
+      "task_id": "tbh_task_d557a114712de69f",
+      "path": "data/tbh/tasks/tbh_task_d557a114712de69f",
+      "instruction_sha256": "b6fc9cc236e889ed24b3aed087588606d04bcc551d42f118061898ff923f43bd",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_d574621170ea30f0",
+      "source": "tbh",
+      "task_id": "tbh_task_d574621170ea30f0",
+      "path": "data/tbh/tasks/tbh_task_d574621170ea30f0",
+      "instruction_sha256": "a655b614707cf3bfca8c10f7e84071b641cd6bc98113df302ccf4260e234523e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_d7a165b43c1bc0a1",
+      "source": "tbh",
+      "task_id": "tbh_task_d7a165b43c1bc0a1",
+      "path": "data/tbh/tasks/tbh_task_d7a165b43c1bc0a1",
+      "instruction_sha256": "ed76b57df58b754ca739c54f9a0859bf0aa4ca860768992c6042dd554782215d",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_d8154e00abf9ca0c",
+      "source": "tbh",
+      "task_id": "tbh_task_d8154e00abf9ca0c",
+      "path": "data/tbh/tasks/tbh_task_d8154e00abf9ca0c",
+      "instruction_sha256": "be051df7472bbecf4242f5c2d0ab3d78da2177e10706f101f56d64441ae0d4f8",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_db086b268035f070",
+      "source": "tbh",
+      "task_id": "tbh_task_db086b268035f070",
+      "path": "data/tbh/tasks/tbh_task_db086b268035f070",
+      "instruction_sha256": "776532801ae445afa292439e2a5ffbf38f454593925d4893ea565354d5baf858",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_dce7856694a6106a",
+      "source": "tbh",
+      "task_id": "tbh_task_dce7856694a6106a",
+      "path": "data/tbh/tasks/tbh_task_dce7856694a6106a",
+      "instruction_sha256": "164e404de56d25d5cae485e4c7c4d5b7664c8e96a61251dc0d857609473b369c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_dd38356cddcc8eb0",
+      "source": "tbh",
+      "task_id": "tbh_task_dd38356cddcc8eb0",
+      "path": "data/tbh/tasks/tbh_task_dd38356cddcc8eb0",
+      "instruction_sha256": "8fe83fae573decfc7b58f4fe5f66c971686ee48a59ef8b0f2aa4f4b13292e583",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_de90f2c5fb862efc",
+      "source": "tbh",
+      "task_id": "tbh_task_de90f2c5fb862efc",
+      "path": "data/tbh/tasks/tbh_task_de90f2c5fb862efc",
+      "instruction_sha256": "958b404e22e544ad153464a56a80f693a0ba74d7f9a09dedf5f8ccd515e66159",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_e6066535815b7151",
+      "source": "tbh",
+      "task_id": "tbh_task_e6066535815b7151",
+      "path": "data/tbh/tasks/tbh_task_e6066535815b7151",
+      "instruction_sha256": "e5dcd1b7ca2a9c8f4e2f76098372d673770b2dbf90c7d609c6849b7ca449fd9f",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_e64b62762a1a4773",
+      "source": "tbh",
+      "task_id": "tbh_task_e64b62762a1a4773",
+      "path": "data/tbh/tasks/tbh_task_e64b62762a1a4773",
+      "instruction_sha256": "9efd07fcba590486687601a62579197934d3f9c5bbe83966a31a7f9c685da695",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_e7bd73bfecdd68d2",
+      "source": "tbh",
+      "task_id": "tbh_task_e7bd73bfecdd68d2",
+      "path": "data/tbh/tasks/tbh_task_e7bd73bfecdd68d2",
+      "instruction_sha256": "ef4a2d17822fa256b93607d4671d1f04704fb48380135996c8905601649e0fc0",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f0af33f7bec74d8b",
+      "source": "tbh",
+      "task_id": "tbh_task_f0af33f7bec74d8b",
+      "path": "data/tbh/tasks/tbh_task_f0af33f7bec74d8b",
+      "instruction_sha256": "1c4fabe20b9072c17859c60370a8d117fddaf53340b27858734387eb6693f863",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f0c97317690ef148",
+      "source": "tbh",
+      "task_id": "tbh_task_f0c97317690ef148",
+      "path": "data/tbh/tasks/tbh_task_f0c97317690ef148",
+      "instruction_sha256": "a8df12505d3c292ff94782950d63df903fddacdadac33e4faf300ad6c89a1758",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f1ac93f76893b5a2",
+      "source": "tbh",
+      "task_id": "tbh_task_f1ac93f76893b5a2",
+      "path": "data/tbh/tasks/tbh_task_f1ac93f76893b5a2",
+      "instruction_sha256": "363264d205058ee5441ed328d9f88eee788c5270c5d6ab16027814eb4426f20e",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f1d868d26a954722",
+      "source": "tbh",
+      "task_id": "tbh_task_f1d868d26a954722",
+      "path": "data/tbh/tasks/tbh_task_f1d868d26a954722",
+      "instruction_sha256": "09f95b15c2d87f4e73a529c2183b6ae08ba017592086a6718681370ef77f33f6",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f230e87093ffa566",
+      "source": "tbh",
+      "task_id": "tbh_task_f230e87093ffa566",
+      "path": "data/tbh/tasks/tbh_task_f230e87093ffa566",
+      "instruction_sha256": "fc61b8f7a646a21d52c09bed832633cbbeb7d544355407c8a1a51e5f7ae1db0c",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f3e6837a299f1131",
+      "source": "tbh",
+      "task_id": "tbh_task_f3e6837a299f1131",
+      "path": "data/tbh/tasks/tbh_task_f3e6837a299f1131",
+      "instruction_sha256": "5d56192385c03e380918c28f7ce45890058b99ae860004f8004d799e4b7ea4e2",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f5f007e7ee20da0d",
+      "source": "tbh",
+      "task_id": "tbh_task_f5f007e7ee20da0d",
+      "path": "data/tbh/tasks/tbh_task_f5f007e7ee20da0d",
+      "instruction_sha256": "a4601dd303ac95e438e48281610372500a76a5e9ca0bcb37487d442e9ff1ccca",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f766648d2620d7de",
+      "source": "tbh",
+      "task_id": "tbh_task_f766648d2620d7de",
+      "path": "data/tbh/tasks/tbh_task_f766648d2620d7de",
+      "instruction_sha256": "69a6bbdcf8d3ae750315c6cbed4372f2fa8939240a504f8141f8f586ced7a437",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_f83d84c7dd0cc992",
+      "source": "tbh",
+      "task_id": "tbh_task_f83d84c7dd0cc992",
+      "path": "data/tbh/tasks/tbh_task_f83d84c7dd0cc992",
+      "instruction_sha256": "85320509d9e6e9e9314376e3b6f974728e63ff7427865c67fdef414c0688d198",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_fa699411e024a213",
+      "source": "tbh",
+      "task_id": "tbh_task_fa699411e024a213",
+      "path": "data/tbh/tasks/tbh_task_fa699411e024a213",
+      "instruction_sha256": "a71aee3116832155d4ba1ea6778ae9fd4f11a24771d2ccb8968a1e67e660a3b1",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_fb2da3e652c57ac8",
+      "source": "tbh",
+      "task_id": "tbh_task_fb2da3e652c57ac8",
+      "path": "data/tbh/tasks/tbh_task_fb2da3e652c57ac8",
+      "instruction_sha256": "b476bc66d6088d7c62bc7dfaca022700a59328061f5a0fafd9b82b18e8e1e574",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_fbb5f628df63a3ee",
+      "source": "tbh",
+      "task_id": "tbh_task_fbb5f628df63a3ee",
+      "path": "data/tbh/tasks/tbh_task_fbb5f628df63a3ee",
+      "instruction_sha256": "9b95c6afe9bd4abf4f600b71b7045204c2d7600bbc3da187570754dc75563321",
+      "status": "candidate_not_runtime_certified"
+    },
+    {
+      "id": "tbh__tbh_task_fdb2d71973ae1112",
+      "source": "tbh",
+      "task_id": "tbh_task_fdb2d71973ae1112",
+      "path": "data/tbh/tasks/tbh_task_fdb2d71973ae1112",
+      "instruction_sha256": "5bcc4aeb61403f40d4f38f3c7aa8a9a543a135a989a37bbc42568656d8de3b0f",
+      "status": "candidate_not_runtime_certified"
+    }
+  ],
+  "cross_source_duplicates": {
+    "exact_instruction_pairs": 0,
+    "exact_verifier_pairs": 0,
+    "confirmed_obvious_semantic_pairs": 0,
+    "limitation": "TF-IDF is a recall aid, not a proof of semantic independence; high-ranked pairs manually reviewed."
+  }
+}

@@ -1,0 +1,6 @@
+[project]
+name = "rsi-abc"
+version = "0.1.0"
+description = "Repeated-evaluation harness RSI with stability and forgetting repair"
+requires-python = ">=3.12"
+dependencies = ["httpx==0.28.1", "PyYAML==6.0.3"]

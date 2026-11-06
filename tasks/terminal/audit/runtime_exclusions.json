@@ -1,0 +1,1126 @@
+{
+  "scope": "Temporary environment exclusions",
+  "count": 0,
+  "tasks": [],
+  "resolution": "All 86 Aliyun-dependent tasks restored using pinned upstream images; see base_image_migrations.json",
+  "resolved": [
+    {
+      "id": "tb__draft_dp_00241ea7_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_00241ea7_aopeng",
+      "path": "data/tb/tasks/draft_dp_00241ea7_aopeng",
+      "instruction_sha256": "f7f78f6b4e0b18db4272f695076083a19a992822d07e0d42f340f32bacb53165",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_027c6d5b_qingshu",
+      "source": "tb",
+      "task_id": "draft_dp_027c6d5b_qingshu",
+      "path": "data/tb/tasks/draft_dp_027c6d5b_qingshu",
+      "instruction_sha256": "11d177bbe884eb1b5d66c7dd9c32f872c99ace01e8c792653c961fffa8b87f72",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_029f82e0_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_029f82e0_haitian",
+      "path": "data/tb/tasks/draft_dp_029f82e0_haitian",
+      "instruction_sha256": "073aa50c69de523700bec39b4870761791b5c3eb6336530ec44cb6ce1e3b3c56",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0365b530_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0365b530_aopeng",
+      "path": "data/tb/tasks/draft_dp_0365b530_aopeng",
+      "instruction_sha256": "98a1699a6e4722ebf84c722a6e9d23b0636dc04302d9c8d3fefe2ac4f8329e93",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_047cec79_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_047cec79_aopeng",
+      "path": "data/tb/tasks/draft_dp_047cec79_aopeng",
+      "instruction_sha256": "91dd9acf9fcbe0e747579fcf912042bbc51e61eb3370da5cb19a40e0cbfd5ff7",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_051e178c_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_051e178c_aopeng",
+      "path": "data/tb/tasks/draft_dp_051e178c_aopeng",
+      "instruction_sha256": "05317ac8636eeaf6489e2d226b69b8b60c835e0d550fdf03b9a902a8b31acfc0",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_05c360a7_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_05c360a7_aopeng",
+      "path": "data/tb/tasks/draft_dp_05c360a7_aopeng",
+      "instruction_sha256": "d72f250e7e33ed6de9a0c742ece7d834fe48e6d659de1cafd928e43f66674966",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0a4b8876_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_0a4b8876_haitian",
+      "path": "data/tb/tasks/draft_dp_0a4b8876_haitian",
+      "instruction_sha256": "a985f09bf08d23065ba489c0d32646488b119e255711d8cfd6cc7b64e4c85d37",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0bcad9db_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_0bcad9db_haitian",
+      "path": "data/tb/tasks/draft_dp_0bcad9db_haitian",
+      "instruction_sha256": "eea292e9eb119bf70feb17575eedbb1f9fecfbcb40221c0cf552ef37736c9635",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0be98359_outa",
+      "source": "tb",
+      "task_id": "draft_dp_0be98359_outa",
+      "path": "data/tb/tasks/draft_dp_0be98359_outa",
+      "instruction_sha256": "0d423ed76faae45f05d63a9e607a262a4218a55c333545b2863973ac45fa3c82",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0c94553a_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_0c94553a_haitian",
+      "path": "data/tb/tasks/draft_dp_0c94553a_haitian",
+      "instruction_sha256": "dccdc804520db32c73d87fcc665df2a8ce48de534c19e7b402c549e955df6c4a",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0d503075_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0d503075_aopeng",
+      "path": "data/tb/tasks/draft_dp_0d503075_aopeng",
+      "instruction_sha256": "d584b7a3be51ef0ac2e0ec573da80dd2f4b2b5f4057b0e9cc19a451476b8d0f2",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0f5eabe2_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0f5eabe2_aopeng",
+      "path": "data/tb/tasks/draft_dp_0f5eabe2_aopeng",
+      "instruction_sha256": "3ac84452738a87fdfb0794bb06fccf252d6bde34c32fdfea6dbbe1191c94c944",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0fbf3883_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0fbf3883_aopeng",
+      "path": "data/tb/tasks/draft_dp_0fbf3883_aopeng",
+      "instruction_sha256": "136721ab787e8d2f1629a15dab73c471831f589808e0475652a64069b01541e1",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_0fc5ba38_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_0fc5ba38_aopeng",
+      "path": "data/tb/tasks/draft_dp_0fc5ba38_aopeng",
+      "instruction_sha256": "3a90af3a50744c9cf76bca36bee2afd0798a0baa63885772a8e91670a5c42c98",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_1090855b_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_1090855b_aopeng",
+      "path": "data/tb/tasks/draft_dp_1090855b_aopeng",
+      "instruction_sha256": "adbf52d2f4fe743d87a38933992469a0d2d3f5f529f5343da8c4fd1fc41417dc",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_109b3f5c_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_109b3f5c_aopeng",
+      "path": "data/tb/tasks/draft_dp_109b3f5c_aopeng",
+      "instruction_sha256": "0b771555b63e3a4a456cc3de05239d645933f0e1fe2e7e38d5605e3c92969702",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_11b1a39a_outa",
+      "source": "tb",
+      "task_id": "draft_dp_11b1a39a_outa",
+      "path": "data/tb/tasks/draft_dp_11b1a39a_outa",
+      "instruction_sha256": "5382564dd74cca910db8248e1d9fd54b953d3ad5b8822b88577111f1eedfe80a",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "source": "tb",
+      "task_id": "draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "path": "data/tb/tasks/draft_dp_132e0ed6-a542-48f0-bade-a445ca745ab6_outa",
+      "instruction_sha256": "bdd3db38cf54342ba916868707eca3c0c9e5c4cd1f6512801c3144994354e066",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "source": "tb",
+      "task_id": "draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "path": "data/tb/tasks/draft_dp_13989c5a-d97d-49ea-b82b-3d41464a8ad7_outa",
+      "instruction_sha256": "89be6d7aaf04661176ce14a477a7547bb2903165eb1f8c1ef85b80d8770b6743",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_14b09723_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_14b09723_aopeng",
+      "path": "data/tb/tasks/draft_dp_14b09723_aopeng",
+      "instruction_sha256": "8fd8c332502fef9416f26b0c74c4930be334a53861f4fc4b0285a93b6e8b7368",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_1543057007y_outa",
+      "source": "tb",
+      "task_id": "draft_dp_1543057007y_outa",
+      "path": "data/tb/tasks/draft_dp_1543057007y_outa",
+      "instruction_sha256": "ad572a5967959fadfe8b9802df26933b4152177e16668b40ef32ea845b1ca991",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_15dc5f5f_outa",
+      "source": "tb",
+      "task_id": "draft_dp_15dc5f5f_outa",
+      "path": "data/tb/tasks/draft_dp_15dc5f5f_outa",
+      "instruction_sha256": "c0b6844fe3f0806ffd952c7a835642e24a80a82eaab31d279964b88462107004",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_16091623_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_16091623_haitian",
+      "path": "data/tb/tasks/draft_dp_16091623_haitian",
+      "instruction_sha256": "6e063ea59c088e99a732e1209e3f1ac2c8bfc551413c405bf45b00f46e6cd6b8",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_18a4bb7a_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_18a4bb7a_haitian",
+      "path": "data/tb/tasks/draft_dp_18a4bb7a_haitian",
+      "instruction_sha256": "32dcf73347af226ab658839fe96e71435bfeb9b9d41f0623415ce183e5902063",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_1e821a8e_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_1e821a8e_aopeng",
+      "path": "data/tb/tasks/draft_dp_1e821a8e_aopeng",
+      "instruction_sha256": "46f8abf5236f1031db567e8049a7d847e0e55745100dd0f4bf07cee699aaabfd",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_22a5bafa_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_22a5bafa_aopeng",
+      "path": "data/tb/tasks/draft_dp_22a5bafa_aopeng",
+      "instruction_sha256": "8c9a87dceaf370e611a83fd4c4829efab3c8130d189906f3edb79387175020fc",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_24264fed_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_24264fed_aopeng",
+      "path": "data/tb/tasks/draft_dp_24264fed_aopeng",
+      "instruction_sha256": "d8d14ec2e6dd5126a62a157bb00234c2ae3287da5e3befc07574eb048bf71914",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_26d326e6_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_26d326e6_aopeng",
+      "path": "data/tb/tasks/draft_dp_26d326e6_aopeng",
+      "instruction_sha256": "f5f496e10b6fdd6d536f0f37a8a3e308d00d1253186d2e6f8239ddb5527af095",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_28243489_outa",
+      "source": "tb",
+      "task_id": "draft_dp_28243489_outa",
+      "path": "data/tb/tasks/draft_dp_28243489_outa",
+      "instruction_sha256": "e7829f71865e26a9ffe3bcb289387edc578bfb1cf0f1e0b9876fe0b52a8dd407",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_29825e59lxw_outa",
+      "source": "tb",
+      "task_id": "draft_dp_29825e59lxw_outa",
+      "path": "data/tb/tasks/draft_dp_29825e59lxw_outa",
+      "instruction_sha256": "353bb72a4248de67e45d9e7be09b9203ffcb4fee2bf4a24c52c430b58d429912",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_29f5c2c3_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_29f5c2c3_haitian",
+      "path": "data/tb/tasks/draft_dp_29f5c2c3_haitian",
+      "instruction_sha256": "2426b6038ec2f90d09b7bc1e4a47b82cc226e84d8f4ba55f2081ee44e4458717",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_2a8dbc50_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_2a8dbc50_haitian",
+      "path": "data/tb/tasks/draft_dp_2a8dbc50_haitian",
+      "instruction_sha256": "4ccd4ef539a7a3bf6d0c889c617e31fdbe4cdffe073159d2c22d0e1cf47fe035",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_2f7b1d3e_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_2f7b1d3e_aopeng",
+      "path": "data/tb/tasks/draft_dp_2f7b1d3e_aopeng",
+      "instruction_sha256": "5b4a0f76a5fc77ddde44feabf8e5216b9e11cc2c007362570130b518df1adefa",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_30893ae8eap_outa",
+      "source": "tb",
+      "task_id": "draft_dp_30893ae8eap_outa",
+      "path": "data/tb/tasks/draft_dp_30893ae8eap_outa",
+      "instruction_sha256": "8a0a66964831be87f60b18b4df05e0980e8862dd95e1f1c4133d7d5ba7c761c7",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_30b6c93e_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_30b6c93e_aopeng",
+      "path": "data/tb/tasks/draft_dp_30b6c93e_aopeng",
+      "instruction_sha256": "a469263f4ac8cb1600606dc1cd48b4e2a65dfc28866085b626443db59ce33f7c",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_3493beee_outa",
+      "source": "tb",
+      "task_id": "draft_dp_3493beee_outa",
+      "path": "data/tb/tasks/draft_dp_3493beee_outa",
+      "instruction_sha256": "3316c6da5291c321a9d9a28904b42b11f3b6101026315b71269a5c3b2dc68ff4",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_37467d31_outa",
+      "source": "tb",
+      "task_id": "draft_dp_37467d31_outa",
+      "path": "data/tb/tasks/draft_dp_37467d31_outa",
+      "instruction_sha256": "f6e8fee4ef88e96f33a8dbc6463cbbee5032008560a57258fc8ea561aaae151d",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_3bc4f214_outa",
+      "source": "tb",
+      "task_id": "draft_dp_3bc4f214_outa",
+      "path": "data/tb/tasks/draft_dp_3bc4f214_outa",
+      "instruction_sha256": "50c1baa9e7a8ed91e656f4064a1b077bd40cd94ecd525f4af4d91f5d1f426d31",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_421262feu4b_outa",
+      "source": "tb",
+      "task_id": "draft_dp_421262feu4b_outa",
+      "path": "data/tb/tasks/draft_dp_421262feu4b_outa",
+      "instruction_sha256": "da9ffc899ad627d073de426122ff1a7ae2b1f742bda87036754185fd3a692361",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_49202731_outa",
+      "source": "tb",
+      "task_id": "draft_dp_49202731_outa",
+      "path": "data/tb/tasks/draft_dp_49202731_outa",
+      "instruction_sha256": "28e28559d5589466616ec9ce79415a888480f11ed69c425ad5e3240ca05378fb",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_50724535_outa",
+      "source": "tb",
+      "task_id": "draft_dp_50724535_outa",
+      "path": "data/tb/tasks/draft_dp_50724535_outa",
+      "instruction_sha256": "da9c669f72727f415e3a4c603acdc9538d3ca884e5b801dd3c29acc2acf61cb9",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_5281e52cdis_outa",
+      "source": "tb",
+      "task_id": "draft_dp_5281e52cdis_outa",
+      "path": "data/tb/tasks/draft_dp_5281e52cdis_outa",
+      "instruction_sha256": "9134588b0bf0fffa2f285941dbccd1784d68a7b3f80a88cd32ea6d48cd579a4c",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_52e23884vdf_outa",
+      "source": "tb",
+      "task_id": "draft_dp_52e23884vdf_outa",
+      "path": "data/tb/tasks/draft_dp_52e23884vdf_outa",
+      "instruction_sha256": "f0ac87dc558d47ace528bc0a0547b434b41bd22465268172f5fbc5ba34f46577",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_534e52c84wy_outa",
+      "source": "tb",
+      "task_id": "draft_dp_534e52c84wy_outa",
+      "path": "data/tb/tasks/draft_dp_534e52c84wy_outa",
+      "instruction_sha256": "5874101d8e2b04b2b8c0e33ddfaf0892ac899cbec1d679b2eee3d51703558031",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_53c532db_outa",
+      "source": "tb",
+      "task_id": "draft_dp_53c532db_outa",
+      "path": "data/tb/tasks/draft_dp_53c532db_outa",
+      "instruction_sha256": "3890a3c093b57a7d2b8896a66a7bba507905bb439cf4312b011a6e6747a8bfab",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_5719fdd4_outa",
+      "source": "tb",
+      "task_id": "draft_dp_5719fdd4_outa",
+      "path": "data/tb/tasks/draft_dp_5719fdd4_outa",
+      "instruction_sha256": "56956a1db8687a263fa8dc3d5c92459151720e85a6079d0d7a12f054cfb94059",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_57d4c339_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_57d4c339_haitian",
+      "path": "data/tb/tasks/draft_dp_57d4c339_haitian",
+      "instruction_sha256": "719c01d6737a46c10b27d528c2b115dd03bd4cb8f1cd2ddddaaa7428594a40fe",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_58745bc61ce_outa",
+      "source": "tb",
+      "task_id": "draft_dp_58745bc61ce_outa",
+      "path": "data/tb/tasks/draft_dp_58745bc61ce_outa",
+      "instruction_sha256": "5b72685afa2a386f1c887fe5b2f9b763ab8c4dc61225829967ddcb3fbd57a563",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_58883d1a_outa",
+      "source": "tb",
+      "task_id": "draft_dp_58883d1a_outa",
+      "path": "data/tb/tasks/draft_dp_58883d1a_outa",
+      "instruction_sha256": "78eab9ea44259012e1bb65987b40dcd7808de74afb5706656382c7a99711bbeb",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_58afbfb3_outa",
+      "source": "tb",
+      "task_id": "draft_dp_58afbfb3_outa",
+      "path": "data/tb/tasks/draft_dp_58afbfb3_outa",
+      "instruction_sha256": "9d7458145872d12be0c68375204591230329d13822f7e1c5a35caa344b383e71",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_621e8e51_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_621e8e51_haitian",
+      "path": "data/tb/tasks/draft_dp_621e8e51_haitian",
+      "instruction_sha256": "60b65dfd342f3093c6d13b8bb67a91062da98ab7e5bddbbe08798a38de27eb82",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_7b459a82_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_7b459a82_haitian",
+      "path": "data/tb/tasks/draft_dp_7b459a82_haitian",
+      "instruction_sha256": "356ee16c2a4206b55761381df5e4a6878d541dafb1f18bc13a1829bc778c20bf",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_7b771a65ygl_outa",
+      "source": "tb",
+      "task_id": "draft_dp_7b771a65ygl_outa",
+      "path": "data/tb/tasks/draft_dp_7b771a65ygl_outa",
+      "instruction_sha256": "46044fe624379bf2fc99f851f3678ce2742b7c70f5861ee508b606dc89c8b255",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_7d3f46c0_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_7d3f46c0_haitian",
+      "path": "data/tb/tasks/draft_dp_7d3f46c0_haitian",
+      "instruction_sha256": "4d301e6a1a0ed1fe5a62723c6269589b996a5778db25239a1c88143a75b237ae",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_83a8b6ca_outa",
+      "source": "tb",
+      "task_id": "draft_dp_83a8b6ca_outa",
+      "path": "data/tb/tasks/draft_dp_83a8b6ca_outa",
+      "instruction_sha256": "361ac43ee0a36b8c0d37cd8e37e9e909e651bef6c56f56b2b67815c52bfa5f9d",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_8da98b12_outa",
+      "source": "tb",
+      "task_id": "draft_dp_8da98b12_outa",
+      "path": "data/tb/tasks/draft_dp_8da98b12_outa",
+      "instruction_sha256": "1eb062612898450957bca18c4f1bff1e60c8a2e96602b8d65ac0db5de6546116",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_97b13c9e_outb",
+      "source": "tb",
+      "task_id": "draft_dp_97b13c9e_outb",
+      "path": "data/tb/tasks/draft_dp_97b13c9e_outb",
+      "instruction_sha256": "6f891b2ec95a633e4bb56e8cf38bde65e4957fe9a920f9b763c4fbadabf43192",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_9e846e36_outa",
+      "source": "tb",
+      "task_id": "draft_dp_9e846e36_outa",
+      "path": "data/tb/tasks/draft_dp_9e846e36_outa",
+      "instruction_sha256": "973c24c5e5162e82d65abe44590061bc1001ffa12de23ad4d6041b4373a45356",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_a1ce6692_outb",
+      "source": "tb",
+      "task_id": "draft_dp_a1ce6692_outb",
+      "path": "data/tb/tasks/draft_dp_a1ce6692_outb",
+      "instruction_sha256": "62a541036252749531c23b40481b58e98f76970eca6f051ca9515160a8df9bee",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_a73abe98_outb",
+      "source": "tb",
+      "task_id": "draft_dp_a73abe98_outb",
+      "path": "data/tb/tasks/draft_dp_a73abe98_outb",
+      "instruction_sha256": "aef6cd660a5633492eaff57e83f6b7f10cbb7895ba97843e4fa60955e1057f75",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_a86da8a3_outb",
+      "source": "tb",
+      "task_id": "draft_dp_a86da8a3_outb",
+      "path": "data/tb/tasks/draft_dp_a86da8a3_outb",
+      "instruction_sha256": "56385ce44d4b086c9d1b129ec1afc45830feffc6e059275737c921ea96ee1367",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_a9176125_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_a9176125_haitian",
+      "path": "data/tb/tasks/draft_dp_a9176125_haitian",
+      "instruction_sha256": "f0f58b6a5ba30c53e3115801c455f3121432421fbccf1b7ba009c653a8c5905e",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_aad16747_outb",
+      "source": "tb",
+      "task_id": "draft_dp_aad16747_outb",
+      "path": "data/tb/tasks/draft_dp_aad16747_outb",
+      "instruction_sha256": "14980fd0be730a5cf9e51a67d6ac9c68d806c6229ee42d1a1d0ae26011806160",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_abdd5ed0_outb",
+      "source": "tb",
+      "task_id": "draft_dp_abdd5ed0_outb",
+      "path": "data/tb/tasks/draft_dp_abdd5ed0_outb",
+      "instruction_sha256": "14999b319edfcac801621561b1d616d3054d9f2da10706578914b9ccae8c60a5",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_adcb2ffb_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_adcb2ffb_haitian",
+      "path": "data/tb/tasks/draft_dp_adcb2ffb_haitian",
+      "instruction_sha256": "8beb97c0a758ed07ae9c308b04cbbcf5a1e64c0eb52bcbba0806448919d03740",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_af4bee51_outb",
+      "source": "tb",
+      "task_id": "draft_dp_af4bee51_outb",
+      "path": "data/tb/tasks/draft_dp_af4bee51_outb",
+      "instruction_sha256": "6df7642679037b595108ffa04cd28164532e47249dcb1af4e683c7fb715a2d4a",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_b038d77c_outb",
+      "source": "tb",
+      "task_id": "draft_dp_b038d77c_outb",
+      "path": "data/tb/tasks/draft_dp_b038d77c_outb",
+      "instruction_sha256": "cc570481ed539d1a99899d535361468ab499c42fcd24471de17971898f4f63e5",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_b838291a_outb",
+      "source": "tb",
+      "task_id": "draft_dp_b838291a_outb",
+      "path": "data/tb/tasks/draft_dp_b838291a_outb",
+      "instruction_sha256": "f2761b012912e0a0b4308ab5252d4aaf6323cd27a2d2216529e88fcca4f38028",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_baf1822c_outb",
+      "source": "tb",
+      "task_id": "draft_dp_baf1822c_outb",
+      "path": "data/tb/tasks/draft_dp_baf1822c_outb",
+      "instruction_sha256": "7506525b27da582b1a988ba70323df2542a8d26e4e5d696d1399730f1237a27b",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_bbe2c1cf_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_bbe2c1cf_aopeng",
+      "path": "data/tb/tasks/draft_dp_bbe2c1cf_aopeng",
+      "instruction_sha256": "7db7604a44dc1876b6b86edb7b612c9a52ae2a46f0e38c45da86e853f6bb1f36",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_bc4eec6d_outb",
+      "source": "tb",
+      "task_id": "draft_dp_bc4eec6d_outb",
+      "path": "data/tb/tasks/draft_dp_bc4eec6d_outb",
+      "instruction_sha256": "a0dde1dfedf143278fa36d9c9073d99b7201f442554d8c0f945baaedc2ab9e5d",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_c006fd92_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_c006fd92_haitian",
+      "path": "data/tb/tasks/draft_dp_c006fd92_haitian",
+      "instruction_sha256": "cf2347c4108e462e5e3658b9dbb7a322faa0217c2d64681f0354c67f9e4d6883",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_c9fc74cb_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_c9fc74cb_aopeng",
+      "path": "data/tb/tasks/draft_dp_c9fc74cb_aopeng",
+      "instruction_sha256": "e171f8d0cb42a8a975cdf8a62a0e95a1288ff3bcb094e34316e762f77d059359",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_cbc6d2a5_outb",
+      "source": "tb",
+      "task_id": "draft_dp_cbc6d2a5_outb",
+      "path": "data/tb/tasks/draft_dp_cbc6d2a5_outb",
+      "instruction_sha256": "e37deb4782dc9d71e2a0ac37c9ae0062b4238e2b67da0d81114693a7b330a665",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_cd8b3586_outa",
+      "source": "tb",
+      "task_id": "draft_dp_cd8b3586_outa",
+      "path": "data/tb/tasks/draft_dp_cd8b3586_outa",
+      "instruction_sha256": "a7fe365fdb1766a263bde5a5947d9ec102da4127b2b4badde4db3b078bbeec84",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_ce7efefe_outb",
+      "source": "tb",
+      "task_id": "draft_dp_ce7efefe_outb",
+      "path": "data/tb/tasks/draft_dp_ce7efefe_outb",
+      "instruction_sha256": "35988b3e250a2a0852d17dca2eaa792b32956c457a919e30724b8e2430f4abb8",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_ceb40cbc_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_ceb40cbc_aopeng",
+      "path": "data/tb/tasks/draft_dp_ceb40cbc_aopeng",
+      "instruction_sha256": "0317daf7c4ae36e43f7f16dd3b22dc0fbf74c18bf5a22788aea1843b6fbf7a2a",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_d018a26b_aopeng",
+      "source": "tb",
+      "task_id": "draft_dp_d018a26b_aopeng",
+      "path": "data/tb/tasks/draft_dp_d018a26b_aopeng",
+      "instruction_sha256": "8b1343376c37669a1a58334949cb23ef9f34909c8b51d36a094b4a9e1abb05f5",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_d59787d6_haitian",
+      "source": "tb",
+      "task_id": "draft_dp_d59787d6_haitian",
+      "path": "data/tb/tasks/draft_dp_d59787d6_haitian",
+      "instruction_sha256": "d35e3114e930a9f1d0e6ec9c9d19fba0c90337d3726775c9892499a7c3420bae",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_d790b9ab_outa",
+      "source": "tb",
+      "task_id": "draft_dp_d790b9ab_outa",
+      "path": "data/tb/tasks/draft_dp_d790b9ab_outa",
+      "instruction_sha256": "508440630905f42ca0409b1e8f6b0aaa43b1a8c898ae1e8b21f131c03e96f0f8",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_eae0d1ff_outb",
+      "source": "tb",
+      "task_id": "draft_dp_eae0d1ff_outb",
+      "path": "data/tb/tasks/draft_dp_eae0d1ff_outb",
+      "instruction_sha256": "1011a617473940e41618e50ab586d2b2b85a2cb86fe7c15f9ad8acea3e83721c",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_f48fa1cd_outa",
+      "source": "tb",
+      "task_id": "draft_dp_f48fa1cd_outa",
+      "path": "data/tb/tasks/draft_dp_f48fa1cd_outa",
+      "instruction_sha256": "573cebc18a990208cca8f954701d113cc94177550df207a18313e865739b6256",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_fb359113_outa",
+      "source": "tb",
+      "task_id": "draft_dp_fb359113_outa",
+      "path": "data/tb/tasks/draft_dp_fb359113_outa",
+      "instruction_sha256": "ebbb3a11c6addcb1a604dca3d2f318604d84cd9b396003caf946fa6f19a29164",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_fc82f5ea_outb",
+      "source": "tb",
+      "task_id": "draft_dp_fc82f5ea_outb",
+      "path": "data/tb/tasks/draft_dp_fc82f5ea_outb",
+      "instruction_sha256": "1bea933bfd2f8b4de144ee4f86d38a9f1b95ab1eac185864078586192e7150ee",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-ubuntu-24-04"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    },
+    {
+      "id": "tb__draft_dp_research_institute_scholar_query_outb",
+      "source": "tb",
+      "task_id": "draft_dp_research_institute_scholar_query_outb",
+      "path": "data/tb/tasks/draft_dp_research_institute_scholar_query_outb",
+      "instruction_sha256": "f796ca7fdbae1d78fcfd7c767f80a0a18a333cb6f609b86fed1a0e7ab820938e",
+      "status": "candidate_not_runtime_certified",
+      "previous_status": "candidate_not_runtime_certified",
+      "base_images": [
+        "skylensage-registry.cn-hangzhou.cr.aliyuncs.com/instances/1124:t-bench-python-3-13"
+      ],
+      "reason": "aliyun_base_image_unreachable"
+    }
+  ]
+}

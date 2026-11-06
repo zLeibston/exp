@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "at": "2026-11-06T08:48:35.729820+00:00",
+  "storage": {
+    "/var/lib/docker": "/home/ubuntu/RSI/exp/tasks/env/docker",
+    "/var/lib/containerd": "/home/ubuntu/RSI/exp/tasks/env/containerd"
+  },
+  "image_references": 62,
+  "unique_images": 26,
+  "docker_root": "/home/ubuntu/RSI/exp/tasks/env/docker",
+  "image_inventory_verified": true,
+  "container_start_verified": true
+}

@@ -1,0 +1,286 @@
+{
+  "commit": "12b7565679ce5006230b820666353673a133db93",
+  "benchmark_tasks": 89,
+  "top_matches": [
+    {
+      "source": "tb",
+      "name": "draft_dp_d150f869_outb",
+      "benchmark": "openssl-selfsigned-cert",
+      "similarity": 0.6555,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_9793b5ad_outb",
+      "benchmark": "multi-source-data-merger",
+      "similarity": 0.6487,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_1e43823f_outa",
+      "benchmark": "multi-source-data-merger",
+      "similarity": 0.6291,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_027e1b7a_aopeng",
+      "benchmark": "build-cython-ext",
+      "similarity": 0.6217,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_2fda0f83_outa",
+      "benchmark": "constraints-scheduling",
+      "similarity": 0.5598,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "crypto-transaction-batching-optimizer",
+      "benchmark": "llm-inference-batching-scheduler",
+      "similarity": 0.4879,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_30b6c93e_aopeng",
+      "benchmark": "feal-differential-cryptanalysis",
+      "similarity": 0.4191,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_2fda0f83478_outa",
+      "benchmark": "constraints-scheduling",
+      "similarity": 0.4146,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_029f82e0_haitian",
+      "benchmark": "dna-insert",
+      "similarity": 0.364,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_a1797499_outa",
+      "benchmark": "cancel-async-tasks",
+      "similarity": 0.3632,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_fc82f5ea_outb",
+      "benchmark": "openssl-selfsigned-cert",
+      "similarity": 0.3577,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_29825e59lxw_outa",
+      "benchmark": "merge-diff-arc-agi-task",
+      "similarity": 0.3484,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_eae0d1ff_outb",
+      "benchmark": "path-tracing-reverse",
+      "similarity": 0.3463,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_26d326e6_aopeng",
+      "benchmark": "feal-differential-cryptanalysis",
+      "similarity": 0.3439,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_d84934e9_outb",
+      "benchmark": "chess-best-move",
+      "similarity": 0.3374,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_fb359113_outa",
+      "benchmark": "dna-insert",
+      "similarity": 0.3293,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_05c360a7_aopeng",
+      "benchmark": "git-multibranch",
+      "similarity": 0.3275,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_047cec79_aopeng",
+      "benchmark": "feal-linear-cryptanalysis",
+      "similarity": 0.325,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_26d326e6_aopeng",
+      "benchmark": "feal-linear-cryptanalysis",
+      "similarity": 0.306,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_5719fdd4_outa",
+      "benchmark": "git-multibranch",
+      "similarity": 0.2953,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_30b6c93e_aopeng",
+      "benchmark": "feal-linear-cryptanalysis",
+      "similarity": 0.2893,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_abdd5ed0_outb",
+      "benchmark": "torch-pipeline-parallelism",
+      "similarity": 0.2787,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_029f82e0_haitian",
+      "benchmark": "dna-assembly",
+      "similarity": 0.2785,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_fb359113_outa",
+      "benchmark": "dna-assembly",
+      "similarity": 0.2773,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_58745bc61ce_outa",
+      "benchmark": "cancel-async-tasks",
+      "similarity": 0.2739,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_7b459a82_haitian",
+      "benchmark": "password-recovery",
+      "similarity": 0.2705,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_research_institute_scholar_query_outb",
+      "benchmark": "sparql-university",
+      "similarity": 0.2648,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "fastapi-bert-service",
+      "benchmark": "hf-model-inference",
+      "similarity": 0.2601,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_5719fdd4_outa",
+      "benchmark": "nginx-request-logging",
+      "similarity": 0.2565,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_abdd5ed0_outb",
+      "benchmark": "torch-tensor-parallelism",
+      "similarity": 0.2374,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_aad16747_outb",
+      "benchmark": "overfull-hbox",
+      "similarity": 0.2268,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_50724535_outa",
+      "benchmark": "sparql-university",
+      "similarity": 0.2233,
+      "exact": false
+    },
+    {
+      "source": "tbh",
+      "name": "tbh_task_de90f2c5fb862efc",
+      "benchmark": "openssl-selfsigned-cert",
+      "similarity": 0.2214,
+      "exact": false
+    },
+    {
+      "source": "tbh",
+      "name": "tbh_task_8b3a71d1064b7be0",
+      "benchmark": "db-wal-recovery",
+      "similarity": 0.213,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_0c5cabc8_haitian",
+      "benchmark": "merge-diff-arc-agi-task",
+      "similarity": 0.2023,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_30893ae8eap_outa",
+      "benchmark": "git-leak-recovery",
+      "similarity": 0.1995,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_7b459a82_haitian",
+      "benchmark": "git-leak-recovery",
+      "similarity": 0.1986,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_28243489_outa",
+      "benchmark": "vulnerable-secret",
+      "similarity": 0.1966,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_109b3f5c_aopeng",
+      "benchmark": "filter-js-from-html",
+      "similarity": 0.196,
+      "exact": false
+    },
+    {
+      "source": "tb",
+      "name": "draft_dp_30893ae8eap_outa",
+      "benchmark": "db-wal-recovery",
+      "similarity": 0.193,
+      "exact": false
+    }
+  ]
+}

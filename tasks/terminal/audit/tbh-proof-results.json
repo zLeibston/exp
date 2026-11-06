@@ -1,0 +1,21 @@
+[
+  {
+    "task": "tbh_task_4c14564e2ec33ce5",
+    "passed_original_verifier_functions": 2,
+    "artifacts": {
+      "/home/user/duffing_mc.py": "# no simulation\n",
+      "/home/user/dominant_freq.txt": "0.500\n"
+    },
+    "method": "absolute paths relocated; pytest.fail stubbed to raise; original assertions unchanged"
+  },
+  {
+    "task": "tbh_task_7fee0e182f2ca1cd",
+    "passed_original_verifier_functions": 4,
+    "artifacts": {
+      "/home/user/clean_results.txt": "fake_id: ACCEPT\n",
+      "/home/user/evil_results.txt": "fake_id: REJECT\n",
+      "/home/user/benchmark.sh": "#!/bin/sh\nexit 0\n"
+    },
+    "method": "absolute paths relocated; pytest.fail stubbed to raise; original assertions unchanged"
+  }
+]

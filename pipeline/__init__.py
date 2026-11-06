@@ -1,0 +1,4 @@
+"""Fixed evolution orchestration; editable agent behavior lives in harness/."""
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent

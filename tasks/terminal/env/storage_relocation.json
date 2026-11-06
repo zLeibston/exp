@@ -1,0 +1,10 @@
+{
+  "from_path": "/home/ubuntu/RSI/exp/tasks/env",
+  "to_path": "/home/ubuntu/RSI/exp/tasks/terminal/env",
+  "at": "2026-11-06T08:55:45.404575+00:00",
+  "status": "completed",
+  "image_references": 62,
+  "unique_images": 26,
+  "image_inventory_verified": true,
+  "container_start_verified": true
+}
