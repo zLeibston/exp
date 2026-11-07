@@ -7,7 +7,7 @@ import subprocess
 from pipeline import ROOT
 from pipeline.network import POLICY as network_policy
 from pipeline.evaluation import load_evaluation_settings
-from pipeline.storage import run_lock, write, snapshot, harness_digest, log
+from pipeline.storage import run_lock, write, snapshot, harness_digest, execution_manifest, log
 from pipeline.docker_eval import docker, ensure_images, image_name
 from tasks import load_domain
 
@@ -42,12 +42,16 @@ def run(output=None, rounds=1, timeout=600, config=None, *, domain="terminal",
     model = dict(config_path=str(config), profiles=profiles)
     output = (Path(output).resolve() if output is not None else
               ROOT / 'runs' / f'{domain}-{datetime.now(timezone.utc):%Y%m%d-%H%M%S-%f}')
+    model['run_dir'] = str(output)
+    execution_code = execution_manifest(ROOT, domain)
     # Reject incompatible resumes before building images or touching old evidence.
     previous = None
     if resume:
         previous = json.loads((output / 'config.json').read_text())
         if previous.get('layout') != LAYOUT:
             raise ValueError('This run uses an incompatible pipeline layout; start a fresh A/B/C RSI run')
+        if previous.get('execution_code') != execution_code:
+            raise ValueError('Execution code changed or its fingerprint is missing; start a fresh run')
     task_images = suite.setup()
     docker()
     ensure_images()
@@ -58,7 +62,7 @@ def run(output=None, rounds=1, timeout=600, config=None, *, domain="terminal",
                     domain=domain, dataset=dataset,
                     rounds=rounds, timeout=timeout, suite=suite.name, split=split, cases=suite.cases,
                     agents={role: cfg.public() for role, cfg in profiles.items()}, images=images,
-                    scheduler=scheduler, evaluation=evaluation, execution=execution,
+                    scheduler=scheduler, evaluation=evaluation, execution=execution, execution_code=execution_code,
                     mode='eval_only' if eval_only else 'evolution')
     with run_lock(output, resume), run_scope(output, **execution):
         state = None
@@ -66,7 +70,7 @@ def run(output=None, rounds=1, timeout=600, config=None, *, domain="terminal",
         if resume:
             previous = json.loads((output / 'config.json').read_text())
             for key in ('layout', 'mode', 'network_policy', 'task_network_policy', 'timeout', 'suite', 'split',
-                        'cases', 'agents', 'images', 'scheduler', 'domain', 'dataset'):
+                        'cases', 'agents', 'images', 'scheduler', 'domain', 'dataset', 'execution_code'):
                 if previous.get(key) != settings[key]:
                     raise ValueError(f'Resume configuration differs: {key}; start a fresh run')
             for key in ('cpus', 'memory', 'pids_limit'):

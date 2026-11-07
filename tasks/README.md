@@ -54,6 +54,8 @@ def load(split='train', dataset=None):
 | 回调 | 输入 | 返回/职责 |
 | --- | --- | --- |
 | `setup_environment` | `cases` | 环境/镜像描述字典；可提前准备，也可声明按需构建 |
+| `environment_ready` | `case` | 可选的快速缓存检查，返回布尔值；就绪任务直接进入评测池 |
+| `prepare_environment` | `case, directory, model` | 可选的耗时环境准备；独立单线程队列执行，同题多次评测共用一次准备；异常按基础设施错误记录 |
 | `prepare_case` | `case, directory` | 当前试次的Agent输入；省略时复制 `case['inputs']` |
 | `task_runner` | `workspace, directory, model, timeout, inputs` | 在本领域环境执行，返回 `{'prediction': ..., 'history': ...}` |
 | `grade_case` | `case, prediction, directory` | 可信评分，返回 `{'passed': bool, 'error': None或错误信息}` |

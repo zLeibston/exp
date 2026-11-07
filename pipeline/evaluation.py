@@ -1,9 +1,10 @@
 """Domain-neutral trial execution and one shared queue across every repetition."""
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 import subprocess
 
 from pipeline.storage import log, report_index, write
 
+TRIAL_ERRORS = (RuntimeError, subprocess.SubprocessError, OSError, ValueError, KeyError, TypeError)
 
 def load_evaluation_settings(path):
     import yaml
@@ -18,11 +19,13 @@ def load_evaluation_settings(path):
     return dict(workers=workers)
 
 
-def evaluate_case(workspace, directory, model, timeout, suite, case, task_runner=None):
+def evaluate_case(workspace, directory, model, timeout, suite, case, task_runner=None, preparation_error=None):
     """The receipt is durable before the worker takes another job."""
     directory.mkdir(parents=True, exist_ok=True)
     prediction = None
     try:
+        if preparation_error is not None:
+            raise preparation_error
         inputs = suite.prepare(case, directory)
         response = (task_runner or suite.run)(workspace, directory, model, timeout, inputs)
         prediction = response['prediction']
@@ -33,7 +36,7 @@ def evaluate_case(workspace, directory, model, timeout, suite, case, task_runner
         if not isinstance(graded, dict) or type(graded.get('passed')) is not bool:
             raise ValueError('Domain grader must return a boolean passed result')
         graded.setdefault('error', None)
-    except (RuntimeError, subprocess.SubprocessError, OSError, ValueError, KeyError, TypeError) as exc:
+    except TRIAL_ERRORS as exc:
         graded = dict(passed=False, error=str(exc))
     item = dict(task=case, prediction=prediction, **graded)
     write(directory / 'evaluation.json', item)
@@ -45,8 +48,9 @@ def evaluate_case(workspace, directory, model, timeout, suite, case, task_runner
 def evaluate_trials(workspace, jobs, model, timeout, suite, *, workers=50, executor=None, task_runner=None):
     """Jobs are (case, directory), including different repeats of the same case.
 
-    All jobs go into the same executor immediately. Completion order affects only
-    progress logging; return order follows jobs, and each trial owns its receipt.
+    Cached environments enter the trial pool immediately. Missing environments
+    use a separate single-worker preparation pool, shared across repetitions.
+    Completion order affects progress only; results preserve input ordering.
     """
     if type(workers) is not int or workers < 1 or not jobs:
         raise ValueError('Evaluation requires trials and positive workers')
@@ -55,24 +59,57 @@ def evaluate_trials(workspace, jobs, model, timeout, suite, *, workers=50, execu
             return evaluate_trials(workspace, jobs, model, timeout, suite, workers=workers,
                                    executor=local, task_runner=task_runner)
     log(f'EVAL: queued={len(jobs)} independent trials, workers={workers}')
-    futures = {executor.submit(evaluate_case, workspace, directory, model, timeout, suite,
-                               case, task_runner): index for index, (case, directory) in enumerate(jobs)}
+    futures = {}
     results = [None] * len(jobs)
     completed, correct = 0, 0
-    try:
-        for future in as_completed(futures):
-            item = future.result()
-            results[futures[future]] = item
-            completed += 1
-            correct += item['passed']
-            if completed == 1 or completed % 10 == 0 or completed == len(jobs):
-                log(f'EVAL: {completed}/{len(jobs)}, correct={correct}')
-    except BaseException:
-        # Running adapters retain ownership of their containers and receipts.
-        # Cancel jobs that have not started; do not spend calls after a fatal stop.
-        for future in futures:
-            future.cancel()
-        raise
+    def submit(indices, error=None):
+        for index in indices:
+            case, directory = jobs[index]
+            future = executor.submit(evaluate_case, workspace, directory, model, timeout, suite,
+                                     case, task_runner, preparation_error=error)
+            futures[future] = ('trial', index)
+
+    with ThreadPoolExecutor(max_workers=1) as preparation:
+        try:
+            groups = {}
+            for index, (case, _) in enumerate(jobs):
+                key = case['id'] if task_runner is None and suite.prepare_environment is not None else index
+                groups.setdefault(key, []).append(index)
+            for indices in groups.values():
+                case, directory = jobs[indices[0]]
+                try:
+                    if (task_runner is None and suite.prepare_environment is not None
+                            and (suite.environment_ready is None or not suite.environment_ready(case))):
+                        future = preparation.submit(suite.prepare_environment, case, directory, model)
+                        futures[future] = ('prepare', indices)
+                    else:
+                        submit(indices)
+                except TRIAL_ERRORS as exc:
+                    submit(indices, exc)
+            while futures:
+                done, _ = wait(futures, return_when=FIRST_COMPLETED)
+                for future in done:
+                    kind, index = futures.pop(future)
+                    if kind == 'prepare':
+                        try:
+                            future.result()
+                        except TRIAL_ERRORS as exc:
+                            submit(index, exc)
+                        else:
+                            submit(index)
+                        continue
+                    item = future.result()
+                    results[index] = item
+                    completed += 1
+                    correct += item['passed']
+                    if completed == 1 or completed % 10 == 0 or completed == len(jobs):
+                        log(f'EVAL: {completed}/{len(jobs)}, correct={correct}')
+        except BaseException:
+            # Running adapters retain ownership of their containers and receipts.
+            # Cancel both queues before executor shutdown waits for active work.
+            for future in futures:
+                future.cancel()
+            raise
     return results
 
 

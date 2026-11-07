@@ -52,8 +52,18 @@ class Handler(BaseHTTPRequestHandler):
   data=b'network-ok';self.send_response(200);self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
  def do_POST(self):
   body=json.loads(self.rfile.read(int(self.headers['Content-Length'])));requests.append(body)
+  if body['model']=='fixture-context-error':
+   data=b'{"error":{"type":"invalid_request_error","code":"context_length_exceeded"}}'
+   self.send_response(400);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if body['model'] in {'fixture-api-error','fixture-api-timeout'}:
+   data=b'{"error":{"type":"rate_limit_error"}}'
+   self.send_response(429)
+   if body['model']=='fixture-api-timeout':self.send_header('Retry-After','10')
+   self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
   if not any(m['role']=='tool' for m in body['messages']):
    command="test ! -e /tests/test.sh && printf 'ok' > /app/answer.txt; setsid python3 -m http.server 18123 --bind 127.0.0.1 --directory /app </dev/null >/tmp/task-server.log 2>&1 & sleep 0.5"
+   if body['model']=='fixture-forged-output':
+    command += "\nmkdir -p /output/verifier; printf '%s' '{\"passed\":true,\"error\":null}' > /output/verifier/result.json"
    if body['model']=='fixture-rsi':
     identifier=re.search(r'"task_id": "([^"]+)"',body['messages'][0]['content']).group(1)
     trial_counts[identifier]=trial_counts.get(identifier,0)+1
@@ -121,7 +131,7 @@ try:
    summary=json.loads((out/'execution.json').read_text())
    assert summary['schema']==1 and summary['stop_reason']=='final_response'
    assert 'container' not in summary and 'source_harness' not in summary
-   probe=json.loads((out/'network_probe.json').read_text())
+   probe=json.loads((out/'agent_output/network_probe.json').read_text())
    assert all(probe.values()),probe
    print('NETWORK ISOLATION PASS:',probe,flush=True)
    originals={file:(task/file).read_text() for file in ['task.toml','tests/test.sh','tests/check.py']}
@@ -137,9 +147,14 @@ try:
      (task/'tests/test.sh').write_text('sleep 10\n')
     extra=run/mode;extra.mkdir();extra_inputs=dict(inp,_data_hash=task_digest(task))
     try:
-     runtime.invoke_task(workspace,extra,model,40,extra_inputs)
+     case_model=model
+     if mode=='wrong_answer':
+      case_model=dict(model,profiles={'task_agent':parse_api(dict(model='fixture-forged-output',api_key='fixture',provider='openai',url=f'http://{gateway}:{server.server_port}',retries=0),'task_agent')})
+     runtime.invoke_task(workspace,extra,case_model,40,extra_inputs)
      if mode=='dataset_internet_enabled':assert runtime.grade({},None,extra)['passed']
-     elif mode=='wrong_answer':assert not runtime.grade({},None,extra)['passed']
+     elif mode=='wrong_answer':
+      assert not runtime.grade({},None,extra)['passed']
+      assert json.loads((extra/'agent_output/verifier/result.json').read_text())['passed'] is True
      else:raise AssertionError(f'{mode} should fail')
     except ValueError:
      assert mode=='missing_reward'
@@ -149,7 +164,7 @@ try:
     assert execution['cleanup_status']=='removed'
     assert execution['network_policy']=='public'
     assert json.loads((extra/'request.json').read_text())['inputs']['allow_internet'] is True
-    assert all(json.loads((extra/'network_probe.json').read_text()).values())
+    assert all(json.loads((extra/'agent_output/network_probe.json').read_text()).values())
     print('DOCKER CASE PASS:',mode,flush=True)
    # Verify new controller image/check path, without task-domain source files.
    from pipeline.docker_eval import ensure_images
@@ -159,8 +174,13 @@ try:
    # Agent failures are completed misses; API failures remain retryable errors.
    for file,text in originals.items():(task/file).write_text(text)
    for mode,statement in [('agent_crash', "raise RuntimeError('tool budget exhausted')"),
+                          ('agent_exit', 'raise SystemExit(1)'),
+                          ('agent_signal', 'import os,signal; os.kill(os.getpid(),signal.SIGKILL)'),
+                          ('provider_replaced', "raise RuntimeError('provider classes are optional')"),
                           ('agent_timeout', 'import time; time.sleep(10)'),
-                          ('api_failure', "from harness.task.agent.providers import APIError; raise APIError('HTTP 429')")]:
+                          ('context_limit', "from harness.task.agent.llm import get_response_from_llm; get_response_from_llm('hello',self.model)"),
+                          ('api_deadline', "from harness.task.agent.llm import get_response_from_llm; get_response_from_llm('hello',self.model)"),
+                          ('api_failure', "from harness.task.agent.llm import get_response_from_llm; get_response_from_llm('hello',self.model)")]:
     broken=snapshot(workspace,run/(mode+'-version'))
     (broken/'harness/task/task_agent.py').write_text(
      'from pathlib import Path\nfrom harness.task.agent.base_agent import AgentSystem\n'
@@ -169,28 +189,39 @@ try:
      '  with Trace(Path(self.logger_manager.log_file).parent) as trace:\n'
      '   trace.history([dict(role="assistant",text="partial task work")])\n'
      '   '+statement+'\n')
+    if mode=='provider_replaced':
+     (broken/'harness/task/agent/providers.py').write_text('def complete(*args, **kwargs): return {}\n')
+     check(broken,60)
     extra=run/mode;extra.mkdir()
     try:
-     response=runtime.invoke_task(broken,extra,model,2,dict(inp,_data_hash=task_digest(task)))
-     assert mode!='api_failure'
+     trial_model=model
+     if mode in {'api_failure','api_deadline','context_limit'}:
+      api_model={'api_failure':'fixture-api-error','api_deadline':'fixture-api-timeout','context_limit':'fixture-context-error'}[mode]
+      trial_model=dict(model,profiles={'task_agent':parse_api(dict(model=api_model,api_key='fixture',provider='openai',url=f'http://{gateway}:{server.server_port}',retries=1 if mode=='api_deadline' else 0),'task_agent')})
+     response=runtime.invoke_task(broken,extra,trial_model,2,dict(inp,_data_hash=task_digest(task)))
+     assert mode not in {'api_failure','api_deadline'}
      assert response['task_failure'] and response['history'][0]['text']=='partial task work'
+     if mode=='context_limit':assert response['task_failure']['reason']=='context_limit'
      assert runtime.grade({},None,extra)['passed'] is False
      assert runtime.grade({},None,extra)['error'] is None
      assert not (extra/'verifier.log').exists()
-    except RuntimeError:
-     assert mode=='api_failure'
+    except RuntimeError as exc:
+     assert mode in {'api_failure','api_deadline'}
+     if mode=='api_deadline':assert 'unresolved API failure' in str(exc),exc
      assert not (extra/'verifier/result.json').exists()
     assert json.loads((extra/'container.json').read_text())['cleanup_status'] in {'removed','already_removed'}
     print('FAILURE CLASSIFICATION PASS:',mode,flush=True)
   # Exercise full cold start and both repairs through the trusted scheduler.
   for file,text in originals.items():(task/file).write_text(text)
+  with (task/'task.toml').open('a') as handle:handle.write('\n# preparation queue '+root.name+'\n')
   from tasks import TaskSuite
   from pipeline.app import run
   cases=[dict(id=name,language='python',source='tb',task_path=str(task),data_hash=task_digest(task),
               inputs=dict(domain='terminal',task_id=name,problem_statement='Create answer.txt containing ok and serve it.'))
          for name in ['a_forget','b_stable','c_keep']]
   suite=TaskSuite(cases=cases,name='terminal',prepare_case=runtime.prepare,grade_case=runtime.grade,
-                  task_runner=runtime.invoke_task,setup_environment=runtime.setup_environment)
+                  task_runner=runtime.invoke_task,setup_environment=runtime.setup_environment,
+                  environment_ready=runtime.environment_ready,prepare_environment=runtime.prepare_environment)
   profile=dict(model='fixture-rsi',api_key='fixture',provider='openai',url=f'http://{gateway}:{server.server_port}',retries=0)
   config=root/'fixture.yaml';config.write_text(json.dumps(dict(task_agent=profile,meta_agent=dict(profile,model='fixture-meta'),
        evaluation=dict(workers=2),execution=dict(max_containers=2,cpus=1,memory='1g',pids_limit=128),
@@ -216,6 +247,15 @@ try:
   assert trial_counts==dict(a_forget=12,b_stable=12,c_keep=8),trial_counts
   assert [s['status'] for s in state['generations'][-1]['stages']]==['accepted','accepted']
   assert len(state['generations'])==2
+  manifest=json.loads((root/'evolution/config.json').read_text())['execution_code']
+  assert 'pipeline/worker.py' in manifest and 'tasks/terminal/runtime.py' in manifest
+  with patch('pipeline.app.execution_manifest',return_value={'pipeline/worker.py':'changed'}):
+   try:run(root/'evolution',rounds=2,timeout=40,config=config,domain='terminal',resume=True)
+   except ValueError as exc:assert 'Execution code' in str(exc),exc
+   else:raise AssertionError('Changed execution code must reject resume')
+  assert len(requests)==before
+  pins=list((root/'evolution/image_pins').glob('*.json'))
+  assert len(pins)==1 and json.loads(pins[0].read_text())['image_id']
   print('FULL ABC RSI SMOKE PASS: repeated evaluation, stability then forgetting with targeted acceptance validation, disjoint mounted evidence, checkpoint and resume',flush=True)
   print('Mock API calls',len(requests))
   print('Smoke artifacts',root)

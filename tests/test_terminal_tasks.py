@@ -4,6 +4,9 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+import subprocess
+from concurrent.futures import ThreadPoolExecutor
+from threading import Event
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +18,54 @@ from pipeline.evaluation import evaluate
 
 
 class TerminalTests(unittest.TestCase):
+    def test_agent_output_cannot_replace_trusted_grading_or_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            trial=Path(tmp)/'trial';output=trial/'agent_output'
+            (output/'verifier').mkdir(parents=True);(trial/'verifier').mkdir(parents=True)
+            trusted=dict(passed=False,error=None)
+            (trial/'verifier/result.json').write_text(json.dumps(trusted))
+            (trial/'container.json').write_text('trusted container metadata')
+            (output/'verifier/result.json').write_text(json.dumps(dict(passed=True,error=None)))
+            (output/'container.json').write_text('untrusted metadata')
+            (output/'result.json').write_text('{}')
+            (output/'chat.log').write_text('trace')
+            runtime.export_output(output,trial)
+            self.assertEqual(runtime.grade({},None,trial),trusted)
+            self.assertEqual((trial/'container.json').read_text(),'trusted container metadata')
+            self.assertEqual((trial/'chat.log').read_text(),'trace')
+            self.assertTrue((trial/'agent_output/verifier/result.json').is_file())
+
+    def test_image_locks_deduplicate_builds_without_blocking_cached_images(self):
+        building, release = Event(), Event()
+        cached = {runtime.image_tags(dict(data_hash='cached'))[1]}
+        built = []
+        def command(args, **kwargs):
+            if args[1:3] == ['image','inspect']:
+                return subprocess.CompletedProcess(args, 0 if args[-1] in cached else 1)
+            self.assertEqual(args[1], 'build')
+            tag = args[args.index('-t')+1]
+            built.append(tag)
+            building.set()
+            if not release.wait(3): raise RuntimeError('fixture build blocked')
+            cached.add(tag)
+            return subprocess.CompletedProcess(args, 0)
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            for name in ('slow','cached'):
+                (root/name).mkdir();(root/name/'task.toml').write_text('')
+            with patch('tasks.terminal.loader.task_digest',side_effect=lambda p:p.name), \
+                 patch.object(runtime,'docker',return_value=['docker']), \
+                 patch.object(runtime.subprocess,'run',side_effect=command), \
+                 ThreadPoolExecutor(max_workers=4) as pool:
+                try:
+                    futures=[pool.submit(runtime.ensure_image,root/'slow','slow') for _ in range(4)]
+                    self.assertTrue(building.wait(3))
+                    self.assertEqual(runtime.ensure_image(root/'cached','cached'),runtime.image_tags(dict(data_hash='cached'))[1])
+                finally:
+                    release.set()
+                self.assertTrue(all(f.result()==runtime.image_tags(dict(data_hash='slow'))[1] for f in futures))
+        self.assertEqual(built,list(runtime.image_tags(dict(data_hash='slow'))))
+
     def test_reviewed_pool_and_limits(self):
         combined = load_domain('terminal')
         tb, tbh = load_domain('terminal', dataset='tb'), load_domain('terminal', dataset='tbh')

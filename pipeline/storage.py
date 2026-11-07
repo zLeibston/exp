@@ -5,6 +5,7 @@ from threading import Lock
 import fcntl
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 from pipeline.docker_eval import validate_artifacts
@@ -53,6 +54,19 @@ def snapshot(source, target):
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def execution_manifest(root, domain):
+    """Fingerprint fixed execution code, excluding Harness snapshots and task data."""
+    root = Path(root)
+    files = {root / 'run.py', root / 'requirements.txt', root / 'containers/agent.Dockerfile',
+             *(root / 'tasks').glob('*.py')}
+    for directory in (root / 'pipeline', root / 'tasks' / domain):
+        for parent, directories, names in os.walk(directory):
+            directories[:] = sorted(name for name in directories
+                                    if name not in {'__pycache__', 'data', 'env', 'audit', '.git', '.venv'})
+            files.update(Path(parent) / name for name in names if name.endswith('.py'))
+    return {str(path.relative_to(root)): digest(path) for path in sorted(files)}
 
 
 def harness_digest(workspace):

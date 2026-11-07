@@ -10,11 +10,21 @@ from itertools import count
 from pathlib import Path
 
 
+def is_context_limit(error):
+    """Recognize explicit context limits without retaining provider error messages."""
+    codes = {'context_length_exceeded', 'context_window_exceeded', 'prompt_too_long'}
+    message = str(error.get('message') or '').lower()
+    return (error.get('code') in codes or error.get('type') in codes
+            or message.startswith(('prompt is too long', 'input is too long'))
+            or ('input token count' in message and 'exceeds the maximum' in message))
+
+
 def install_api_diagnostics(path, role, model):
     """Observe HTTP attempts without changing payloads, retries or response handling."""
     import httpx
     original_send = httpx.Client.send
     calls = count(1)
+    state = dict(failed=False, fatal=False, context_limit=False)
 
     def save(record):
         module = sys.modules.get('harness.task.agent.trace')
@@ -23,7 +33,7 @@ def install_api_diagnostics(path, role, model):
             # Reuse HTTP instrumentation; expose numeric/status metadata only.
             keys = ('call_id', 'event', 'elapsed_seconds', 'http_status', 'usage',
                     'finish_reason', 'error_type', 'request_reasoning_effort',
-                    'request_max_tokens', 'request_max_completion_tokens', 'request_thinking')
+                    'request_max_tokens', 'request_max_completion_tokens', 'request_thinking', 'context_limit')
             fields = {key: record[key] for key in keys if key in record}
             fields['http_event'] = fields.pop('event')
             fields['attempt_id'] = fields.pop('call_id')
@@ -58,6 +68,8 @@ def install_api_diagnostics(path, role, model):
                 for key, item in value.items() if isinstance(item, (int, float, dict))}
 
     def send(client, request, *args, **kwargs):
+        state['failed'] = False
+        state['context_limit'] = False
         record = dict(call_id=next(calls), role=role, requested_model=model,
                       started_at=datetime.now(timezone.utc).isoformat())
         try:
@@ -73,16 +85,23 @@ def install_api_diagnostics(path, role, model):
         try:
             response = original_send(client, request, *args, **kwargs)
         except Exception as exc:
+            state['failed'] = True
             save(dict(record, event="transport_error", elapsed_seconds=round(time.monotonic() - started, 3),
                       error_type=type(exc).__name__))
             raise
+        state['failed'] = response.status_code >= 400
+        state['fatal'] |= response.status_code == 402
         record.update(event="response", elapsed_seconds=round(time.monotonic() - started, 3),
                       http_status=response.status_code,
                       request_id=response.headers.get("x-request-id") or response.headers.get("request-id")
                                  or response.headers.get("x-goog-request-id"))
         try:
             # Never consume a stream or mutate the response to collect diagnostics.
-            data = response.json()
+            try:
+                data = response.json()
+            except ValueError:
+                state['failed'] = True
+                raise
             record["response_type"] = type(data).__name__
             if isinstance(data, dict):
                 record.update(response_fields=sorted(data), returned_model=data.get("model", data.get("modelVersion")),
@@ -120,6 +139,10 @@ def install_api_diagnostics(path, role, model):
                 if isinstance(data.get("error"), dict):
                     record["error_type"] = data["error"].get("type")
                     record["error_code"] = data["error"].get("code")
+                    record['context_limit'] = (response.status_code in {400, 413, 422}
+                                               and is_context_limit(data['error']))
+                    state['context_limit'] = record['context_limit']
+                    state['failed'] = state['failed'] and not state['context_limit']
         except Exception as exc:
             record["response_diagnostic_error"] = type(exc).__name__
         save(record)
@@ -131,7 +154,26 @@ def install_api_diagnostics(path, role, model):
         return response
 
     httpx.Client.send = send
-    return original_send
+    return state
+
+
+def unresolved_api_failure(path):
+    """Ignore in-flight requests; only explicit failures without later recovery count."""
+    failed = False
+    if Path(path).is_file():
+        with Path(path).open(errors='replace') as handle:
+            for line in handle:
+                try:
+                    record = json.loads(line)
+                except ValueError:
+                    continue  # A killed worker can leave an incomplete final line.
+                if not isinstance(record, dict):
+                    continue
+                if record.get('event') == 'transport_error':
+                    failed = True
+                elif record.get('event') == 'response' and type(record.get('http_status')) is int:
+                    failed = record['http_status'] >= 400 and not record.get('context_limit', False)
+    return failed
 
 
 def failed_task_result(directory, reason, error_type=None):
@@ -161,24 +203,25 @@ def main():
     os.environ["RSI_CONFIG_PATH"] = request["model"]["config_path"]
     os.environ["RSI_AGENT_ROLE"] = role
     model = load_config(request["model"]["config_path"], roles=(role,))[role].model
-    install_api_diagnostics(Path(request["log_path"]).parent / "api_calls.jsonl",
-                            os.environ.get("RSI_AGENT_ROLE"), model)
+    api_state = install_api_diagnostics(Path(request["log_path"]).parent / "api_calls.jsonl",
+                                        os.environ.get("RSI_AGENT_ROLE"), model)
     kwargs = dict(model=model, chat_history_file=request["log_path"])
     if request["kind"] == "task":
         import httpx
-        from harness.task.agent.providers import APIError, BudgetExceeded
         try:
             from harness.task.task_agent import TaskAgent
             prediction, history = TaskAgent(**kwargs).forward(request["inputs"])
             result = dict(prediction=prediction, history=history)
-        except Exception as exc:
-            # Service/transport errors remain retryable. Agent crashes and output
-            # budget exhaustion are observed failures, not samples to discard.
-            if isinstance(exc, (APIError, httpx.HTTPError)) and not isinstance(exc, BudgetExceeded):
+        except (Exception, SystemExit) as exc:
+            # Classify from fixed HTTP observations, never from evolvable class names.
+            if api_state['fatal']:
+                raise SystemExit(78)
+            if (api_state['failed'] or isinstance(exc, httpx.HTTPError)) and not api_state.get('context_limit'):
                 raise
             traceback.print_exc()  # Preserve the failing code location in stderr.log.
             result = failed_task_result(Path(request['log_path']).parent,
-                                        'agent_error', type(exc).__name__)
+                                        'context_limit' if api_state.get('context_limit') else 'agent_error',
+                                        type(exc).__name__)
     else:
         if request['stage'] not in {'stability_repair', 'forgetting_repair'}:
             raise ValueError(f"Unknown Meta repair stage: {request['stage']}")
@@ -192,6 +235,8 @@ def main():
             iterations_left=request.get("iterations_left"))
         result = dict(history=history)
     result_path = Path(request["result_path"])
+    if api_state['fatal']:
+        raise SystemExit(78)
     temporary = result_path.with_suffix('.tmp')
     temporary.write_text(json.dumps(result, indent=2))
     temporary.replace(result_path)

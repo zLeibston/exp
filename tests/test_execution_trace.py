@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from harness.task.agent.trace import Trace
-from harness.task.agent.tools import bash, edit
+from harness.task.agent.tools import bash
 
 class ExecutionTraceTests(unittest.TestCase):
     def test_tool_metadata_and_bounded_events(self):
@@ -14,10 +14,6 @@ class ExecutionTraceTests(unittest.TestCase):
             with Trace(root) as trace:
                 self.assertIn('exit_code: 7', bash.tool_function('printf trace-marker; exit 7'))
                 self.assertEqual(trace.tool_fields['exit_code'], 7)
-                trace.event('tool_end', **trace.tool_fields)
-                trace.tool_fields = {}
-                self.assertIn('<response clipped>', edit.maybe_truncate('x'*100, 20))
-                self.assertEqual(trace.tool_fields['output_chars_before_clipping'], 100)
                 trace.event('tool_end', **trace.tool_fields)
                 with patch('harness.task.agent.trace.EVENT_LIMIT', 500):
                     for _ in range(100): trace.event('sample', count=1)

@@ -13,6 +13,8 @@ class TaskSuite:
     task_runner: Callable | None = None
     setup_environment: Callable | None = None
     network_policy: str = "adapter-managed"
+    environment_ready: Callable | None = None
+    prepare_environment: Callable | None = None
 
     def prepare(self, case, directory):
         return self.prepare_case(case, directory) if self.prepare_case else dict(case["inputs"])

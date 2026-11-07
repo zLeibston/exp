@@ -1,5 +1,6 @@
 """Concurrency properties: later repeats start while an earlier trial is blocked."""
 from pathlib import Path
+from collections import Counter
 import sys
 import tempfile
 from threading import Event, Lock
@@ -13,6 +14,68 @@ from pipeline.scheduling import repeated_evaluation
 
 
 class TrialPipelineTests(unittest.TestCase):
+    def test_cached_trials_bypass_build_queue_and_repeats_share_preparation(self):
+        cached_ran, building = Event(), Event()
+        prepared, builds, calls = set(), [], []
+        active = maximum = 0
+        lock = Lock()
+        def prepare(case, directory, model):
+            nonlocal active, maximum
+            with lock:
+                active += 1
+                maximum = max(maximum, active)
+            try:
+                builds.append(case['id'])
+                building.set()
+                if not cached_ran.wait(3):
+                    raise RuntimeError('Cached trial was blocked behind preparation')
+                prepared.add(case['id'])
+            finally:
+                with lock: active -= 1
+        def run(workspace, directory, model, timeout, inputs):
+            name = inputs['id']
+            calls.append(name)
+            if name == 'cached':
+                self.assertTrue(building.wait(3))
+                cached_ran.set()
+            else:
+                self.assertIn(name, prepared)
+            return dict(prediction='ok', history=[])
+        suite = TaskSuite(name='fixture', cases=[dict(id=x, inputs=dict(id=x))
+                          for x in ('slow1', 'slow2', 'cached')], task_runner=run,
+                          grade_case=lambda *args: dict(passed=True, error=None),
+                          environment_ready=lambda case: case['id']=='cached', prepare_environment=prepare)
+        with tempfile.TemporaryDirectory() as tmp, ExecutionPool({}, workers=1) as pool:
+            observations = repeated_evaluation(pool, ROOT, Path(tmp)/'evaluation', {}, 10, suite, 4)
+        self.assertEqual(builds, ['slow1', 'slow2'])
+        self.assertEqual(maximum, 1)
+        self.assertEqual(Counter(calls), dict(slow1=4, slow2=4, cached=4))
+        self.assertTrue(all(len(trials)==4 for trials in observations.values()))
+
+    def test_preparation_error_preserves_other_receipts_and_resume(self):
+        fail = True
+        builds, calls = [], []
+        def prepare(case, directory, model):
+            builds.append(case['id'])
+            if fail: raise RuntimeError('fixture build failed')
+        def run(workspace, directory, model, timeout, inputs):
+            calls.append(inputs['id'])
+            return dict(prediction='ok', history=[])
+        suite = TaskSuite(name='fixture', cases=[dict(id=x, inputs=dict(id=x)) for x in ('missing','cached')],
+                          task_runner=run, grade_case=lambda *args: dict(passed=True,error=None),
+                          environment_ready=lambda case: case['id']=='cached', prepare_environment=prepare)
+        with tempfile.TemporaryDirectory() as tmp, ExecutionPool({},workers=1) as pool:
+            folder=Path(tmp)/'evaluation'
+            with self.assertRaisesRegex(RuntimeError,'execution errors'):
+                repeated_evaluation(pool,ROOT,folder,{},10,suite,4)
+            self.assertEqual(calls,['cached']*4)
+            fail=False
+            observations=repeated_evaluation(pool,ROOT,folder,{},10,suite,4)
+            self.assertEqual(builds,['missing','missing'])
+            self.assertEqual(Counter(calls),dict(cached=4,missing=4))
+            self.assertEqual(sum(t['error'] is None for t in observations['missing']),4)
+            self.assertEqual(len(observations['missing']),8)
+
     def test_agent_failures_are_valid_misses_and_are_not_retried(self):
         calls = []
         def run(workspace, directory, model, timeout, inputs):

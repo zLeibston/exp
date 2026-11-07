@@ -4,6 +4,7 @@ import os
 import uuid
 
 MAX_OUTPUT_CHARS = 50_000
+CLEANUP_TIMEOUT = 1.0
 
 def tool_info():
     return {
@@ -184,7 +185,12 @@ async def tool_function_call(command):
                 os.killpg(process.pid, signal.SIGKILL)
             except ProcessLookupError:
                 pass
-            await process.communicate()  # Drain buffered pipes after cancelling readers.
+            try:
+                await asyncio.wait_for(process.communicate(), CLEANUP_TIMEOUT)
+            except asyncio.TimeoutError:
+                pass  # A detached child may still hold the inherited pipes open.
+            finally:
+                process._transport.close()
 
 def tool_function(command):
     return asyncio.run(tool_function_call(command))

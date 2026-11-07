@@ -75,4 +75,5 @@ def load(split='train', *, dataset=None, root=ROOT):
         raise ValueError('No selected terminal tasks for these sources')
     return TaskSuite(cases=cases, name='terminal', split='train', prepare_case=runtime.prepare,
                      grade_case=runtime.grade, task_runner=runtime.invoke_task,
-                     setup_environment=runtime.setup_environment, network_policy=runtime.TASK_NETWORK_POLICY)
+                     setup_environment=runtime.setup_environment, network_policy=runtime.TASK_NETWORK_POLICY,
+                     environment_ready=runtime.environment_ready, prepare_environment=runtime.prepare_environment)
