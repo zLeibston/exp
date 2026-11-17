@@ -56,15 +56,16 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def execution_manifest(root, domain):
+def execution_manifest(root, domain, dependencies=()):
     """Fingerprint fixed execution code, excluding Harness snapshots and task data."""
     root = Path(root)
     files = {root / 'run.py', root / 'requirements.txt', root / 'containers/agent.Dockerfile',
              *(root / 'tasks').glob('*.py')}
-    for directory in (root / 'pipeline', root / 'tasks' / domain):
+    for directory in (root / 'pipeline', root / 'tasks' / domain,
+                      *(root / 'tasks' / dependency for dependency in dependencies)):
         for parent, directories, names in os.walk(directory):
             directories[:] = sorted(name for name in directories
-                                    if name not in {'__pycache__', 'data', 'env', 'audit', '.git', '.venv'})
+                                    if name not in {'__pycache__', 'data', 'env', 'audit', '.git', '.venv', 'tasks', '.cache'})
             files.update(Path(parent) / name for name in names if name.endswith('.py'))
     return {str(path.relative_to(root)): digest(path) for path in sorted(files)}
 

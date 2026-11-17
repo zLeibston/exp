@@ -581,7 +581,8 @@
     "task_id": "draft_dp_adcb2ffb_haitian",
     "path": "data/tb/tasks/draft_dp_adcb2ffb_haitian",
     "instruction_sha256": "8beb97c0a758ed07ae9c308b04cbbcf5a1e64c0eb52bcbba0806448919d03740",
-    "status": "candidate_not_runtime_certified"
+    "status": "temporarily_excluded",
+    "reason": "Broken verifier: weighted reward.json only; reward.txt code unreachable after exit 0"
   },
   {
     "id": "tb__draft_dp_af4bee51_outb",

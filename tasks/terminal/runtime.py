@@ -31,6 +31,9 @@ _BUILD_SLOT = Lock()  # One build at a time; cached images never wait for it.
 DEPENDENCIES = 'httpx==0.28.1 PyYAML==6.0.3'
 RUNNER_LAYER = '''
 USER root
+RUN if ! command -v tmux >/dev/null 2>&1; then \\
+      apt-get update && apt-get install -y --no-install-recommends tmux && \\
+      rm -rf /var/lib/apt/lists/*; fi
 RUN if ! python3 -m venv /opt/rsi-bootstrap; then \\
       apt-get update && apt-get install -y python3 python3-venv && \\
       python3 -m venv /opt/rsi-bootstrap; fi
@@ -101,10 +104,13 @@ def prepare_environment(case, directory, model):
     directory.mkdir(parents=True, exist_ok=True)
     pin = image_pin(model, case['data_hash'])
     expected_id = json.loads(pin.read_text())['image_id'] if pin is not None and pin.exists() else None
-    return ensure_image(Path(case['task_path']), case['data_hash'], expected_id, directory / 'build.log')
+    task_path = Path(case['task_path'])
+    source_image = (tomllib.loads((task_path / 'task.toml').read_text())['environment']['docker_image']
+                    if model.get('prebuilt_task_images') else None)
+    return ensure_image(task_path, case['data_hash'], expected_id, directory / 'build.log', source_image)
 
 
-def ensure_image(task_path, data_hash, expected_id=None, log_path=None):
+def ensure_image(task_path, data_hash, expected_id=None, log_path=None, source_image=None):
     from tasks.terminal.loader import task_digest
     if task_digest(task_path) != data_hash:
         raise ValueError(f'Terminal task changed after run setup: {task_path.name}')
@@ -122,8 +128,14 @@ def ensure_image(task_path, data_hash, expected_id=None, log_path=None):
         timeout = positive_seconds(configuration.get('environment', {}).get('build_timeout_sec', 1800))
         with _BUILD_SLOT, ExitStack() as resources:
             log = resources.enter_context(Path(log_path).open('w')) if log_path else None
-            subprocess.run(docker() + ['build', '--network', 'host', '-t', base, str(task_path / 'environment')],
-                           check=True, timeout=timeout, stdout=log, stderr=subprocess.STDOUT if log else None)
+            if source_image:
+                subprocess.run(docker() + ['pull', source_image], check=True, timeout=timeout,
+                               stdout=log, stderr=subprocess.STDOUT if log else None)
+                subprocess.run(docker() + ['tag', source_image, base], check=True, timeout=30,
+                               stdout=log, stderr=subprocess.STDOUT if log else None)
+            else:
+                subprocess.run(docker() + ['build', '--network', 'host', '-t', base, str(task_path / 'environment')],
+                               check=True, timeout=timeout, stdout=log, stderr=subprocess.STDOUT if log else None)
             tmp = resources.enter_context(tempfile.TemporaryDirectory(prefix='rsi-terminal-build-'))
             (Path(tmp) / 'Dockerfile').write_text(f'FROM {base}\n' + RUNNER_LAYER)
             subprocess.run(docker() + ['build', '--network', 'host', '-t', agent, tmp],
@@ -169,7 +181,8 @@ def invoke_task(workspace, directory, model, timeout, inputs):
     configuration = tomllib.loads((task_path / 'task.toml').read_text())
     internet = allows_internet(configuration)
     agent_timeout = min(timeout, positive_seconds(configuration.get('agent', {}).get('timeout_sec', timeout)))
-    verifier_timeout = positive_seconds(configuration.get('verifier', {}).get('timeout_sec', 360))
+    verifier_timeout = max(positive_seconds(configuration.get('verifier', {}).get('timeout_sec', 360)),
+                           model.get('verifier_timeout_min_sec', 0))
     directory.mkdir(parents=True, exist_ok=True)
     verifier = directory / 'verifier'
     verifier.mkdir()

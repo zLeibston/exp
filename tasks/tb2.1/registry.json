@@ -1,0 +1,365 @@
+[
+  {
+    "name": "terminal-bench-2.1",
+    "version": "2.1.0",
+    "description": "Terminal-Bench 2.1: a benchmark for evaluating agents in terminal environments. Mirrored from https://github.com/harbor-framework/terminal-bench-2-1 at commit 7131e4375048a0e408a8fb404b5f499d726b695b.",
+    "tasks": [
+      {
+        "name": "adaptive-rejection-sampler",
+        "path": "tasks/adaptive-rejection-sampler"
+      },
+      {
+        "name": "bn-fit-modify",
+        "path": "tasks/bn-fit-modify"
+      },
+      {
+        "name": "break-filter-js-from-html",
+        "path": "tasks/break-filter-js-from-html"
+      },
+      {
+        "name": "build-cython-ext",
+        "path": "tasks/build-cython-ext"
+      },
+      {
+        "name": "build-pmars",
+        "path": "tasks/build-pmars"
+      },
+      {
+        "name": "build-pov-ray",
+        "path": "tasks/build-pov-ray"
+      },
+      {
+        "name": "caffe-cifar-10",
+        "path": "tasks/caffe-cifar-10"
+      },
+      {
+        "name": "cancel-async-tasks",
+        "path": "tasks/cancel-async-tasks"
+      },
+      {
+        "name": "chess-best-move",
+        "path": "tasks/chess-best-move"
+      },
+      {
+        "name": "circuit-fibsqrt",
+        "path": "tasks/circuit-fibsqrt"
+      },
+      {
+        "name": "cobol-modernization",
+        "path": "tasks/cobol-modernization"
+      },
+      {
+        "name": "code-from-image",
+        "path": "tasks/code-from-image"
+      },
+      {
+        "name": "compile-compcert",
+        "path": "tasks/compile-compcert"
+      },
+      {
+        "name": "configure-git-webserver",
+        "path": "tasks/configure-git-webserver"
+      },
+      {
+        "name": "constraints-scheduling",
+        "path": "tasks/constraints-scheduling"
+      },
+      {
+        "name": "count-dataset-tokens",
+        "path": "tasks/count-dataset-tokens"
+      },
+      {
+        "name": "crack-7z-hash",
+        "path": "tasks/crack-7z-hash"
+      },
+      {
+        "name": "custom-memory-heap-crash",
+        "path": "tasks/custom-memory-heap-crash"
+      },
+      {
+        "name": "db-wal-recovery",
+        "path": "tasks/db-wal-recovery"
+      },
+      {
+        "name": "distribution-search",
+        "path": "tasks/distribution-search"
+      },
+      {
+        "name": "dna-assembly",
+        "path": "tasks/dna-assembly"
+      },
+      {
+        "name": "dna-insert",
+        "path": "tasks/dna-insert"
+      },
+      {
+        "name": "extract-elf",
+        "path": "tasks/extract-elf"
+      },
+      {
+        "name": "extract-moves-from-video",
+        "path": "tasks/extract-moves-from-video"
+      },
+      {
+        "name": "feal-differential-cryptanalysis",
+        "path": "tasks/feal-differential-cryptanalysis"
+      },
+      {
+        "name": "feal-linear-cryptanalysis",
+        "path": "tasks/feal-linear-cryptanalysis"
+      },
+      {
+        "name": "filter-js-from-html",
+        "path": "tasks/filter-js-from-html"
+      },
+      {
+        "name": "financial-document-processor",
+        "path": "tasks/financial-document-processor"
+      },
+      {
+        "name": "fix-code-vulnerability",
+        "path": "tasks/fix-code-vulnerability"
+      },
+      {
+        "name": "fix-git",
+        "path": "tasks/fix-git"
+      },
+      {
+        "name": "fix-ocaml-gc",
+        "path": "tasks/fix-ocaml-gc"
+      },
+      {
+        "name": "gcode-to-text",
+        "path": "tasks/gcode-to-text"
+      },
+      {
+        "name": "git-leak-recovery",
+        "path": "tasks/git-leak-recovery"
+      },
+      {
+        "name": "git-multibranch",
+        "path": "tasks/git-multibranch"
+      },
+      {
+        "name": "gpt2-codegolf",
+        "path": "tasks/gpt2-codegolf"
+      },
+      {
+        "name": "headless-terminal",
+        "path": "tasks/headless-terminal"
+      },
+      {
+        "name": "hf-model-inference",
+        "path": "tasks/hf-model-inference"
+      },
+      {
+        "name": "install-windows-3.11",
+        "path": "tasks/install-windows-3.11"
+      },
+      {
+        "name": "kv-store-grpc",
+        "path": "tasks/kv-store-grpc"
+      },
+      {
+        "name": "large-scale-text-editing",
+        "path": "tasks/large-scale-text-editing"
+      },
+      {
+        "name": "largest-eigenval",
+        "path": "tasks/largest-eigenval"
+      },
+      {
+        "name": "llm-inference-batching-scheduler",
+        "path": "tasks/llm-inference-batching-scheduler"
+      },
+      {
+        "name": "log-summary-date-ranges",
+        "path": "tasks/log-summary-date-ranges"
+      },
+      {
+        "name": "mailman",
+        "path": "tasks/mailman"
+      },
+      {
+        "name": "make-doom-for-mips",
+        "path": "tasks/make-doom-for-mips"
+      },
+      {
+        "name": "make-mips-interpreter",
+        "path": "tasks/make-mips-interpreter"
+      },
+      {
+        "name": "mcmc-sampling-stan",
+        "path": "tasks/mcmc-sampling-stan"
+      },
+      {
+        "name": "merge-diff-arc-agi-task",
+        "path": "tasks/merge-diff-arc-agi-task"
+      },
+      {
+        "name": "model-extraction-relu-logits",
+        "path": "tasks/model-extraction-relu-logits"
+      },
+      {
+        "name": "modernize-scientific-stack",
+        "path": "tasks/modernize-scientific-stack"
+      },
+      {
+        "name": "mteb-leaderboard",
+        "path": "tasks/mteb-leaderboard"
+      },
+      {
+        "name": "mteb-retrieve",
+        "path": "tasks/mteb-retrieve"
+      },
+      {
+        "name": "multi-source-data-merger",
+        "path": "tasks/multi-source-data-merger"
+      },
+      {
+        "name": "nginx-request-logging",
+        "path": "tasks/nginx-request-logging"
+      },
+      {
+        "name": "openssl-selfsigned-cert",
+        "path": "tasks/openssl-selfsigned-cert"
+      },
+      {
+        "name": "overfull-hbox",
+        "path": "tasks/overfull-hbox"
+      },
+      {
+        "name": "password-recovery",
+        "path": "tasks/password-recovery"
+      },
+      {
+        "name": "path-tracing",
+        "path": "tasks/path-tracing"
+      },
+      {
+        "name": "path-tracing-reverse",
+        "path": "tasks/path-tracing-reverse"
+      },
+      {
+        "name": "polyglot-c-py",
+        "path": "tasks/polyglot-c-py"
+      },
+      {
+        "name": "polyglot-rust-c",
+        "path": "tasks/polyglot-rust-c"
+      },
+      {
+        "name": "portfolio-optimization",
+        "path": "tasks/portfolio-optimization"
+      },
+      {
+        "name": "protein-assembly",
+        "path": "tasks/protein-assembly"
+      },
+      {
+        "name": "prove-plus-comm",
+        "path": "tasks/prove-plus-comm"
+      },
+      {
+        "name": "pypi-server",
+        "path": "tasks/pypi-server"
+      },
+      {
+        "name": "pytorch-model-cli",
+        "path": "tasks/pytorch-model-cli"
+      },
+      {
+        "name": "pytorch-model-recovery",
+        "path": "tasks/pytorch-model-recovery"
+      },
+      {
+        "name": "qemu-alpine-ssh",
+        "path": "tasks/qemu-alpine-ssh"
+      },
+      {
+        "name": "qemu-startup",
+        "path": "tasks/qemu-startup"
+      },
+      {
+        "name": "query-optimize",
+        "path": "tasks/query-optimize"
+      },
+      {
+        "name": "raman-fitting",
+        "path": "tasks/raman-fitting"
+      },
+      {
+        "name": "regex-chess",
+        "path": "tasks/regex-chess"
+      },
+      {
+        "name": "regex-log",
+        "path": "tasks/regex-log"
+      },
+      {
+        "name": "reshard-c4-data",
+        "path": "tasks/reshard-c4-data"
+      },
+      {
+        "name": "rstan-to-pystan",
+        "path": "tasks/rstan-to-pystan"
+      },
+      {
+        "name": "sam-cell-seg",
+        "path": "tasks/sam-cell-seg"
+      },
+      {
+        "name": "sanitize-git-repo",
+        "path": "tasks/sanitize-git-repo"
+      },
+      {
+        "name": "schemelike-metacircular-eval",
+        "path": "tasks/schemelike-metacircular-eval"
+      },
+      {
+        "name": "sparql-university",
+        "path": "tasks/sparql-university"
+      },
+      {
+        "name": "sqlite-db-truncate",
+        "path": "tasks/sqlite-db-truncate"
+      },
+      {
+        "name": "sqlite-with-gcov",
+        "path": "tasks/sqlite-with-gcov"
+      },
+      {
+        "name": "torch-pipeline-parallelism",
+        "path": "tasks/torch-pipeline-parallelism"
+      },
+      {
+        "name": "torch-tensor-parallelism",
+        "path": "tasks/torch-tensor-parallelism"
+      },
+      {
+        "name": "train-fasttext",
+        "path": "tasks/train-fasttext"
+      },
+      {
+        "name": "tune-mjcf",
+        "path": "tasks/tune-mjcf"
+      },
+      {
+        "name": "video-processing",
+        "path": "tasks/video-processing"
+      },
+      {
+        "name": "vulnerable-secret",
+        "path": "tasks/vulnerable-secret"
+      },
+      {
+        "name": "winning-avg-corewars",
+        "path": "tasks/winning-avg-corewars"
+      },
+      {
+        "name": "write-compressor",
+        "path": "tasks/write-compressor"
+      }
+    ]
+  }
+]

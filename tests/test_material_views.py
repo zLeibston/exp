@@ -7,12 +7,29 @@ import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from pipeline.materials import build_view,export_view
+from pipeline.materials import build_view,export_view,transcript
 from pipeline.storage import snapshot,harness_digest,inventory,write
 from harness.meta.prompt import improve_instruction
 
 
 class MaterialViewTests(unittest.TestCase):
+    def test_transcript_preserves_terminal_actions_and_waits(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            actions=[dict(command='echo hello'),dict(command='hello\n',action='input',wait_seconds=0),
+                     dict(command='C-c',action='keys'),dict(command='',action='poll',wait_seconds=2),
+                     dict(command='echo reset',action='restart')]
+            write(root/'result.json',dict(history=[dict(role='assistant',text='',tool_calls=[
+                dict(id=str(i),name='bash',arguments=json.dumps(action)) for i,action in enumerate(actions)])]))
+            transcript(root,root/'trajectory.md',task_id='fixture',observation='current',repetition=1,passed=False)
+            text=(root/'trajectory.md').read_text()
+            for action in ('run','input','keys','poll','restart'):
+                self.assertIn(f'Action: `{action}`',text)
+            self.assertIn('wait_seconds: `0`',text)
+            self.assertIn('wait_seconds: `2`',text)
+            self.assertIn('```text\nC-c\n```',text)
+            self.assertIn('```bash\necho hello\n```',text)
+
     def test_each_regression_uses_its_actual_historical_harness_and_every_trial(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary)

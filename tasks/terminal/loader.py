@@ -28,9 +28,9 @@ def load(split='train', *, dataset=None, root=ROOT):
     from tasks.terminal import runtime
     if split != 'train':
         raise ValueError('TB/TBH are evolution training data only; TB2.1 is a separate held-out evaluation')
-    if dataset is not None and dataset not in SOURCES:
-        raise ValueError('Terminal dataset must be tb or tbh')
-    sources = SOURCES if dataset is None else {dataset}
+    if dataset is not None and dataset not in SOURCES | {'all'}:
+        raise ValueError('Terminal dataset must be tb, tbh or all')
+    sources = SOURCES if dataset == 'all' else {dataset or 'tb'}
     root = Path(root).resolve()
     selection = json.loads((root / 'audit/candidates.json').read_text())
     if not isinstance(selection, list) or not selection:

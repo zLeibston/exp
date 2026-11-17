@@ -19,7 +19,7 @@ scheduler:
 在 `exp/` 运行：
 
 ```bash
-# 第1轮只做全池冷启动；默认使用筛选后的全部202题，共808次有效评测。
+# 第1轮只做全池冷启动；默认使用筛选后的107道 TB 题，共428次有效评测。
 .venv/bin/python run.py --domain terminal --rounds 1 --output runs/abc-001
 
 # 总计10轮，包括第1轮冷启动。
@@ -106,7 +106,7 @@ Task 总时限触发后，先停止容器，再检查现有 API 日志：最后�
 
 ## 领域边界
 
-任务加载通过 `tasks.load_domain(domain, split=..., dataset=...)`；环境、执行和可信评分通过 `TaskSuite` 回调。Pipeline不导入 `tasks.terminal` 或判断领域名。Terminal数据位于 `tasks/terminal/data/`，筛选记录位于 `audit/`，镜像存储位于 `env/`。`--domain terminal --dataset tb`/`--dataset tbh` 可单独选来源，默认合并。新增领域只需提供领域包入口；协议见 [../tasks/README.md](../tasks/README.md)。
+任务加载通过 `tasks.load_domain(domain, split=..., dataset=...)`；环境、执行和可信评分通过 `TaskSuite` 回调。Pipeline不导入 `tasks.terminal` 或判断领域名。Terminal数据位于 `tasks/terminal/data/`，运行所需题池清单位于 `audit/candidates.json`，镜像存储位于 `env/`。默认使用 TB，`--dataset tbh` 可单独使用 TBH，`--dataset all` 合并两者。新增领域只需提供领域包入口；协议见 [../tasks/README.md](../tasks/README.md)。
 
 本次目录迁移会改变任务绝对路径和领域元数据。旧运行保留，但不能将旧缓存直接续跑到新目录布局；新实验请新开run。
 
@@ -116,6 +116,7 @@ Task 每次运行额外保存 `events.jsonl` 和 `execution.json`，只对所选
 
 - `events.jsonl`：模型调用、HTTP尝试、工具开始/结束、格式纠错和运行结束事件。`iteration` 为从1开始的逻辑模型轮次；`attempt_id` 标识HTTP尝试；`call_id` 关联工具请求/结果；`*_message_index` 指向 `result.json.history` 的从0开始下标。`elapsed_seconds` 为运行起点后的时间，`duration_seconds` 为操作耗时。命令、参数、模型文本和输出正文引用原有历史，不重复写入事件。
 - 工具记录 `dispatched`（是否调用工具函数）、退出码、耗时、错误，以及可取得的输出长度和截断/丢弃信息。非零 shell 退出码与工具包装层 `is_error` 分开，不能只靠后者判断命令成功。`input_text_chars` 只统计规范化消息的 text 字段；不是模型输入token数。token用量采用API返回值，缺失时不推算。
+- Task 的持久终端记录 `stream=pty`、`terminal_state` 和输出截断信息；stdout/stderr 合并。等待超时只返回 `running`，不代表命令失败；后续轮次可以等待或继续输入。屏幕刷新时可能重新展示终端内容。
 - `execution.json`：Task运行状态、结束原因、轮次、消息数、耗时与记录上限。Task完成与题目答对是两个概念，评分仍见 `outcome.json`。进程被终止时由Terminal执行器标记为 `interrupted`。
 - 新增事件每次运行上限 **1 MiB**。`limited_files` 标记超限文件，停止追加但不终止解题；缺少后续事件不能解释为“动作没有发生”。旧运行没有这些文件时仍使用原有轨迹。
 - `history.partial.jsonl` 每条保存一条新增消息及下标，用于异常留存，上限 **32 MiB**。正常原子写入完整 `result.json` 后删除它，避免长期保存两份原始历史；Task自身失败时将已落盘前缀恢复到 `result.json.history`，供 Meta 比较；基础设施异常时保留日志供诊断。达到限制后显式标记。该上限不改变原有 `result.json`、聊天日志或模型上下文限制。

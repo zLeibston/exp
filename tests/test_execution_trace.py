@@ -8,6 +8,8 @@ from harness.task.agent.trace import Trace
 from harness.task.agent.tools import bash
 
 class ExecutionTraceTests(unittest.TestCase):
+    def setUp(self): bash.reset_session()
+    def tearDown(self): bash.reset_session()
     def test_tool_metadata_and_bounded_events(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -25,9 +27,20 @@ class ExecutionTraceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp, Trace(tmp) as trace:
             with patch.object(bash, 'MAX_OUTPUT_CHARS', 100):
                 result = bash.tool_function("python3 -c 'print(\"x\"*1000)'")
-            self.assertTrue(result.startswith('Error'))
-            self.assertTrue(trace.tool_fields['output_discarded'])
-            self.assertGreater(trace.tool_fields['observed_chars_lower_bound'], 100)
+            self.assertIn('output clipped',result)
+            self.assertTrue(trace.tool_fields['output_clipped'])
+            self.assertGreater(trace.tool_fields['output_chars_before_clipping'],100)
+
+    def test_scrollback_loss_is_marked_below_character_limit(self):
+        with tempfile.TemporaryDirectory() as tmp, Trace(tmp) as trace:
+            self.assertNotIn('scrollback clipped', bash.tool_function('printf short-output'))
+            self.assertFalse(trace.tool_fields['output_clipped'])
+            result = bash.tool_function('seq 1 4000')
+            self.assertIn('scrollback clipped', result)
+            self.assertIn('4000', result)
+            self.assertTrue(trace.tool_fields['scrollback_clipped'])
+            self.assertTrue(trace.tool_fields['output_clipped'])
+            self.assertLess(trace.tool_fields['output_chars_before_clipping'], bash.MAX_OUTPUT_CHARS)
 
     def test_partial_history_is_incremental_and_failure_is_retained(self):
         with tempfile.TemporaryDirectory() as tmp:

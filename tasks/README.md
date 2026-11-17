@@ -1,5 +1,7 @@
 # 领域适配与统一评测接口
 
+TB2.1 已作为平级领域接入：`--domain tb2.1`，共89题。目录、镜像及开跑配置见 [tb2.1/ADAPTER.md](tb2.1/ADAPTER.md)。
+
 ```text
 tasks/
 ├── __init__.py         # load_domain：发现领域，不维护领域分支
@@ -11,7 +13,7 @@ tasks/
     ├── data/
     │   ├── tb/         # 120道原始题目及manifest
     │   └── tbh/        # 100道原始题目及元数据
-    ├── audit/          # 质量筛选、去重、镜像替换与迁移记录
+    ├── audit/          # 运行所需题池清单
     └── env/            # 当前本机Docker/containerd持久存储
 ```
 

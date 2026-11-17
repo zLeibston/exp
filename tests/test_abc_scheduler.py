@@ -3,6 +3,7 @@ from collections import Counter
 from copy import deepcopy
 import json
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -11,7 +12,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tasks import TaskSuite
-from pipeline import evolution
+from pipeline import evolution, editing
 from pipeline.scheduling import (classify, repair_stage, select_tasks, load_settings,
                                  repeated_evaluation, DEFAULTS)
 from pipeline.storage import snapshot, write
@@ -177,6 +178,62 @@ class SchedulerTests(unittest.TestCase):
                 self.assertEqual(state['tasks']['b_stable']['correct_count'],3+stable_score)
                 self.assertEqual(state['tasks']['b_stable']['label'],'B')
                 evolution.validate_state(state,initial)
+
+    def test_invalid_candidate_is_rejected_without_stopping_other_stage(self):
+        for invalid_stage in ('stability_repair', 'forgetting_repair'):
+            with self.subTest(stage=invalid_stage), tempfile.TemporaryDirectory() as tmp:
+                output=Path(tmp);initial=snapshot(ROOT,output/'initial');seen=[]
+                def propose(source,candidate,artifacts,model,timeout,stage,*args):
+                    seen.append(stage)
+                    snapshot(source,candidate)
+                    if stage==invalid_stage:
+                        (candidate/'harness/task/task_agent.py').write_text('def broken(:\n')
+                        raise editing.InvalidCandidate('fixture invalid candidate')
+                    with (candidate/'harness/task/prompt.py').open('a') as f:f.write('# '+stage+'\n')
+                with patch.object(evolution,'ExecutionPool',FixturePool),patch.object(evolution,'check'),patch.object(evolution,'propose',side_effect=propose):
+                    state=evolution.evolve(output,initial,self.suite,{},10,2,None,self.settings,2)
+                self.assertEqual(seen,['stability_repair','forgetting_repair'])
+                self.assertEqual(state['round'],2)
+                stages={s['stage']:s for s in state['generations'][-1]['stages']}
+                self.assertEqual(stages[invalid_stage]['reason'],'invalid_candidate')
+                self.assertEqual(stages[invalid_stage]['evaluations'],0)
+                other='forgetting_repair' if invalid_stage=='stability_repair' else 'stability_repair'
+                self.assertEqual(stages[other]['status'],'accepted')
+                self.assertIn(other,state['current_workspace'])
+                for name in stages[invalid_stage]['tasks']:
+                    self.assertEqual(state['tasks'][name]['valid_evaluation_count'],8)
+                    self.assertEqual(state['tasks'][name]['last_observation']['workspace'],str(initial))
+                evolution.validate_state(state,initial)
+
+    def test_invalid_candidate_receipt_survives_later_api_failure_and_resume(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output=Path(tmp);initial=snapshot(ROOT,output/'initial');seen=[]
+            def propose(source,candidate,artifacts,model,timeout,stage,*args):
+                seen.append(stage)
+                snapshot(source,candidate)
+                if stage=='stability_repair':
+                    raise editing.InvalidCandidate('fixture invalid candidate')
+                if seen.count(stage)==1:
+                    raise RuntimeError('fixture API failure')
+                with (candidate/'harness/task/prompt.py').open('a') as f:f.write('# repaired\n')
+            with patch.object(evolution,'ExecutionPool',FixturePool),patch.object(evolution,'check'),patch.object(evolution,'propose',side_effect=propose):
+                with self.assertRaisesRegex(RuntimeError,'fixture API failure'):
+                    evolution.evolve(output,initial,self.suite,{},10,2,None,self.settings,2)
+                committed=json.loads((output/'state.json').read_text())
+                self.assertEqual(committed['round'],1)
+                state=evolution.evolve(output,initial,self.suite,{},10,2,committed,self.settings,2)
+            self.assertEqual(seen,['stability_repair','forgetting_repair','forgetting_repair'])
+            self.assertEqual(len(FixturePool.calls),56)
+            self.assertEqual(state['round'],2)
+            self.assertEqual(state['generations'][-1]['stages'][0]['status'],'rejected')
+            evolution.validate_state(state,initial)
+
+    def test_contract_check_distinguishes_candidate_and_infrastructure_errors(self):
+        for code,expected in ((65,editing.InvalidCandidate),(125,RuntimeError),(137,RuntimeError)):
+            with self.subTest(code=code), patch.object(editing,'execute',return_value=subprocess.CompletedProcess([],code,'','fixture failure')):
+                with self.assertRaises(expected):editing.check(ROOT,10)
+        with patch.object(editing,'execute',side_effect=subprocess.TimeoutExpired('probe',10)):
+            with self.assertRaises(subprocess.TimeoutExpired):editing.check(ROOT,10)
 
     def test_validation_resume_reuses_edit_and_completed_trials(self):
         class InterruptedValidation(FixturePool):

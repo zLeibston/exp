@@ -1,7 +1,7 @@
 # TB / TBH 进化数据接入
 
-`--domain terminal` 合并本目录的 `data/tb` 与 `data/tbh`；加 `--dataset tb` 或 `--dataset tbh` 选择单一来源。
-默认读取 `tasks/terminal/audit/candidates.json`，不重新纳入已排除题，也跳过其中 `review_before_run` 的 3 题。此前依赖阿里云镜像的86道TB题已改用固定digest的官方GHCR上游基础镜像并恢复（记录在 `audit/base_image_migrations.json`）。因此当前默认池为 **202 题：TB 108、TBH 94**。所有220道原题均保留在 `data/`，目录迁移已逐题核对内容与权限哈希。镜像替换记录留在 `audit/`。
+`--domain terminal` 默认使用 TB；加 `--dataset tbh` 使用 TBH，或加 `--dataset all` 合并两者。
+默认读取 `tasks/terminal/audit/candidates.json`，保留原有筛选结果。当前默认池为 **TB 107 题**；TBH 的 94 题可单独启用，合并池共 201 题。原始题目文件保留。
 
 外循环现已使用 A/B/C 重复评测调度：冷启动全池每题4遍，后续每轮按类抽题、每题4遍，先稳定修补，再遗忘修补。配置与算法见 [调度文档](../../pipeline/README.md)。TB2.1 不进入此训练加载器。
 
@@ -20,7 +20,7 @@
 .venv/bin/python run.py --domain terminal --limit 20 --rounds 5 --timeout 600 --output runs/terminal-001 --resume
 ```
 
-`--limit` 目前按清单顺序取题，先 TB 后 TBH，不是分层抽样；省略则使用整个 202 题池。原始两个训练集都只支持 `--split train`。
+`--limit` 按清单顺序取题；省略时使用所选数据集的完整题池。两个训练集都只支持 `--split train`。
 
 这台机器建议先将 YAML 的 `execution.max_containers` 设为 2 或 3。保留现有并发队列，但每题单独占用容器名额，解题与评分共享该名额；不会为每个线程创建无限量容器。任务 CPU/内存要求与全局配置取较小值。
 
@@ -31,6 +31,8 @@
 - 缓存镜像直接进入评测池；缺失镜像由独立准备队列串行构建，不占用评测 worker 或任务容器名额。同镜像按锁去重，四次评测共用准备结果，构建完成后再提交独立试次。
 - 独立镜像层提供模型 API 所需的 httpx/PyYAML；不依赖 Harbor Python 包，也不读取 TBH 的 Parquet 元数据。
 - 每次评测创建全新容器，挂载所选 Task Harness 与固定 worker；文件、系统软件和后台服务一直保留到评分结束。
+- Task 的唯一工具仍是 `bash`，每个 worker 使用独立 tmux/PTY 会话，跨调用保留目录、环境变量和交互程序。`run` 执行命令，`poll` 等待输出，`input` 发送文本，`keys` 发送 Ctrl-C 等按键，`restart` 显式重开 shell。每次默认等待10秒（最多120秒），等待结束不杀命令；所有操作仍计入原工具调用预算。
+- tmux 在任务运行镜像层按需安装。终端合并 stdout/stderr，保留2000行滚屏；单次最多展示最后50,000字符并标记截断，不因输出超限杀进程。worker 结束后终端和服务继续存活到评分完成，最后随容器清理。Meta 的工具不变。
 - Agent 正常结束后才复制 `tests/`，运行原始 `tests/test.sh`，读取 `/logs/verifier/reward.txt`。只接受 0/1。缺失或非法奖励、评分超时记作执行错误；Agent 自身异常、上下文超限和正常解题超时记为有效失败。
 - 评分结束或发生异常后先销毁容器，再导出轨迹。标准记录使用白名单，其他输出隔离到 `agent_output/`；可信评分文件不能被 Agent 输出覆盖。不保存完整容器文件系统。
 - 同一运行首次使用镜像后，在 `image_pins/` 固定 image ID。续跑不能静默使用重新构建的不同镜像；清理镜像前保留原镜像，或启动新运行。
@@ -61,6 +63,6 @@ TaskAgent 仅对 `domain=terminal` 启用已有 Bash/editor；通用任务提示
 
 ## 目录与公共接口
 
-本领域代码、题目、筛选记录、环境存储均在本目录。`load(split=..., dataset=...)` 返回公共 `TaskSuite`，环境、执行和评分由 `runtime.py` 回调实现；Pipeline只依赖公共接口。完整协议与其他领域接入示例见 [../README.md](../README.md)。
+本领域代码、题目、题池清单、环境存储均在本目录。`load(split=..., dataset=...)` 返回公共 `TaskSuite`，环境、执行和评分由 `runtime.py` 回调实现；Pipeline只依赖公共接口。完整协议与其他领域接入示例见 [../README.md](../README.md)。
 
 当前Docker存储配置为 `env/docker/` 与 `env/containerd/`；系统服务路径已同步更新。它们属于本机同一个Docker守护进程的全局存储，不是每个领域独立的Docker实例；公共领域接口不依赖这些物理路径。详见 [env/README.md](env/README.md)。

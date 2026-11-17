@@ -55,7 +55,10 @@ def transcript(source, target, *, task_id, observation, repetition, passed):
                     pass
             chunks.append(f'\n### Tool call: {call.get("name", "unknown")} ({call.get("id", "")})\n')
             if call.get('name') == 'bash' and isinstance(arguments, dict) and isinstance(arguments.get('command'), str):
-                chunks.append('```bash\n' + arguments['command'] + '\n```\n')
+                action = arguments.get('action', 'run')
+                chunks.append(f'Action: `{action}`; wait_seconds: `{arguments.get("wait_seconds", 10)}`\n')
+                language = 'bash' if action in {'run', 'restart'} else 'text'
+                chunks.append('```' + language + '\n' + arguments['command'] + '\n```\n')
             else:
                 chunks.append('```json\n' + json.dumps(arguments, ensure_ascii=False, indent=2) + '\n```\n')
     if not result.get('history') and (source / 'chat.log').is_file():

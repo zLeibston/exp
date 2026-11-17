@@ -8,7 +8,6 @@ import time
 import unittest
 from unittest.mock import patch
 
-from harness.task.agent.tools import bash as task_bash
 from harness.meta.agent.tools import bash as meta_bash, edit as meta_edit
 
 
@@ -29,7 +28,7 @@ class ToolRegressionTests(unittest.TestCase):
                 self.assertEqual(path.read_text(), original)
 
     def test_detached_child_cannot_hold_tool_cleanup_open(self):
-        for module in (task_bash, meta_bash):
+        for module in (meta_bash,):
             with self.subTest(module=module.__name__), tempfile.TemporaryDirectory() as tmp:
                 pid_file = Path(tmp)/'pid'
                 command = f"setsid sh -c 'echo $$ > {pid_file}; sleep 10' & sleep 0.1"

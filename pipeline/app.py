@@ -39,11 +39,12 @@ def run(output=None, rounds=1, timeout=600, config=None, *, domain="terminal",
     # Historical trajectory evidence is an input to this algorithm and is never pruned.
     roles = ['task_agent'] if eval_only else ['task_agent', 'meta_agent']
     profiles = load_config(config, roles=roles)
-    model = dict(config_path=str(config), profiles=profiles)
+    model = dict(config_path=str(config), profiles=profiles,
+                 verifier_timeout_min_sec=evaluation['verifier_timeout_min_sec'])
     output = (Path(output).resolve() if output is not None else
               ROOT / 'runs' / f'{domain}-{datetime.now(timezone.utc):%Y%m%d-%H%M%S-%f}')
     model['run_dir'] = str(output)
-    execution_code = execution_manifest(ROOT, domain)
+    execution_code = execution_manifest(ROOT, domain, suite.execution_dependencies)
     # Reject incompatible resumes before building images or touching old evidence.
     previous = None
     if resume:

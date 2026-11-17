@@ -1,0 +1,11 @@
+name: "Terminal Bench 2.1"
+description: >
+  Terminal-Bench 2.1 is a benchmark for evaluating AI agents in terminal environments,
+  mirrored from https://github.com/harbor-framework/terminal-bench-2-1 for use with
+  Harbor's git-repos dataset support.
+evaluation_framework: harbor
+
+tasks:
+  - id: terminalbench_2_1
+    config: default
+    split: test

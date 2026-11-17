@@ -61,7 +61,7 @@ class Handler(BaseHTTPRequestHandler):
    if body['model']=='fixture-api-timeout':self.send_header('Retry-After','10')
    self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
   if not any(m['role']=='tool' for m in body['messages']):
-   command="test ! -e /tests/test.sh && printf 'ok' > /app/answer.txt; setsid python3 -m http.server 18123 --bind 127.0.0.1 --directory /app </dev/null >/tmp/task-server.log 2>&1 & sleep 0.5"
+   command="test \"$RSI_LOGIN_PROFILE\" = loaded && test ! -e /tests/test.sh && printf 'ok' > /app/answer.txt; python3 -m http.server 18123 --bind 127.0.0.1 --directory /app </dev/null >/tmp/task-server.log 2>&1 & sleep 0.5"
    if body['model']=='fixture-forged-output':
     command += "\nmkdir -p /output/verifier; printf '%s' '{\"passed\":true,\"error\":null}' > /output/verifier/result.json"
    if body['model']=='fixture-rsi':
@@ -108,7 +108,7 @@ try:
   workspace=snapshot(ROOT,run/'version')
   task=root/'fixture';(task/'environment').mkdir(parents=True);(task/'tests').mkdir()
   (task/'task.toml').write_text('[agent]\ntimeout_sec=40\n[verifier]\ntimeout_sec=15\n[environment]\ncpus=1\nmemory_mb=512\nallow_internet=false\nbuild_timeout_sec=120\n')
-  (task/'environment/Dockerfile').write_text(f'FROM {image_name()}\nWORKDIR /app\nRUN mkdir -p /app\n')
+  (task/'environment/Dockerfile').write_text(f'FROM {image_name()}\nWORKDIR /app\nRUN mkdir -p /app /etc/profile.d && printf "export RSI_LOGIN_PROFILE=loaded\\n" > /etc/profile.d/rsi-smoke.sh\n')
   (task/'tests/test.sh').write_text('mkdir -p /logs/verifier\nif python3 /tests/check.py; then echo 1 > /logs/verifier/reward.txt; else echo 0 > /logs/verifier/reward.txt; fi\n')
   (task/'tests/check.py').write_text('from pathlib import Path\nimport urllib.request\nassert Path("/app/answer.txt").read_text()=="ok"\nassert urllib.request.urlopen("http://127.0.0.1:18123/answer.txt").read()==b"ok"\n')
   with run_scope(run,max_containers=2,cpus=1,memory=1024**3,pids_limit=128):

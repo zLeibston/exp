@@ -5,6 +5,10 @@ from pipeline.docker_eval import execute
 from pipeline.storage import log, label, snapshot, inventory, write
 
 
+class InvalidCandidate(ValueError):
+    """The candidate itself failed compilation, imports or its entry contract."""
+
+
 def invoke(workspace, artifacts, model, timeout, **request):
     from pipeline.docker_eval import invoke_meta
     return invoke_meta(workspace, artifacts, model, timeout, **request)
@@ -51,7 +55,7 @@ def propose(parent, candidate, artifacts, model, timeout, stage, materials, hist
         raise ValueError(f"{stage}: expected changes only inside {prefix}, got {changed}")
     for name in ("task/task_agent.py", "meta/improve_agent.py"):
         if not (candidate / "harness" / name).is_file():
-            raise ValueError(f"Missing harness entry point: harness/{name}")
+            raise InvalidCandidate(f"Missing harness entry point: harness/{name}")
     check(candidate, timeout, artifacts / "imports.log")
     write(artifacts / "changes.json", dict(stage=stage, files=changed))
     log(f"EDIT {label(candidate)}: {stage} completed, changed_files={len(changed)}")
@@ -113,9 +117,14 @@ print("Task and Meta isolated imports OK")
 
 
 def check(workspace, timeout, log_path=None):
+    # Reserve a probe exit code so Docker failures cannot reject a good candidate.
+    probe = ('import sys, traceback\ntry:\n    exec(sys.argv[1])\n'
+             'except (Exception, SystemExit):\n    traceback.print_exc()\n    sys.exit(65)\n')
     result = execute([(Path(workspace) / "harness", "/engine/harness", False)],
-                     ["python", "-c", PROBE], cwd="/engine", timeout=timeout)
+                     ["python", "-c", probe, PROBE], cwd="/engine", timeout=timeout)
     if log_path is not None:
         Path(log_path).write_text(result.stdout + result.stderr)
+    if result.returncode == 65:
+        raise InvalidCandidate("Harness compilation or entry contract failed: " + result.stderr[-2000:])
     if result.returncode:
-        raise ValueError("Harness compilation or entry contract failed: " + result.stderr[-2000:])
+        raise RuntimeError("Harness check process failed: " + result.stderr[-2000:])

@@ -11,6 +11,8 @@ config.local.yaml
 .pytest_cache/
 # Downloaded benchmark data stays local.
 tasks/terminal/data/
+tasks/tb2.1/tasks/
+tasks/tb2.1/.cache/
 # Docker/containerd storage is managed by the host services, not source control.
 tasks/terminal/env/docker/
 tasks/terminal/env/containerd/

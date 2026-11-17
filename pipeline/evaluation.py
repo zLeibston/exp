@@ -11,12 +11,15 @@ def load_evaluation_settings(path):
     from pathlib import Path
     data = yaml.safe_load(Path(path).read_text())
     supplied = data.get('evaluation', {})
-    if not isinstance(supplied, dict) or set(supplied) - {'workers'}:
-        raise ValueError('evaluation accepts workers')
+    if not isinstance(supplied, dict) or set(supplied) - {'workers', 'verifier_timeout_min_sec'}:
+        raise ValueError('evaluation accepts workers and verifier_timeout_min_sec')
     workers = supplied.get('workers', 50)
     if type(workers) is not int or workers < 1:
         raise ValueError('evaluation.workers must be a positive integer')
-    return dict(workers=workers)
+    minimum = supplied.get('verifier_timeout_min_sec', 0)
+    if type(minimum) is not int or minimum < 0:
+        raise ValueError('evaluation.verifier_timeout_min_sec must be a nonnegative integer')
+    return dict(workers=workers, verifier_timeout_min_sec=minimum)
 
 
 def evaluate_case(workspace, directory, model, timeout, suite, case, task_runner=None, preparation_error=None):

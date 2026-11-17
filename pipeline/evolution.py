@@ -7,7 +7,7 @@ from dataclasses import replace
 import json
 from pathlib import Path
 
-from pipeline.editing import check, propose
+from pipeline.editing import InvalidCandidate, check, propose
 from pipeline.execution_pool import ExecutionPool
 from pipeline.materials import build_view
 from pipeline.scheduling import (STAGES, label_counts, repeated_evaluation,
@@ -41,6 +41,11 @@ def repair(source, phase, view, model, timeout, stage, remaining):
     """A checked phase receipt permits safe resume without repeating Meta calls."""
     receipt = phase / 'completed.json'
     source_hash = harness_digest(source)
+    if (phase / 'rejected.json').exists():
+        saved = json.loads((phase / 'rejected.json').read_text())
+        if saved['source_hash'] != source_hash:
+            raise ValueError(f'Rejected repair checkpoint changed: {phase}')
+        raise InvalidCandidate(saved['detail'])
     if receipt.exists():
         saved = json.loads(receipt.read_text())
         candidate = Path(saved['workspace'])
@@ -106,7 +111,15 @@ def evolve(output, initial, suite, model, timeout, rounds, state, settings, work
                 continue
             log(f'ROUND {index}: {stage}, tasks={affected}')
             view = build_view(folder / 'views' / stage, stage, selected, transitions, current, result)
-            candidate = repair(result, folder / stage, view, model, timeout, stage, rounds-index)
+            try:
+                candidate = repair(result, folder / stage, view, model, timeout, stage, rounds-index)
+            except InvalidCandidate as exc:
+                decision = dict(stage=stage, status='rejected', reason='invalid_candidate',
+                                detail=str(exc), source_hash=harness_digest(result), tasks=affected, evaluations=0)
+                write(folder / stage / 'rejected.json', decision)
+                stages.append(decision)
+                log(f'ROUND {index}: {stage} rejected: invalid candidate; retaining source harness')
+                continue
             candidate_hash = harness_digest(candidate)
             if candidate_hash == harness_digest(result):
                 stages.append(dict(stage=stage, status='unchanged', tasks=affected))

@@ -15,6 +15,7 @@ class TaskSuite:
     network_policy: str = "adapter-managed"
     environment_ready: Callable | None = None
     prepare_environment: Callable | None = None
+    execution_dependencies: tuple[str, ...] = ()
 
     def prepare(self, case, directory):
         return self.prepare_case(case, directory) if self.prepare_case else dict(case["inputs"])

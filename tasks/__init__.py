@@ -1,13 +1,28 @@
 """Load an independent domain adapter from tasks/<domain>/ without pipeline branches."""
 from importlib import import_module
+from importlib.util import module_from_spec, spec_from_file_location
+from pathlib import Path
 import re
+import sys
 from tasks.base import TaskSuite, validate_cases
 
 
 def load_domain(domain, *, split="train", limit=None, dataset=None):
-    if not isinstance(domain, str) or not re.fullmatch(r"[a-z][a-z0-9_]*", domain):
-        raise ValueError("Domain must be a lowercase package name")
-    module_name = f"tasks.{domain}"
+    if not isinstance(domain, str) or not re.fullmatch(r"[a-z][a-z0-9_]*(?:\.[0-9]+)*", domain):
+        raise ValueError("Domain must be a lowercase package name, optionally followed by a numeric version")
+    module_name = f"tasks.{domain.replace('.', '_')}"
+    if '.' in domain and module_name not in sys.modules:
+        entry = Path(__file__).parent / domain / '__init__.py'
+        if not entry.is_file():
+            raise ValueError(f"Unknown task domain: {domain}")
+        spec = spec_from_file_location(module_name, entry)
+        module = module_from_spec(spec)
+        sys.modules[module_name] = module
+        try:
+            spec.loader.exec_module(module)
+        except BaseException:
+            sys.modules.pop(module_name, None)
+            raise
     try:
         adapter = import_module(module_name)
     except ModuleNotFoundError as exc:

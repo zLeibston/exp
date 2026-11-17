@@ -67,27 +67,17 @@ class TerminalTests(unittest.TestCase):
         self.assertEqual(built,list(runtime.image_tags(dict(data_hash='slow'))))
 
     def test_reviewed_pool_and_limits(self):
-        combined = load_domain('terminal')
+        combined = load_domain('terminal', dataset='all')
         tb, tbh = load_domain('terminal', dataset='tb'), load_domain('terminal', dataset='tbh')
-        self.assertEqual((len(combined.cases), len(tb.cases), len(tbh.cases)), (202, 108, 94))
+        self.assertEqual((len(combined.cases), len(tb.cases), len(tbh.cases)), (201, 107, 94))
+        self.assertEqual([c['id'] for c in load_domain('terminal').cases], [c['id'] for c in tb.cases])
         self.assertEqual({c['id'] for c in combined.cases}, {c['id'] for c in tb.cases + tbh.cases})
-        excluded = json.loads((ROOT / 'tasks/terminal/audit/selection.json').read_text())
-        blocked = {f"{c['source']}__{c['task_id']}" for c in excluded['excluded'] + excluded['review']}
+        candidates = json.loads((ROOT / 'tasks/terminal/audit/candidates.json').read_text())
+        blocked = {f"{c['source']}__{c['task_id']}" for c in candidates
+                   if c.get('status') in {'review_before_run', 'temporarily_excluded'}}
         self.assertFalse(blocked & {c['id'] for c in combined.cases})
-        temporary = json.loads((ROOT / 'tasks/terminal/audit/runtime_exclusions.json').read_text())['tasks']
-        self.assertEqual(len(temporary), 0)
-        self.assertFalse({c['id'] for c in temporary} & {c['id'] for c in combined.cases})
-        self.assertTrue(all((ROOT / 'tasks/terminal' / c['path']).is_dir() for c in temporary))
-        migrations = json.loads((ROOT / 'tasks/terminal/audit/base_image_migrations.json').read_text())['tasks']
-        self.assertEqual(len(migrations), 86)
-        self.assertTrue({c['id'] for c in migrations} <= {c['id'] for c in combined.cases})
-        import hashlib
-        for entry in migrations:
-            file = ROOT / 'tasks/terminal' / entry['path']
-            current = file.read_bytes()
-            self.assertEqual(hashlib.sha256(current).hexdigest(), entry['new_sha256'])
-            restored = current.replace(entry['new_image'].encode(), entry['old_image'].encode())
-            self.assertEqual(hashlib.sha256(restored).hexdigest(), entry['old_sha256'])
+        expected = {f"{c['source']}__{c['task_id']}" for c in candidates} - blocked
+        self.assertEqual(expected, {c['id'] for c in combined.cases})
         for case in combined.cases:
             dockerfile = Path(case['task_path']) / 'environment/Dockerfile'
             self.assertFalse(any('skylensage-registry.cn-hangzhou.cr.aliyuncs.com' in line
